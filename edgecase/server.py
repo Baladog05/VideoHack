@@ -128,7 +128,8 @@ class H(SimpleHTTPRequestHandler):
                 try:
                     from export import export
                     EXPORT_STATE.update(running=True, step="Packaging clips and labels, logging to W&B", result=None, error=None)
-                    res = export(float(body.get("min_value", 5)), body.get("categories") or None, bool(body.get("with_video", False)))
+                    res = export(float(body.get("min_value", 5)), body.get("categories") or None, bool(body.get("with_video", False)),
+                                 only_confirmed=bool(body.get("only_confirmed", False)))
                     res["download"] = f"/api/datasets/{res['name']}.zip"
                     EXPORT_STATE.update(running=False, step="done", result=res)
                 except Exception as e:
