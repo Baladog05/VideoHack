@@ -4,12 +4,13 @@ It works through clips nobody has checked yet, rotating across road cameras in t
 first triages cheaply (does the Cosmos caption or the detector show anything that could matter?). Quiet
 scenes are skipped as routine; the rest go to the LLM judge. Confirmed edge cases are added to the dataset.
 Used by GET /api/live (Server-Sent Events). Progress persists in data/live_seen.json."""
-import json, os, re, time, threading
+import hashlib, json, os, re, time, threading
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from vss import api
 from taxonomy import CAMERAS
 from miner import judge, HERE
+from motion import detections, analyse
 from ask import load, score, add
 
 QUEUE = os.path.join(HERE, "data", "live_queue.json")
@@ -61,6 +62,9 @@ def _assess(seg):
     """Triage, then judge if needed. Returns the verdict event."""
     cap, cnt = seg.get("reasoning_content") or "", _counts(seg)
     if not KEY.search(cap) and not (cnt.get("bicycle") or cnt.get("motorcycle")):
+        bid = hashlib.md5(seg["source"].encode()).hexdigest()[:12]      # boxes for the overlay, from this clip's own detections
+        try: json.dump(analyse(detections(seg["source"]))[1], open(os.path.join(HERE, "data", "boxes", bid + ".json"), "w"))
+        except Exception: pass
         top = ", ".join(f"{v} {k}" for k, v in sorted(cnt.items(), key=lambda x: -x[1])[:3]) or "nothing notable"
         return {"verdict": "routine", "title": "Routine scene", "reason": f"Nothing risky in the scene ({top})", "triage": True}
     row = {**seg, "object_counts": cnt, "similarity_score": 0, "_queries": ["live"], "_cats": {"live"}}
@@ -83,13 +87,15 @@ def live(stop):
         if stop(): return
         for nxt in todo[i:i + 3]:          # judge a few clips ahead so the feed never stalls
             if nxt["source"] not in futs: futs[nxt["source"]] = pool.submit(_assess, nxt)
-        t0 = time.time()
-        yield {"type": "watching", "source": seg["source"], "camera_id": seg["camera_id"], "location": seg.get("location"),
-               "segment": f'{seg.get("segment_number")}/{seg.get("total_segments")}', "stats": stats}
         try:
-            v = futs.pop(seg["source"]).result(timeout=90)
+            v = futs.pop(seg["source"]).result(timeout=90)   # usually ready already (judged ahead)
         except Exception as e:
             v = {"verdict": "routine", "title": "Could not judge", "reason": str(e)[:120], "triage": True}
+        if stop(): return
+        t0 = time.time()
+        bid = hashlib.md5(seg["source"].encode()).hexdigest()[:12]
+        yield {"type": "watching", "source": seg["source"], "boxes_id": bid, "camera_id": seg["camera_id"], "location": seg.get("location"),
+               "segment": f'{seg.get("segment_number")}/{seg.get("total_segments")}', "stats": stats}
         _mark(seg["source"])
         stats["watched"] += 1; stats["remaining"] -= 1
         stats["edge" if v["verdict"] == "edge" else "skipped"] += 1
@@ -97,3 +103,7 @@ def live(stop):
             if stop(): return
             time.sleep(0.25)
         yield {"type": "verdict", "source": seg["source"], "camera_id": seg["camera_id"], **v, "stats": stats}
+        hold = time.time()
+        while time.time() - hold < (4 if v["verdict"] == "edge" else 1.2):   # keep the verdict on screen with its clip
+            if stop(): return
+            time.sleep(0.25)

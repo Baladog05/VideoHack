@@ -27,7 +27,7 @@
   "indexed_segments": null,
   "searched_queries": 28,
   "candidates": 184,
-  "edge_cases": 48
+  "edge_cases": 50
  },
  "runtime_sec": 147.7,
  "clips": [
@@ -291,6 +291,67 @@
     "distracted_pedestrian",
     "urban_intersection",
     "dense_traffic"
+   ],
+   "motion_score": 10,
+   "rarity_score": 6.7,
+   "value": 7.6,
+   "added_by": "ask"
+  },
+  {
+   "id": "2f2440272fd2",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_100703_sf4_chunk_0000_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_100703_sf4_chunk_0000.mp4",
+   "boxes_id": "2f2440272fd2",
+   "camera_id": "sf_streets_cam-4",
+   "location": "san_francisco",
+   "segment_start_sec": 5.0,
+   "segment_end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0,
+   "object_counts": {
+    "person": 6,
+    "traffic light": 3,
+    "motorcycle": 1,
+    "car": 7,
+    "bus": 1,
+    "truck": 1,
+    "umbrella": 1
+   },
+   "description": "The scene is a wide urban intersection with multiple lanes, crosswalks, and overhead trolley wires. A red bus is visible on the right side of the frame, moving along the street. A motorcycle is seen crossing the intersection from right to left, passing through the crosswalk area. Several cars are present, including one that appears to be waiting at a traffic light on the left side of the frame. Pedestrians are walking along the sidewalks and crossing the street at designated crosswalks. The traffic lights are visible, with some showing red signals. The overall activity suggests a typical busy city intersection with vehicles and pedestrians moving in various directions.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 11.96,
+   "motion_reasons": [
+    "cyclist in path, up to 3.6% of frame, grew 6.0x"
+   ],
+   "is_edge_case": true,
+   "category": "vru_violation",
+   "edge_score": 7,
+   "difficulty": 8,
+   "title": "Cyclist cuts across intersection against red",
+   "explanation": "A cyclist/two-wheeler crosses the intersection from right to left through the crosswalk area while traffic lights are red, entering the ego vehicle's path and growing rapidly. The moving bus and pedestrians create a complex, occluded conflict that is hard to predict and avoid.",
+   "actors": [
+    "cyclist",
+    "bus",
+    "pedestrians",
+    "cars"
+   ],
+   "conditions": [
+    "clear",
+    "urban intersection",
+    "red traffic light"
+   ],
+   "label_tags": [
+    "red_light_violation",
+    "vru_crossing",
+    "intersection_conflict",
+    "path_intrusion",
+    "occlusion",
+    "cyclist"
    ],
    "motion_score": 10,
    "rarity_score": 6.7,
@@ -942,6 +1003,70 @@
    "motion_score": 9,
    "rarity_score": 6.7,
    "value": 6.5
+  },
+  {
+   "id": "612359b13e7c",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_100703_sf4_chunk_0000_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_100703_sf4_chunk_0000.mp4",
+   "boxes_id": "612359b13e7c",
+   "camera_id": "sf_streets_cam-4",
+   "location": "san_francisco",
+   "segment_start_sec": 15.0,
+   "segment_end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0,
+   "object_counts": {
+    "bus": 1,
+    "person": 8,
+    "car": 7,
+    "train": 1,
+    "bench": 1,
+    "traffic light": 2,
+    "refrigerator": 1,
+    "bicycle": 1,
+    "motorcycle": 1
+   },
+   "description": "A red and gray articulated bus with advertisements on its side is moving along a city street. The bus passes by a crosswalk, and as it moves forward, the camera reveals more of the street scene. Pedestrians are visible on the sidewalks, some walking and others standing near storefronts. A cyclist rides across the street, and several cars are parked along the curb. In the background, a tall, pointed building is visible, suggesting an urban setting. The traffic lights are red, indicating that vehicles should stop. The overall scene depicts a typical city street with various modes of transportation and pedestrians.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 5.0,
+   "motion_reasons": [
+    "vehicle in path, up to 66.2% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "vru_violation",
+   "edge_score": 6,
+   "difficulty": 7,
+   "title": "Cyclist runs red light across intersection",
+   "explanation": "A cyclist crosses the street against a red traffic signal while a bus and pedestrians are present; the AV must anticipate a VRU ignoring right-of-way and possibly emerging from behind the bus.",
+   "actors": [
+    "cyclist",
+    "bus",
+    "pedestrians",
+    "cars"
+   ],
+   "conditions": [
+    "urban street",
+    "red traffic light",
+    "overhead wires",
+    "daylight"
+   ],
+   "label_tags": [
+    "cyclist_runs_red",
+    "vru_violation",
+    "intersection",
+    "red_light",
+    "bus_occlusion",
+    "urban"
+   ],
+   "motion_score": 8,
+   "rarity_score": 6.0,
+   "value": 6.5,
+   "added_by": "ask"
   },
   {
    "id": "e7a9b5177bbb",

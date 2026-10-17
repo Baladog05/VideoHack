@@ -212,7 +212,7 @@ function show(where,c){cancelAnimationFrame(raf);boxes=[];cur[where]=c;if(!c)ret
   $("ov").onchange=()=>{};$("rOk").onclick=()=>review(c,"correct",where);$("rNo").onclick=()=>review(c,"wrong",where);
   if($("prv")){$("prv").onclick=()=>step(-1);$("nxt").onclick=()=>step(1)}
   if($("add"))$("add").onclick=()=>addClip(c);
-  fetch("/api/boxes/"+c.boxes_id).then(r=>r.json()).then(b=>{boxes=b;draw()});
+  fetch("/api/boxes/"+c.boxes_id).then(r=>r.ok?r.json():[]).then(b=>{if(cur[where]&&cur[where].id==c.id&&Array.isArray(b)){boxes=b;draw()}}).catch(()=>{});
 }
 function draw(){const v=$("vid"),cv=$("cv");if(!v||!cv)return;const r=v.getBoundingClientRect();cv.width=r.width;cv.height=r.height;const g=cv.getContext("2d");
   if($("ov")?.checked&&boxes.length&&v.videoWidth){const s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=(r.width-w)/2,oy=(r.height-h)/2;
@@ -293,7 +293,7 @@ $("exBtn").onclick=async()=>{const b=$("exBtn");b.disabled=true;$("exBar").style
 /* ---------- live agent ---------- */
 function toast(html,col){const t=document.createElement("div");t.className="toast";if(col)t.style.borderColor=col;t.innerHTML=html;$("toast").appendChild(t);setTimeout(()=>t.remove(),9000);return t}
 /* ---------- live agent ---------- */
-let LS=null,lraf,lboxes=[];
+let LS=null,lraf,lboxes=[],lsrc=null;
 function ldraw(){const v=$("lvid"),cv=$("lcv");if(!v||!cv)return;const r=v.getBoundingClientRect(),pr=cv.parentElement.getBoundingClientRect();cv.width=pr.width;cv.height=pr.height;const g=cv.getContext("2d");
  if(lboxes.length&&v.videoWidth){const ox0=r.left-pr.left,oy0=r.top-pr.top,s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=ox0+(r.width-w)/2,oy=oy0+(r.height-h)/2;
   let f=lboxes[0];for(const b of lboxes){if(b[0]<=v.currentTime)f=b;else break}g.lineWidth=2.5;g.font="bold 13px system-ui";
@@ -305,12 +305,12 @@ $("goLive").onclick=()=>{if(LS)return stopLive();
  LS=new EventSource("/api/live");$("goLive").textContent="❚❚ Pause";$("lidle").style.display="none";$("lverdict").className="lverdict watch";$("lverdict").textContent="Connecting to camera feeds…";
  LS.onmessage=async m=>{const e=JSON.parse(m.data);lstats(e.stats);
   if(e.type=="start")$("lverdict").textContent=`${e.stats.remaining} unchecked clips across ${e.cameras} cameras. Starting.`;
-  if(e.type=="watching"){lboxes=[];$("lvid").src="/api/stream?source="+encodeURIComponent(e.source);$("lbadge").style.display="";$("lcam").textContent=`${e.camera_id} · clip ${e.segment}`;
+  if(e.type=="watching"){lboxes=[];lsrc=e.source;const src=e.source;$("lvid").src="/api/stream?source="+encodeURIComponent(e.source);
+   fetch("/api/boxes/"+e.boxes_id).then(r=>r.ok?r.json():[]).then(b=>{if(lsrc==src&&Array.isArray(b))lboxes=b}).catch(()=>{});$("lbadge").style.display="";$("lcam").textContent=`${e.camera_id} · clip ${e.segment}`;
    $("lverdict").className="lverdict watch";$("lverdict").innerHTML=`Watching <b>${esc(e.camera_id)}</b>… reading detections and the scene description`;cancelAnimationFrame(lraf);ldraw()}
   if(e.type=="verdict"){const edge=e.verdict=="edge",f=document.createElement("div");
    f.className="le "+(edge?"edge":"");f.innerHTML=edge?`⚠ ${esc(e.title)}<small>${esc(catName(e.category))} · value ${e.value}</small>`:`✓ ${esc(e.title)}<small>${esc(e.camera_id)} · routine</small>`;
    $("lfeed").prepend(f);while($("lfeed").children.length>60)$("lfeed").lastChild.remove();
-   if(e.boxes_id)fetch("/api/boxes/"+e.boxes_id).then(r=>r.json()).then(b=>lboxes=b).catch(()=>{});
    if(edge){$("lverdict").className="lverdict edge";$("lverdict").innerHTML=`<h3>⚠ Edge case: ${esc(e.title)}</h3>${esc(e.reason)}`;
     const c=e.clip;newIds.add(c.id);await load();
     f.onclick=()=>{location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==c.id));renderLib(true)},50)};
