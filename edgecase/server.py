@@ -52,6 +52,7 @@ class H(SimpleHTTPRequestHandler):
                 for ev in live(lambda: gone["v"] or LIVE["paused"] or LIVE["gen"] != gen):
                     try: self.wfile.write(f"data: {json.dumps(ev)}\n\n".encode()); self.wfile.flush()
                     except (BrokenPipeError, ConnectionResetError, OSError): gone["v"] = True
+                if not gone["v"]: self.wfile.write(b'data: {"type": "stopped"}\n\n'); self.wfile.flush()   # tell the page not to reconnect
             except Exception as e:
                 try: self.wfile.write(f"data: {json.dumps({'type': 'error', 'message': str(e)[:200]})}\n\n".encode())
                 except Exception: pass

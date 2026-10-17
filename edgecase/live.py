@@ -81,7 +81,7 @@ def live(stop):
     todo = [s for s in q if s["source"] not in seen]
     stats = {"watched": 0, "edge": 0, "skipped": 0, "remaining": len(todo)}
     yield {"type": "start", "stats": stats, "cameras": len({s["camera_id"] for s in todo})}
-    pool = ThreadPoolExecutor(3)
+    pool = ThreadPoolExecutor(6)
     try: yield from _run(todo, stats, pool, stop)
     finally: pool.shutdown(wait=False, cancel_futures=True)   # paused or closed: stop judging ahead too
 
@@ -89,7 +89,7 @@ def _run(todo, stats, pool, stop):
     futs = {}
     for i, seg in enumerate(todo):
         if stop(): return
-        for nxt in todo[i:i + 3]:          # judge a few clips ahead so the feed never stalls
+        for nxt in todo[i:i + 6]:          # judge a few clips ahead so the feed never stalls
             if nxt["source"] not in futs: futs[nxt["source"]] = pool.submit(_assess, nxt)
         f, t_wait = futs.pop(seg["source"]), time.time()
         while not f.done() and time.time() - t_wait < 90:   # usually ready already (judged ahead)

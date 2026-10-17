@@ -320,6 +320,7 @@ $("goLive").onclick=()=>{if(LS)return stopLive();
     f.onclick=()=>{location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==c.id));renderLib(true)},50)};
     const t=toast(`<b>New edge case</b><br>${esc(e.title)}<br><button class="y" style="margin-top:8px">View</button>`);t.querySelector("button").onclick=f.onclick}
    else{$("lverdict").className="lverdict routine";$("lverdict").innerHTML=`<b>Routine, skipping.</b> ${esc(e.reason).slice(0,180)}`}}
+  if(e.type=="stopped"){if(LS){LS.close();LS=null}$("goLive").textContent="▶ Go live";$("lbadge").style.display="none";$("lverdict").className="lverdict";$("lverdict").textContent="Paused (the agent was started in another tab or stopped). Press Go live to carry on."}
   if(e.type=="error"){$("lverdict").textContent="Feed error: "+e.message}};
  window.addEventListener("hashchange",()=>{if(LS&&location.hash!="#/live")stopLive()});
  LS.onerror=()=>{$("lverdict").textContent="Reconnecting…"}};
