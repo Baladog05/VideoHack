@@ -83,14 +83,17 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{text-align:left
 .toast{background:#fff;border:2px solid var(--red);border-radius:14px;padding:12px 16px;box-shadow:0 10px 30px #0002;max-width:380px;animation:in .3s}
 .toast b{color:var(--red)}@keyframes in{from{transform:translateY(20px);opacity:0}}
 .htop{display:flex;align-items:center;gap:14px;margin-top:14px}.htop h2{flex:1;margin:0}.lead{font-size:1.05rem;margin:12px 0}.bar.vb b{font-size:1.1rem}.bar.vb i{background:var(--text)}
+.gapcard{margin-bottom:24px}.run{border-top:1px solid var(--line);margin-top:14px;padding-top:14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}.st{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.88rem;background:#fffdf6}
+.st b{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin-bottom:4px}.st.on{border-color:var(--y);background:var(--y2)}.st.ok{border-color:#b7e1c1;background:#f1fbf3}
+.st q{display:block;font-style:italic;color:var(--mut);margin-top:4px}.big{font-size:1.5rem;font-weight:800}
 kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:.78rem;background:#fff}
 </style></head><body>
 <nav><a class="logo" href="#/ask"><i><svg width="22" height="22" viewBox="0 0 32 32"><path d="M7 26 L25 7" stroke="#1d1d1b" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="9" r="2.6" fill="none" stroke="#1d1d1b" stroke-width="1.8"/></svg></i>Haystack</a>
 <div class="tabs"><a href="#/ask" data-v="ask">Search</a><a href="#/library" data-v="library">Needles <span class="n" id="nNeedles">0</span></a>
 <a href="#/dataset" data-v="dataset">Dataset</a><a href="#/about" data-v="about">How it works</a></div>
 <div class="navr"><span class="badge" id="precision" style="display:none"></span>
-<button class="live" id="liveBtn"><span class="dot"></span><span id="liveTxt">Live agent</span></button></div></nav>
-<div id="livebar"></div>
+<button class="y" id="gapNav">Fill gaps</button></div></nav>
 
 <section class="view ask" id="v-ask">
  <div class="hero"><h1>Find the needle.</h1><p>Describe a rare driving moment. We'll find it in the footage.</p>
@@ -110,6 +113,8 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
 <section class="view" id="v-dataset"><div class="page">
  <div class="cards"><div class="card"><b id="dNeed">–</b><small>needles</small></div><div class="card"><b id="dCats">–</b><small>categories</small></div>
  <div class="card"><b id="dAvg">–</b><small>average value</small></div><div class="card"><b id="dRev">–</b><small>reviewed</small></div></div>
+ <div class="card gapcard" id="gapCard"><div class="htop" style="margin-top:0"><h3 style="margin:0;flex:1">Gap-filling agent</h3><button class="y" id="gapBtn">Fill weakest gap</button></div>
+  <p class="sm mut" id="gapLead" style="margin:6px 0 0"></p><div id="gapRuns"></div></div>
  <div class="grid2"><div class="card"><h3 style="margin-top:0">Coverage by category</h3><div id="coverage"></div></div>
  <div class="card"><h3 style="margin-top:0">Export training data</h3>
   <label class="sm">Minimum value <b id="mvv">5</b></label><input type="range" id="mv" min="3" max="9" step="0.5" value="5" style="width:100%">
@@ -126,7 +131,7 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
   <div class="step"><span class="k">1</span><b>Index</b>Video on VAST storage runs through the VSS pipeline: YOLO detections, NVIDIA Cosmos-Reason2 scene descriptions, Cosmos-Embed1 vectors in VastDB.</div>
   <div class="step"><span class="k">2</span><b>Search</b>28 edge-case searches across 7 categories, or anything you type into Ask.</div>
   <div class="step"><span class="k">3</span><b>Judge</b>An LLM on W&amp;B Inference reads the clip plus the clips before and after, with detector motion, and decides if it's a real edge case.</div>
-  <div class="step"><span class="k">4</span><b>Act</b>The live agent keeps scanning and auto-adds strong finds. Humans confirm or reject in one key press.</div>
+  <div class="step"><span class="k">4</span><b>Fill gaps</b>The gap-filling agent finds the weakest category, re-ingests the most promising videos through VSS with a prompt focused on it, searches again and adds what it finds. Humans confirm or reject in one key press.</div>
   <div class="step"><span class="k">5</span><b>Export</b>Clips, per-frame boxes, labels and a dataset card, versioned as a W&amp;B artifact.</div></div>
  <div class="grid2"><div class="card"><h3 style="margin-top:0">What the value score means</h3>
   <p class="sm mut">How useful a clip is as training data, out of 10.</p>
@@ -153,7 +158,7 @@ const SHORT={occluded_pedestrian:"Hidden pedestrian",vru_violation:"Cyclist viol
 const catName=k=>SHORT[k]||D.categories[k]||(k||"").replace(/_/g," ");
 function route(){const v=(location.hash.replace("#/","")||"ask");document.querySelectorAll(".view").forEach(e=>e.classList.toggle("on",e.id=="v-"+v));
   document.querySelectorAll(".tabs a").forEach(a=>a.classList.toggle("on",a.dataset.v==v));cancelAnimationFrame(raf);
-  if(v=="library")renderLib(); if(v=="dataset")renderDataset(); if(v=="ask"&&cur.ask)show("ask",cur.ask)}
+  if(v=="library")renderLib(); if(v=="dataset"){renderDataset();loadGap()} if(v=="ask"&&cur.ask)show("ask",cur.ask)}
 window.onhashchange=route;
 async function load(){D=await fetch("/api/clips").then(r=>r.json());EV=await fetch("/api/eval").then(r=>r.json()).catch(()=>({verdicts:{}}));header()}
 function header(){const need=D.clips.filter(c=>c.is_edge_case).length;$("nNeedles").textContent=need;const p=$("precision");
@@ -263,21 +268,24 @@ $("exBtn").onclick=async()=>{const b=$("exBtn");b.disabled=true;$("exBar").style
     (x.wandb&&x.wandb.startsWith("http")?` · <a href="${esc(x.wandb)}" target="_blank">W&amp;B</a>`:x.wandb?`<br>${esc(x.wandb)}`:"");renderDataset()},1500)};
 /* ---------- live agent ---------- */
 function toast(html,col){const t=document.createElement("div");t.className="toast";if(col)t.style.borderColor=col;t.innerHTML=html;$("toast").appendChild(t);setTimeout(()=>t.remove(),9000);return t}
-$("liveBtn").onclick=()=>{if(es){es.close();es=null;$("liveBtn").classList.remove("on");$("liveTxt").textContent="Live agent";$("livebar").style.display="none";return}
-  es=new EventSource("/api/watch");$("liveBtn").classList.add("on");$("liveTxt").textContent="Live agent on";const lb=$("livebar");lb.style.display="block";lb.textContent="Starting…";let found=0;
-  es.onmessage=async m=>{const e=JSON.parse(m.data);
-   const st=e.stats?` · ${e.stats.judged} checked · ${e.stats.found} found`:` · ${found} found`;
-   if(e.type=="start")lb.textContent=`Live agent started · already knows ${e.known} clips · ${e.hunts} hunts`;
-   if(e.type=="scan")lb.textContent=`Hunting: “${e.query}”${e.depth?` (digging deeper, past top ${e.depth})`:""}${st}`;
-   if(e.type=="dry")lb.textContent=`Nothing new for “${e.query}”, moving on${st}`;
-   if(e.type=="think")lb.textContent=`Thinking up new things to hunt for…${st}`;
-   if(e.type=="new_hunt")toast(`<b>New hunt</b><br>${esc(e.query)}`,"#c9c2ad");
-   if(e.type=="judged")lb.textContent=`${e.hit?"✓ Edge case":"✗ Not an edge case"}: ${e.title} (${e.edge_score??"–"})${st}`;
-   if(e.type=="error")lb.textContent=`Search hiccup, retrying${st}`;
-   if(e.type=="found"){found++;const c=e.clip;newIds.add(c.id);await load();
-    const t=toast(`<b>New edge case</b><br>${esc(c.title)}<br><button class="y" style="margin-top:8px">View</button>`);
-    t.querySelector("button").onclick=()=>{location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==c.id));renderLib(true);mark()},50)};
-    if((location.hash||"#/ask")=="#/library")renderLib(true)}};
-  es.onerror=()=>{lb.textContent="Reconnecting…"}};
+/* ---------- gap-filling agent ---------- */
+let G=null,gT=null;
+const ago=t=>{const m=Math.round((Date.now()/1000-t)/60);return m<1?"just now":m+" min ago"};
+function runHTML(r){const done=r.status=="done",t=r.targets||[],ix=t.reduce((a,x)=>a+(x.indexed||0),0),tot=t.reduce((a,x)=>a+(x.total||6),0);
+ const s1=`<div class="st ok"><b>1 · Gap found</b>${esc(catName(r.category))}: ${r.before.needles} needles<q>Current caption: “${esc((r.before.captions[0]||"").slice(0,90))}”</q></div>`;
+ const s2=`<div class="st ${r.status=="reingesting"?"on":"ok"}"><b>2 · Re-ingest</b>${t.length} video${t.length>1?"s":""} through VSS with a focused prompt<q>${r.status=="reingesting"?`${ix}/${tot} clips re-described · started ${ago(r.started)}`:"Done"}</q></div>`;
+ const s3=`<div class="st ${r.status=="searching again"?"on":done?"ok":""}"><b>3 · Search again</b>${done?`${r.after.judged} re-described clips judged`:"Waiting for VSS"}${done&&r.after.captions[0]?`<q>New caption: “${esc(r.after.captions[0].slice(0,90))}”</q>`:""}</div>`;
+ const s4=`<div class="st ${done?"ok":""}"><b>4 · Result</b>${done?`<span class="big">${r.before.needles} → ${r.after.needles}</span> ${esc(catName(r.category))}`:r.status=="failed"?"Failed: "+esc(r.error||""):"Pending"}
+  ${done?r.found.map(f=>`<div><a href="#" data-gid="${f.id}">${esc(f.title)}</a></div>`).join(""):""}</div>`;
+ return `<div class="run"><div class="sm mut">Run ${esc(r.id)} · ${esc(r.status)}</div><div class="steps">${s1+s2+s3+s4}</div></div>`}
+async function loadGap(){G=await (await fetch("/api/gapfill")).json();
+ const w=G.weakest;$("gapLead").textContent=`Runs search, re-ingest, search again on its own. Weakest category right now: ${catName(w)} (${G.coverage[w]} needles). Re-ingest takes several minutes on the shared pipeline.`;
+ $("gapRuns").innerHTML=G.runs.slice(0,4).map(runHTML).join("");
+ $("gapRuns").querySelectorAll("[data-gid]").forEach(a=>a.onclick=async e=>{e.preventDefault();await load();location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==a.dataset.gid));renderLib(true)},50)});
+ const busy=G.runs.some(r=>r.status!="done"&&r.status!="failed");clearTimeout(gT);if(busy)gT=setTimeout(()=>{loadGap();load()},8000)}
+$("gapNav").onclick=()=>{location.hash="#/dataset";setTimeout(()=>$("gapCard").scrollIntoView({behavior:"smooth"}),80)};
+$("gapBtn").onclick=async()=>{$("gapBtn").disabled=true;$("gapBtn").textContent="Starting…";
+ const r=await (await fetch("/api/gapfill/start",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"})).json();
+ $("gapBtn").disabled=false;$("gapBtn").textContent="Fill weakest gap";if(r.error)toast("<b>Could not start</b><br>"+esc(r.error));loadGap()};
 load().then(route);
 </script></body></html>

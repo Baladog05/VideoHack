@@ -8,3 +8,4 @@ wandb/
 data/reviews.jsonl
 data/eval.json
 *.tmp
+data/gapfill.json

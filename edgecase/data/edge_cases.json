@@ -27,7 +27,7 @@
   "indexed_segments": null,
   "searched_queries": 28,
   "candidates": 184,
-  "edge_cases": 42
+  "edge_cases": 47
  },
  "runtime_sec": 147.7,
  "clips": [
@@ -190,6 +190,114 @@
    "added_by": "ask"
   },
   {
+   "id": "e71c24dac9ac",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_100819_sf4_chunk_0003_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_100819_sf4_chunk_0003.mp4",
+   "boxes_id": "e71c24dac9ac",
+   "camera_id": "sf_streets_cam-4",
+   "location": "san_francisco",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.235,
+   "object_counts": "{\"bus\": 1, \"car\": 9, \"person\": 11, \"truck\": 1, \"train\": 1, \"traffic light\": 1}",
+   "description": "A black bus with the text \"developerslove.\" and \"Modal\" on its side drives through the intersection, moving from left to right across the frame. The bus is large, with visible windows and wheels, and it passes over a marked pedestrian crosswalk. After the bus exits, a black SUV enters the intersection from the right side of the frame, driving straight ahead. The SUV is a modern model with a prominent grille and headlights. Pedestrians are visible on both sides of the street, some walking along the sidewalks and others crossing the street at designated crosswalks. The traffic lights are visible at the intersection, with one showing red and another showing green. The scene takes place in an urban area with multiple lanes and overhead wires, likely for trolley or tram systems. The background features buildings of varying heights, including a tall, pointed structure in the distance.",
+   "matched_queries": [
+    "unusual or oversized vehicle on the road"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 8.886,
+   "motion_reasons": [
+    "vehicle in path, up to 15.5% of frame, grew 6.0x"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 7,
+   "difficulty": 7,
+   "title": "Bus runs red light through intersection",
+   "explanation": "A black bus crosses the intersection against a red signal, passing over a crosswalk while pedestrians are nearby. An autonomous vehicle must predict and react to a large vehicle violating the signal, which is rare and safety-critical.",
+   "actors": [
+    "bus",
+    "SUV",
+    "pedestrians"
+   ],
+   "conditions": [
+    "urban",
+    "intersection",
+    "traffic_lights",
+    "overhead_wires"
+   ],
+   "label_tags": [
+    "red_light_violation",
+    "bus",
+    "intersection",
+    "crosswalk",
+    "unexpected_vehicle",
+    "urban"
+   ],
+   "motion_score": 10,
+   "rarity_score": 8.0,
+   "value": 7.6,
+   "added_by": "ask"
+  },
+  {
+   "id": "3a424ad89bc3",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_074125_GX010001_chunk_0011_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_074125_GX010001_chunk_0011.mp4",
+   "boxes_id": "3a424ad89bc3",
+   "camera_id": "nyc_bike_gopro-1",
+   "location": "new_york",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.271,
+   "object_counts": "{\"car\": 12, \"person\": 6, \"traffic light\": 2, \"truck\": 2, \"motorcycle\": 2, \"bus\": 2, \"skateboard\": 1, \"handbag\": 1, \"cell phone\": 2, \"bicycle\": 1}",
+   "description": "The clip shows a busy city street with multiple lanes of traffic. A blue car is visible in the foreground, moving forward. Several vehicles are stopped or moving slowly, including a black sedan, a silver SUV, a black SUV, and a yellow taxi. A blue and yellow hybrid bus is also present, along with a white van. A person wearing a black jacket and a brown hat is seen walking across the road, holding a phone and a bag. The road has clear lane markings, and traffic lights are visible at intersections. Pedestrians can be seen on the sidewalks, and a cyclist is visible on the left side of the road. The scene captures the typical hustle and bustle of a city street with various vehicles and pedestrians interacting.",
+   "matched_queries": [
+    "car pulling out suddenly into traffic"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 15.0,
+   "motion_reasons": [
+    "vehicle in path, up to 10.6% of frame, grew 2.3x",
+    "pedestrian in path, up to 17.6% of frame, grew 6.0x"
+   ],
+   "is_edge_case": true,
+   "category": "occluded_pedestrian",
+   "edge_score": 7,
+   "difficulty": 8,
+   "title": "Pedestrian crosses into vehicle path",
+   "explanation": "A pedestrian carrying a phone and bag walks across the road into the vehicle's path, growing rapidly in the detector view. The self-driving car must detect and yield to a potentially occluded, distracted pedestrian amid dense urban traffic.",
+   "actors": [
+    "pedestrian",
+    "blue car",
+    "bus",
+    "taxi",
+    "cyclist"
+   ],
+   "conditions": [
+    "urban street",
+    "clear lane markings",
+    "traffic lights",
+    "dense traffic"
+   ],
+   "label_tags": [
+    "pedestrian_in_path",
+    "occluded_pedestrian",
+    "distracted_pedestrian",
+    "urban_intersection",
+    "dense_traffic"
+   ],
+   "motion_score": 10,
+   "rarity_score": 6.7,
+   "value": 7.6,
+   "added_by": "ask"
+  },
+  {
    "id": "0828405f1687",
    "source": "s3://team-39-vss-chunks-segments/segments/20261001_095126_sf2_chunk_0000_segment_001_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261001_095126_sf2_chunk_0000.mp4",
@@ -348,6 +456,58 @@
    ],
    "motion_score": 7,
    "rarity_score": 9.3,
+   "value": 7.4,
+   "added_by": "ask"
+  },
+  {
+   "id": "b7b98d9c32dd",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_101644_sf4_chunk_0023_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_101644_sf4_chunk_0023.mp4",
+   "boxes_id": "b7b98d9c32dd",
+   "camera_id": "sf_streets_cam-4",
+   "location": "san_francisco",
+   "segment_start_sec": 5.0,
+   "segment_end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.415,
+   "object_counts": "{\"person\": 10, \"frisbee\": 1, \"traffic light\": 3, \"car\": 6, \"truck\": 2, \"bus\": 1, \"skateboard\": 1, \"backpack\": 1, \"sports ball\": 1, \"handbag\": 1, \"motorcycle\": 1}",
+   "description": "The scene shows a busy urban intersection with pedestrians crossing a marked crosswalk. Several people are walking across the street, including a person in a dark jacket carrying a backpack and another individual in a light-colored top. A person pushing a shopping cart with bags is also visible among the pedestrians. In the background, a bus is seen on the right side of the frame, and a red car is driving along the road. The traffic light is red, indicating that vehicles should stop, but the bus appears to be moving through the intersection. The overall atmosphere suggests a typical city environment with moderate pedestrian and vehicle activity.",
+   "matched_queries": [
+    "person jaywalking across the road mid-block"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 6.199,
+   "motion_reasons": [
+    "pedestrian in path, up to 2.9% of frame, grew 2.7x"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 7,
+   "difficulty": 8,
+   "title": "Bus runs red light amid pedestrians",
+   "explanation": "A bus moves through a red-light intersection while pedestrians are crossing the marked crosswalk, and a pedestrian enters the vehicle's path. This is hard because the ego vehicle must anticipate a large vehicle violating the signal while tracking multiple crossing pedestrians.",
+   "actors": [
+    "pedestrians",
+    "bus",
+    "red car"
+   ],
+   "conditions": [
+    "urban_intersection",
+    "red_traffic_light",
+    "marked_crosswalk"
+   ],
+   "label_tags": [
+    "bus_running_red",
+    "pedestrian_crossing",
+    "red_light_violation",
+    "intersection",
+    "pedestrian_in_path",
+    "urban"
+   ],
+   "motion_score": 8,
+   "rarity_score": 7.3,
    "value": 7.4,
    "added_by": "ask"
   },
@@ -992,6 +1152,56 @@
    "value": 6.2
   },
   {
+   "id": "12e2380d71cc",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_073619_neighborhood_20260902_chunk_0000_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_073619_neighborhood_20260902_chunk_0000.mp4",
+   "boxes_id": "12e2380d71cc",
+   "camera_id": "neighborhood_cam-1",
+   "location": "neighborhood",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.257,
+   "object_counts": "{\"car\": 6, \"person\": 1, \"traffic light\": 1}",
+   "description": "A blue car is driving on a residential street during foggy conditions. The vehicle is moving from right to left across the frame, passing through an intersection. The car's headlights are on, illuminating the road ahead. There are several parked cars visible along the sides of the street, including a silver sedan and a white SUV. The fog creates a hazy atmosphere, reducing visibility in the distance. A traffic light is visible on the left side of the frame, showing a red signal. No pedestrians or other moving vehicles are present in the scene.",
+   "matched_queries": [
+    "car pulling out suddenly into traffic"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 1.017,
+   "motion_reasons": [
+    "vehicle in path, up to 4.1% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 7,
+   "difficulty": 7,
+   "title": "Blue car runs red light in fog",
+   "explanation": "A blue car drives through an intersection while the traffic light is red, in foggy conditions. This is hard for an AV because it must detect the red light and predict the car's violation despite reduced visibility.",
+   "actors": [
+    "blue car"
+   ],
+   "conditions": [
+    "fog",
+    "residential street",
+    "intersection",
+    "low visibility"
+   ],
+   "label_tags": [
+    "red_light_running",
+    "unexpected_vehicle",
+    "fog",
+    "intersection",
+    "vehicle_in_path"
+   ],
+   "motion_score": 2,
+   "rarity_score": 6.7,
+   "value": 6.2,
+   "added_by": "ask"
+  },
+  {
    "id": "670570f959c4",
    "source": "s3://team-39-vss-chunks-segments/segments/20261001_071651_set06_video_chunk_0015_segment_004_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261001_071651_set06_video_chunk_0015.mp4",
@@ -1581,6 +1791,55 @@
    "motion_score": 3,
    "rarity_score": 0.7,
    "value": 5.8
+  },
+  {
+   "id": "7be9816bf86e",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_073735_neighborhood_20260902_chunk_0003_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_073735_neighborhood_20260902_chunk_0003.mp4",
+   "boxes_id": "7be9816bf86e",
+   "camera_id": "neighborhood_cam-1",
+   "location": "neighborhood",
+   "segment_start_sec": 10.0,
+   "segment_end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.211,
+   "object_counts": "{\"car\": 4, \"donut\": 1}",
+   "description": "The video shows a nighttime scene with a donut floating in the air. The donut is visible against a dark background, illuminated by artificial lighting. The surrounding area includes trees and parked vehicles, suggesting an outdoor setting such as a parking lot or street. The donut appears to be suspended without any visible support, creating an unusual and surreal visual effect.",
+   "matched_queries": [
+    "debris or object lying on the road"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 1.586,
+   "motion_reasons": [
+    "vehicle in path, up to 5.1% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "road_anomaly",
+   "edge_score": 7,
+   "difficulty": 3,
+   "title": "Floating donut in night street",
+   "explanation": "A donut appears suspended in the air near parked cars at night, an unexpected object that could confuse perception or be dismissed as a sensor artifact.",
+   "actors": [
+    "none"
+   ],
+   "conditions": [
+    "night",
+    "artificial_lighting",
+    "urban"
+   ],
+   "label_tags": [
+    "floating_object",
+    "donut",
+    "night",
+    "road_anomaly",
+    "unusual_object"
+   ],
+   "motion_score": 5,
+   "rarity_score": 3.3,
+   "value": 5.5,
+   "added_by": "ask"
   },
   {
    "id": "3bb9c3f9b431",
