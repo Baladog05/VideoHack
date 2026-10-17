@@ -1,0 +1,49 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Haystack · Selected clips</title>
+<style>
+:root{--bg:#fffcf2;--line:#eee5cc;--text:#1d1d1b;--mut:#6f6a5c;--y:#FFC800;--y2:#fff3c4;--red:#e5484d;--amb:#f08c00;--green:#2f9e44}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 "Inter",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text)}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:16px 28px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font-weight:800;font-size:1.35rem;letter-spacing:-.02em}.logo i{width:34px;height:34px;border-radius:9px;background:var(--y);display:grid;place-items:center}
+h1{font-size:1.15rem;margin:0}.sub{color:var(--mut);font-size:.9rem}.pills{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.pill{background:var(--y2);border-radius:20px;padding:4px 12px;font-size:.82rem;font-weight:600}
+main{padding:24px 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:20px}
+.c{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.v{position:relative;aspect-ratio:16/9;background:#111}.v video{width:100%;height:100%;object-fit:contain;display:block}.v canvas{position:absolute;inset:0;pointer-events:none}
+.n{position:absolute;top:10px;left:10px;background:#000a;color:#fff;font-size:.75rem;font-weight:700;border-radius:6px;padding:2px 8px}
+.b{padding:14px 16px;display:flex;flex-direction:column;gap:6px;flex:1}.t{font-weight:700;font-size:1rem;line-height:1.3}
+.meta{display:flex;gap:6px;flex-wrap:wrap}.tag{font-size:.75rem;border:1px solid var(--line);border-radius:12px;padding:1px 9px;color:var(--mut)}
+.tag.val{background:var(--y);border-color:var(--y);color:#000;font-weight:700}.tag.ok{background:#e6f4ea;border-color:#bfe3c8;color:var(--green);font-weight:600}
+.ex{color:var(--mut);font-size:.86rem}.empty{padding:60px;text-align:center;color:var(--mut);grid-column:1/-1}
+.legend{display:flex;gap:14px;font-size:.78rem;color:var(--mut)}.legend i{display:inline-block;width:11px;height:11px;border:2.5px solid;border-radius:3px;vertical-align:-2px;margin-right:4px}
+</style></head><body>
+<header><a class="logo" href="/#/ask"><i><svg width="22" height="22" viewBox="0 0 32 32"><path d="M7 26 L25 7" stroke="#1d1d1b" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="9" r="2.6" fill="none" stroke="#1d1d1b" stroke-width="1.8"/></svg></i>Haystack</a><div><h1 id="h">Selected clips</h1><div class="sub" id="sub">Loading…</div></div>
+<div class="legend"><span><i style="border-color:var(--red)"></i>Pedestrian / cyclist in path</span><span><i style="border-color:var(--amb)"></i>Vehicle in path</span><span><i style="border-color:var(--green)"></i>Other road user</span></div>
+<div class="pills" id="pills"></div></header>
+<main id="grid"></main>
+<script>
+const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cards=[];
+fetch("/api/selection"+location.search).then(r=>r.json()).then(d=>{
+ const cl=d.clips;$("h").textContent=`${cl.length} selected edge-case clip${cl.length==1?"":"s"}`;
+ $("sub").textContent=`Minimum value ${d.min_value}${d.category?" · "+d.category_label:""}${d.only_confirmed?" · only human-checked ✓":""} · ${d.human_confirmed} human-checked ✓ · ${d.rejected} marked ✗ left out`;
+ const byCat={};cl.forEach(c=>byCat[c.category_label]=(byCat[c.category_label]||0)+1);
+ $("pills").innerHTML=Object.entries(byCat).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span class="pill">${esc(k)} · ${v}</span>`).join("");
+ if(!cl.length){$("grid").innerHTML='<div class="empty">No clips match this selection. Lower the minimum value or pick another category.</div>';return}
+ $("grid").innerHTML=cl.map((c,i)=>`<div class="c"><div class="v"><video muted loop playsinline controls preload="none" data-i="${i}"></video><canvas></canvas><span class="n">#${i+1}</span></div>
+  <div class="b"><div class="t">${esc(c.title)}</div><div class="meta"><span class="tag val">value ${c.value}</span><span class="tag">${esc(c.category_label)}</span>
+  <span class="tag">${esc(c.camera_id)}${c.location?" · "+esc(c.location):""}</span>${c.human_review=="correct"?'<span class="tag ok">✓ human-checked</span>':""}</div>
+  <div class="ex">${esc(c.explanation)}</div></div></div>`).join("");
+ document.querySelectorAll("video").forEach(v=>{const c=cl[+v.dataset.i],o={v,cv:v.nextElementSibling,c,boxes:null};cards.push(o);
+  fetch(`/api/boxes/${c.boxes_id}?source=${encodeURIComponent(c.source)}`).then(r=>r.ok?r.json():[]).then(b=>o.boxes=Array.isArray(b)?b:[]).catch(()=>{})});
+ const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target,c=cl[+v.dataset.i];
+  if(e.isIntersecting){if(!v.src&&!location.search.includes("shot=1"))v.src="/api/stream?source="+encodeURIComponent(c.source);v.play().catch(()=>{})}else v.pause()}),{rootMargin:"200px"});
+ document.querySelectorAll("video").forEach(v=>io.observe(v));requestAnimationFrame(draw)});
+function draw(){for(const o of cards){const {v,cv,boxes}=o;if(v.paused&&o.drawn)continue;const r=cv.parentElement.getBoundingClientRect();
+  if(r.bottom<0||r.top>innerHeight)continue;cv.width=r.width;cv.height=r.height;const g=cv.getContext("2d");o.drawn=true;
+  if(!boxes||!boxes.length||!v.videoWidth)continue;const s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=(r.width-w)/2,oy=(r.height-h)/2;
+  let f=boxes[0];for(const b of boxes){if(b[0]<=v.currentTime)f=b;else break}g.font="bold 11px system-ui";
+  for(const [lab,x1,y1,x2,y2,ip] of f[1]){const col=ip?(["person","bicycle","motorcycle"].includes(lab)?"#e5484d":"#f08c00"):"#2f9e44";g.lineWidth=ip?2:1.2;g.strokeStyle=col;
+   g.strokeRect(ox+x1*w,oy+y1*h,(x2-x1)*w,(y2-y1)*h);if(ip){g.fillStyle=col;g.fillText(lab,ox+x1*w+2,oy+y1*h-3)}}}
+ requestAnimationFrame(draw)}
+</script></body></html>

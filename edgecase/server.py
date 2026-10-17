@@ -33,6 +33,24 @@ class H(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         u = urllib.parse.urlparse(self.path)
+        if u.path == "/gallery":
+            data = open(os.path.join(HERE, "static", "gallery.html"), "rb").read()
+            self.send_response(200); self.send_header("Content-Type", "text/html; charset=utf-8"); self.send_header("Content-Length", str(len(data)))
+            self.end_headers(); self.wfile.write(data); return
+        if u.path == "/api/selection":           # the clips an export would contain, for the gallery tab
+            from export import human_verdicts
+            q = urllib.parse.parse_qs(u.query); mv = float(q.get("min_value", ["5"])[0]); cat = q.get("category", [""])[0]
+            oc = q.get("only_confirmed", ["0"])[0] in ("1", "true")
+            d = json.load(open(os.path.join(HERE, "data", "edge_cases.json"))); hv = human_verdicts()
+            picked = [c for c in d["clips"] if c["is_edge_case"] and c["value"] >= mv and (not cat or c["category"] == cat)]
+            rej = sum(1 for c in picked if hv.get(c["id"]) == "wrong")
+            picked = [c for c in picked if hv.get(c["id"]) != "wrong" and (not oc or hv.get(c["id"]) == "correct")]
+            picked.sort(key=lambda c: -c["value"])
+            out = [{"id": c["id"], "title": c["title"], "category": c["category"], "category_label": d["categories"].get(c["category"], c["category"]),
+                    "value": c["value"], "camera_id": c["camera_id"], "location": c.get("location"), "explanation": c.get("explanation"),
+                    "source": c["source"], "boxes_id": c["boxes_id"], "human_review": hv.get(c["id"], "unreviewed")} for c in picked]
+            return self._json({"clips": out, "min_value": mv, "category": cat, "category_label": d["categories"].get(cat, cat), "only_confirmed": oc,
+                               "human_confirmed": sum(1 for c in out if c["human_review"] == "correct"), "rejected": rej})
         if u.path == "/api/clips":
             p = os.path.join(HERE, "data", "edge_cases.json")
             d = json.load(open(p)) if os.path.exists(p) else {"clips": [], "funnel": {}, "categories": {}}
@@ -130,6 +148,17 @@ class H(SimpleHTTPRequestHandler):
             if os.path.exists(rp): os.replace(rp, rp.replace(".jsonl", f"-{int(time.time())}.jsonl.bak"))   # keep a backup
             from evaluate import evaluate
             return self._json(evaluate())
+        if self.path == "/api/demo/reset":       # back to the original mining run: drop clips added later, re-watch live from the start
+            with LIVE_LOCK: LIVE["paused"] = True
+            ts, dp, sp = int(time.time()), os.path.join(HERE, "data", "edge_cases.json"), os.path.join(HERE, "data", "live_seen.json")
+            with ADD_LOCK:
+                shutil.copy(dp, dp.replace(".json", f"-{ts}.json.bak"))
+                if os.path.exists(sp): shutil.copy(sp, sp.replace(".json", f"-{ts}.json.bak"))
+                d = json.load(open(dp)); d["clips"] = [c for c in d["clips"] if not c.get("added_by")]
+                d.setdefault("funnel", {})["edge_cases"] = sum(c["is_edge_case"] for c in d["clips"])
+                json.dump(d, open(dp + ".tmp", "w"), indent=1); os.replace(dp + ".tmp", dp)
+                json.dump([], open(sp, "w"))
+            return self._json({"edge_cases": d["funnel"]["edge_cases"]})
         if self.path == "/api/live/stop":        # Pause: stops the agent on the server, not just the page
             with LIVE_LOCK: LIVE["paused"] = True
             return self._json({"stopped": True})

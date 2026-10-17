@@ -42,7 +42,7 @@ def ask(query, top_k=12):
 def add(clip):
     """Add a clip found by Ask to the dataset (marks it as an edge case)."""
     d = load()
-    clip = {**clip, "is_edge_case": True, "added_by": "ask"}
+    clip = {**clip, "is_edge_case": True, "added_by": clip.get("added_by") or "ask"}   # keep "live-agent"
     clip.pop("in_dataset", None)
     d["clips"] = [x for x in d["clips"] if x["id"] != clip["id"]] + [clip]
     d["clips"].sort(key=lambda c: (c["is_edge_case"], c["value"]), reverse=True)

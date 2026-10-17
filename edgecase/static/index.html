@@ -160,10 +160,10 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
  <div class="card"><h3 style="margin-top:0">Export training data</h3>
   <label class="sm">Minimum value <b id="mvv">5</b></label><input type="range" id="mv" min="3" max="9" step="0.5" value="5" style="width:100%">
   <label class="sm">Category</label><select id="exCat" style="width:100%;margin:4px 0 10px"></select>
-  <label class="sm"><input type="checkbox" id="withVid"> Include video</label> <label class="sm" style="margin-left:12px"><input type="checkbox" id="onlyOk"> Only human-checked ✓ clips</label>
-  <p class="sm" id="exCount"></p><button class="y" id="exBtn" style="width:100%">Export dataset</button>
-  <div class="pbar" id="exBar" style="display:none"><i style="width:100%;animation:pulse 1s infinite"></i></div><div id="exRes" class="sm" style="margin-top:10px"></div>
-  <h4 class="sm mut" style="margin:20px 0 6px">Exports</h4><div id="exports" class="sm"></div></div></div>
+  <label class="sm"><input type="checkbox" id="onlyOk"> Only human-checked ✓ clips</label>
+  <p class="sm" id="exCount"></p><button class="y" id="exBtn" style="width:100%">Open selected videos ↗</button>
+  <p class="sm mut" style="margin-top:8px">Opens a new tab with every selected clip playing, with its boxes, category, value and the judge's explanation. Clips a person marked ✗ are left out.</p>
+  <button id="demoReset" style="width:100%;margin-top:10px;background:none;border:1px solid #e5dfc6;border-radius:10px;padding:8px;font:inherit;font-size:.85rem;color:#6b675c;cursor:pointer">↺ Reset needles to the original mining run</button></div></div>
 </div></section>
 
 <section class="view" id="v-about"><div class="page about">
@@ -317,19 +317,12 @@ function renderDataset(){const need=D.clips.filter(c=>c.is_edge_case),n={};need.
   const mx=Math.max(1,...Object.values(n));
   $("coverage").innerHTML=Object.keys(D.categories).map(k=>[k,catName(k)]).map(([k,l])=>`<div class="hbar ${(n[k]||0)<3?"gap":""}"><span>${esc(l)}</span><div><i style="width:${Math.max(3,100*(n[k]||0)/mx)}%"></i></div><b>${n[k]||0}</b></div>`).join("");
   if(!$("exCat").options.length)$("exCat").innerHTML='<option value="">All categories</option>'+Object.keys(D.categories).map(k=>[k,catName(k)]).map(([k,l])=>`<option value="${k}">${esc(l)}</option>`).join("");
-  exCount();fetch("/api/datasets").then(r=>r.json()).then(x=>$("exports").innerHTML=x.map(d=>`<div><a href="${d.download}">${esc(d.name)}</a> · ${d.clips??"?"} clips · ${d.mb} MB</div>`).join("")||"None yet.")}
+  exCount()}
 function exCount(){const mv=+$("mv").value,c=$("exCat").value;$("mvv").textContent=mv;
-  $("exCount").textContent=D.clips.filter(x=>x.is_edge_case&&x.value>=mv&&(!c||x.category==c)).length+" clips"}
-$("mv").oninput=exCount;$("exCat").onchange=exCount;
-$("exBtn").onclick=async()=>{const b=$("exBtn");b.disabled=true;$("exBar").style.display="block";$("exRes").textContent="Exporting…";
-  const r=await fetch("/api/export",{method:"POST",headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({min_value:+$("mv").value,categories:$("exCat").value?[$("exCat").value]:null,with_video:$("withVid").checked,only_confirmed:$("onlyOk").checked})}).then(r=>r.json());
-  if(r.error){$("exRes").textContent=r.error;b.disabled=false;$("exBar").style.display="none";return}
-  const poll=setInterval(async()=>{const s=await fetch("/api/export/status").then(r=>r.json());if(s.running)return;clearInterval(poll);b.disabled=false;$("exBar").style.display="none";
-   if(s.error){$("exRes").textContent="Export failed: "+s.error;return}const x=s.result;
-   $("exRes").innerHTML=`✅ ${x.clips} clips (${x.human_confirmed} human-checked ✓, ${x.human_rejected_excluded} marked ✗ left out) · <a href="${x.download}">Download</a>`+(x.preview?` · <a href="/api/datasets/${x.name}/preview.jpg" target="_blank">Preview</a>`:"")+
-    `<br><span class="sm">${x.split?x.split.train+" train / "+x.split.val+" val (split by camera) · ":""}${x.boxes??"?"} boxes, COCO format included${x.video_failed?` · ${x.video_failed} video(s) unavailable, labels kept`:""}</span>`+
-    (x.wandb&&x.wandb.startsWith("http")?` · <a href="${esc(x.wandb)}" target="_blank">W&amp;B dataset</a>`:x.wandb?`<br>${esc(x.wandb)}`:"");renderDataset()},1500)};
+  const ok=$("onlyOk").checked,V=EV.verdicts||{};
+  $("exCount").textContent=D.clips.filter(x=>x.is_edge_case&&x.value>=mv&&(!c||x.category==c)&&V[x.id]!="wrong"&&(!ok||V[x.id]=="correct")).length+" clips selected"}
+$("mv").oninput=exCount;$("exCat").onchange=exCount;$("onlyOk").onchange=exCount;
+$("exBtn").onclick=()=>window.open("/gallery?"+new URLSearchParams({min_value:$("mv").value,category:$("exCat").value,only_confirmed:$("onlyOk").checked?1:0}),"_blank");
 /* ---------- live agent ---------- */
 function toast(html,col){const t=document.createElement("div");t.className="toast";if(col)t.style.borderColor=col;t.innerHTML=html;$("toast").appendChild(t);setTimeout(()=>t.remove(),9000);return t}
 /* ---------- live agent ---------- */
@@ -362,6 +355,8 @@ $("goLive").onclick=()=>{if(LS)return stopLive();
   if(e.type=="stopped"){if(LS){LS.close();LS=null}$("goLive").textContent="▶ Go live";$("lbadge").style.display="none";$("lverdict").className="lverdict";$("lverdict").textContent="Paused (the agent was started in another tab or stopped). Press Go live to carry on."}
   if(e.type=="error"){$("lverdict").textContent="Feed error: "+e.message}};
  LS.onerror=()=>{$("lverdict").textContent="Reconnecting…"}};
+$("demoReset").onclick=async()=>{if(!confirm("Reset needles to the original mining run? Clips added by the live agent or Search are removed (a backup is kept) and the live agent starts again from the beginning."))return;
+ const r=await fetch("/api/demo/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());await load();route();alert("Needles reset to "+r.edge_cases)};
 $("rstAcc").onclick=async()=>{if(!confirm("Reset judge accuracy? This clears all ✓/✗ reviews."))return;
  EV=await fetch("/api/review/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());header();route()};
 function fillAbout(){if(typeof D=="undefined"||!D||!D.funnel)return;$("abCand").textContent=D.funnel.candidates??"–";$("abEdge").textContent=D.clips.filter(x=>x.is_edge_case).length;if(D.funnel.searched_queries)$("abQ").textContent=D.funnel.searched_queries}
