@@ -148,6 +148,17 @@ class H(SimpleHTTPRequestHandler):
             if os.path.exists(rp): os.replace(rp, rp.replace(".jsonl", f"-{int(time.time())}.jsonl.bak"))   # keep a backup
             from evaluate import evaluate
             return self._json(evaluate())
+        if self.path == "/api/demo/reset":       # back to the original mining run: drop clips added later, re-watch live from the start
+            with LIVE_LOCK: LIVE["paused"] = True
+            ts, dp, sp = int(time.time()), os.path.join(HERE, "data", "edge_cases.json"), os.path.join(HERE, "data", "live_seen.json")
+            with ADD_LOCK:
+                shutil.copy(dp, dp.replace(".json", f"-{ts}.json.bak"))
+                if os.path.exists(sp): shutil.copy(sp, sp.replace(".json", f"-{ts}.json.bak"))
+                d = json.load(open(dp)); d["clips"] = [c for c in d["clips"] if not c.get("added_by")]
+                d.setdefault("funnel", {})["edge_cases"] = sum(c["is_edge_case"] for c in d["clips"])
+                json.dump(d, open(dp + ".tmp", "w"), indent=1); os.replace(dp + ".tmp", dp)
+                json.dump([], open(sp, "w"))
+            return self._json({"edge_cases": d["funnel"]["edge_cases"]})
         if self.path == "/api/live/stop":        # Pause: stops the agent on the server, not just the page
             with LIVE_LOCK: LIVE["paused"] = True
             return self._json({"stopped": True})

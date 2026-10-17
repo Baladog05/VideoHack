@@ -162,7 +162,8 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
   <label class="sm">Category</label><select id="exCat" style="width:100%;margin:4px 0 10px"></select>
   <label class="sm"><input type="checkbox" id="onlyOk"> Only human-checked ✓ clips</label>
   <p class="sm" id="exCount"></p><button class="y" id="exBtn" style="width:100%">Open selected videos ↗</button>
-  <p class="sm mut" style="margin-top:8px">Opens a new tab with every selected clip playing, with its boxes, category, value and the judge's explanation. Clips a person marked ✗ are left out.</p></div></div>
+  <p class="sm mut" style="margin-top:8px">Opens a new tab with every selected clip playing, with its boxes, category, value and the judge's explanation. Clips a person marked ✗ are left out.</p>
+  <button id="demoReset" style="width:100%;margin-top:10px;background:none;border:1px solid #e5dfc6;border-radius:10px;padding:8px;font:inherit;font-size:.85rem;color:#6b675c;cursor:pointer">↺ Reset needles to the original mining run</button></div></div>
 </div></section>
 
 <section class="view" id="v-about"><div class="page about">
@@ -354,6 +355,8 @@ $("goLive").onclick=()=>{if(LS)return stopLive();
   if(e.type=="stopped"){if(LS){LS.close();LS=null}$("goLive").textContent="▶ Go live";$("lbadge").style.display="none";$("lverdict").className="lverdict";$("lverdict").textContent="Paused (the agent was started in another tab or stopped). Press Go live to carry on."}
   if(e.type=="error"){$("lverdict").textContent="Feed error: "+e.message}};
  LS.onerror=()=>{$("lverdict").textContent="Reconnecting…"}};
+$("demoReset").onclick=async()=>{if(!confirm("Reset needles to the original mining run? Clips added by the live agent or Search are removed (a backup is kept) and the live agent starts again from the beginning."))return;
+ const r=await fetch("/api/demo/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());await load();route();alert("Needles reset to "+r.edge_cases)};
 $("rstAcc").onclick=async()=>{if(!confirm("Reset judge accuracy? This clears all ✓/✗ reviews."))return;
  EV=await fetch("/api/review/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());header();route()};
 function fillAbout(){if(typeof D=="undefined"||!D||!D.funnel)return;$("abCand").textContent=D.funnel.candidates??"–";$("abEdge").textContent=D.clips.filter(x=>x.is_edge_case).length;if(D.funnel.searched_queries)$("abQ").textContent=D.funnel.searched_queries}
