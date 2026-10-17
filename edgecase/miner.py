@@ -47,7 +47,8 @@ def judge(row):
     src = row["source"]
     motion, boxes = analyse(detections(src))
     bid = hashlib.md5(src.encode()).hexdigest()[:12]
-    json.dump(boxes, open(os.path.join(HERE, "data", "boxes", bid + ".json"), "w"))
+    bp = os.path.join(HERE, "data", "boxes", bid + ".json")
+    if boxes or not os.path.exists(bp): json.dump(boxes, open(bp, "w"))   # never overwrite good boxes with an empty VSS reply
     user = (f"Camera: {row.get('camera_id')} ({row.get('location')})\n"
             f"BEFORE: {neighbour(src, -1)}\n\nTARGET: {row.get('reasoning_content') or ''}\n\nAFTER: {neighbour(src, +1)}\n\n"
             f"Detector peak counts: {json.dumps(row.get('object_counts') or {})}\n"

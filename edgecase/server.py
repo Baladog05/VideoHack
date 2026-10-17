@@ -1,5 +1,5 @@
 """Haystack web app (stdlib only).  Run: python3 server.py   -> http://localhost:8080"""
-import json, os, shutil, threading, time, urllib.error, urllib.parse, urllib.request
+import hashlib, json, os, shutil, threading, time, urllib.error, urllib.parse, urllib.request
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from vss import BACKEND, token, api
 
@@ -52,6 +52,7 @@ class H(SimpleHTTPRequestHandler):
                 for ev in live(lambda: gone["v"] or LIVE["paused"] or LIVE["gen"] != gen):
                     try: self.wfile.write(f"data: {json.dumps(ev)}\n\n".encode()); self.wfile.flush()
                     except (BrokenPipeError, ConnectionResetError, OSError): gone["v"] = True
+                if not gone["v"]: self.wfile.write(b'data: {"type": "stopped"}\n\n'); self.wfile.flush()   # tell the page not to reconnect
             except Exception as e:
                 try: self.wfile.write(f"data: {json.dumps({'type': 'error', 'message': str(e)[:200]})}\n\n".encode())
                 except Exception: pass
@@ -59,7 +60,15 @@ class H(SimpleHTTPRequestHandler):
             return
         if u.path.startswith("/api/boxes/"):
             bid = os.path.basename(u.path); p = os.path.join(HERE, "data", "boxes", bid + ".json")
-            return self._json(open(p, "rb").read() if bid.isalnum() and os.path.exists(p) else b"[]")
+            if not bid.isalnum(): return self._json(b"[]")
+            if os.path.exists(p) and os.path.getsize(p) > 2: return self._json(open(p, "rb").read())
+            src = urllib.parse.parse_qs(u.query).get("source", [""])[0]    # missing/empty (e.g. VSS was down): fetch detections now
+            if src and hashlib.md5(src.encode()).hexdigest()[:12] == bid:
+                from motion import detections, analyse
+                boxes = analyse(detections(src))[1]
+                if boxes: json.dump(boxes, open(p, "w"))
+                return self._json(json.dumps(boxes).encode())
+            return self._json(b"[]")
         if u.path == "/api/datasets":
             out = []
             for z in sorted(os.listdir(os.path.join(HERE, "datasets")) if os.path.isdir(os.path.join(HERE, "datasets")) else [], reverse=True):
@@ -68,6 +77,11 @@ class H(SimpleHTTPRequestHandler):
                     out.append({"name": n, "download": f"/api/datasets/{z}", "mb": round(os.path.getsize(os.path.join(HERE, "datasets", z)) / 1e6, 1),
                                 "clips": sum(1 for _ in open(man)) if os.path.exists(man) else None})
             return self._json(out)
+        if u.path.startswith("/api/datasets/") and u.path.endswith("/preview.jpg"):
+            n = u.path.split("/")[3]; p = os.path.join(HERE, "datasets", n, "preview.jpg")
+            if "/" in n or ".." in n or not os.path.exists(p): self.send_response(404); self.end_headers(); return
+            data = open(p, "rb").read(); self.send_response(200); self.send_header("Content-Type", "image/jpeg")
+            self.send_header("Content-Length", str(len(data))); self.end_headers(); self.wfile.write(data); return
         if u.path.startswith("/api/datasets/") and u.path.endswith(".zip"):
             name = os.path.basename(u.path)[:-4]; p = os.path.join(HERE, "datasets", name + ".zip")
             if not (name.replace("-", "").isalnum() and os.path.exists(p)): return self._json({"error": "not found"}, 404)

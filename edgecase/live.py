@@ -63,7 +63,9 @@ def _assess(seg):
     cap, cnt = seg.get("reasoning_content") or "", _counts(seg)
     if not KEY.search(cap) and not (cnt.get("bicycle") or cnt.get("motorcycle")):
         bid = hashlib.md5(seg["source"].encode()).hexdigest()[:12]      # boxes for the overlay, from this clip's own detections
-        try: json.dump(analyse(detections(seg["source"]))[1], open(os.path.join(HERE, "data", "boxes", bid + ".json"), "w"))
+        try:
+            b = analyse(detections(seg["source"]))[1]
+            if b: json.dump(b, open(os.path.join(HERE, "data", "boxes", bid + ".json"), "w"))   # don't cache empties from a VSS hiccup
         except Exception: pass
         top = ", ".join(f"{v} {k}" for k, v in sorted(cnt.items(), key=lambda x: -x[1])[:3]) or "nothing notable"
         return {"verdict": "routine", "title": "Routine scene", "reason": f"Nothing risky in the scene ({top})", "triage": True}
@@ -81,7 +83,7 @@ def live(stop):
     todo = [s for s in q if s["source"] not in seen]
     stats = {"watched": 0, "edge": 0, "skipped": 0, "remaining": len(todo)}
     yield {"type": "start", "stats": stats, "cameras": len({s["camera_id"] for s in todo})}
-    pool = ThreadPoolExecutor(3)
+    pool = ThreadPoolExecutor(6)
     try: yield from _run(todo, stats, pool, stop)
     finally: pool.shutdown(wait=False, cancel_futures=True)   # paused or closed: stop judging ahead too
 
@@ -89,7 +91,7 @@ def _run(todo, stats, pool, stop):
     futs = {}
     for i, seg in enumerate(todo):
         if stop(): return
-        for nxt in todo[i:i + 3]:          # judge a few clips ahead so the feed never stalls
+        for nxt in todo[i:i + 6]:          # judge a few clips ahead so the feed never stalls
             if nxt["source"] not in futs: futs[nxt["source"]] = pool.submit(_assess, nxt)
         f, t_wait = futs.pop(seg["source"]), time.time()
         while not f.done() and time.time() - t_wait < 90:   # usually ready already (judged ahead)
