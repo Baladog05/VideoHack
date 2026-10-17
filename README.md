@@ -162,4 +162,9 @@ edgecase/
 
 ## Team
 
-Team 39 at the VAST Builders Challenge, London: Aadeeb Khan ([@lifeageometer](https://github.com/lifeageometer)) and [@Baladog05](https://github.com/Baladog05).
+Team 39 at the VAST Builders Challenge, London:
+
+- **Aadeeb Khan** ([@lifeageometer](https://github.com/lifeageometer))
+- **Awab Ibrahim**
+- **Balasivan Dhanapal**
+- **Utkarsh Bhamidimarri**
