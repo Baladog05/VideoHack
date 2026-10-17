@@ -3,3 +3,8 @@ reindex.log
 miner.log
 __pycache__/
 datasets/
+wandb/
+.venv/
+data/reviews.jsonl
+data/eval.json
+*.tmp

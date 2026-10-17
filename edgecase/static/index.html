@@ -1,99 +1,281 @@
-<!doctype html><html><head><meta charset="utf-8"><title>Edge Case Miner</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Haystack · find the needle in your driving footage</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23FFC800'/><path d='M8 25 L24 7' stroke='%231d1d1b' stroke-width='3' stroke-linecap='round'/><circle cx='22' cy='9' r='2.4' fill='none' stroke='%231d1d1b' stroke-width='1.6'/></svg>">
 <style>
-:root{--bg:#0b0f14;--card:#141a22;--line:#2a323d;--text:#e6edf3;--mut:#8b949e;--acc:#76b900;--red:#f85149;--amb:#d29922}
-*{box-sizing:border-box}body{margin:0;font:14px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--text)}
-header{padding:16px 24px;border-bottom:1px solid var(--line);display:flex;gap:28px;align-items:center;flex-wrap:wrap}
-h1{margin:0;font-size:20px}h1 span{color:var(--acc)}.tag-line{color:var(--mut);font-size:12px;max-width:340px}
-.funnel{display:flex;gap:8px;align-items:center}.fstep{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;text-align:center}
-.fstep b{display:block;font-size:20px}.fstep small{color:var(--mut)}.arrow{color:var(--mut)}
-.fstep.hi{border-color:var(--acc)}.fstep.hi b{color:var(--acc)}
-button{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer;font:inherit}
-button.primary{background:var(--acc);color:#0b0f14;border-color:var(--acc);font-weight:700}
-main{display:grid;grid-template-columns:300px 380px 1fr;height:calc(100vh - 78px)}
-aside,#list{overflow:auto;border-right:1px solid var(--line)}aside{padding:16px}
-h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
-.cat{padding:6px 8px;border-radius:6px;cursor:pointer;margin-bottom:4px}.cat:hover,.cat.on{background:var(--card)}
-.cat .row{display:flex;justify-content:space-between}.cbar{height:6px;background:var(--line);border-radius:3px;margin-top:4px}.cbar i{display:block;height:100%;background:var(--acc);border-radius:3px}
-.gap{color:var(--amb);font-size:11px}
-.item{padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:12px}.item:hover,.item.sel{background:var(--card)}
-.score{min-width:44px;height:44px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:16px;background:#76b90022;color:var(--acc)}
-.score.mid{background:#d2992222;color:var(--amb)}.score.lo{background:#8b949e22;color:var(--mut)}
-.t{font-weight:600}.m{color:var(--mut);font-size:12px}
-#detail{padding:20px 24px;overflow:auto}.vwrap{position:relative;background:#000;border-radius:8px;overflow:hidden}
-video{width:100%;display:block;max-height:52vh}canvas{position:absolute;inset:0;pointer-events:none}
-.pill{display:inline-block;border:1px solid var(--line);border-radius:12px;padding:1px 9px;margin:2px 4px 2px 0;font-size:12px;color:var(--mut)}
-.pill.c{border-color:var(--acc);color:var(--acc)}
-.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:10px 0}.bar div{height:7px;border-radius:4px;background:var(--line);margin-top:4px}.bar i{display:block;height:100%;border-radius:4px;background:var(--acc)}
-.export{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}#exres{margin-top:10px;font-size:13px}
-a{color:var(--acc)}details{margin-top:12px;color:var(--mut)}
+:root{--bg:#fffcf2;--card:#fff;--line:#eee5cc;--text:#1d1d1b;--mut:#6f6a5c;--y:#FFC800;--y2:#fff3c4;--y3:#ffe27a;--red:#e5484d;--amb:#f08c00;--green:#2f9e44}
+*{box-sizing:border-box}html{font-size:16px}body{margin:0;font:1rem/1.5 "Inter",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text)}
+a{color:inherit}button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:#fff;padding:8px 14px;color:var(--text)}
+button:hover{border-color:var(--y)}button.y{background:var(--y);border-color:var(--y);font-weight:700}button.y:hover{filter:brightness(.96)}
+button:disabled{opacity:.55;cursor:default}
+input,select{font:inherit;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:#fff;color:var(--text)}
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:26px;padding:0 28px;height:66px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:1.35rem;letter-spacing:-.02em}
+.logo i{width:34px;height:34px;border-radius:9px;background:var(--y);display:grid;place-items:center}
+.tabs{display:flex;gap:4px;height:100%}.tabs a{display:flex;align-items:center;padding:0 14px;text-decoration:none;color:var(--mut);font-weight:600;border-bottom:3px solid transparent}
+.tabs a.on{color:var(--text);border-bottom-color:var(--y)}.tabs a:hover{color:var(--text)}.tabs .n{margin-left:6px;background:var(--y2);border-radius:20px;padding:0 8px;font-size:.8rem}
+.navr{margin-left:auto;display:flex;gap:12px;align-items:center}
+.badge{background:var(--y2);border:1px solid var(--y3);border-radius:20px;padding:4px 12px;font-size:.85rem;font-weight:600}
+.live{display:flex;align-items:center;gap:8px}.live .dot{width:10px;height:10px;border-radius:50%;background:#c9c2ad}
+.live.on{background:#fff0f0;border-color:var(--red);color:var(--red);font-weight:700}.live.on .dot{background:var(--red);animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 #e5484d88}100%{box-shadow:0 0 0 10px #e5484d00}}
+/* strip */
+.strip{display:flex;align-items:center;gap:14px;padding:12px 28px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,#fff8dc,#fffcf2);flex-wrap:wrap}
+.strip .f{display:flex;align-items:baseline;gap:6px}.strip b{font-size:1.25rem}.strip small{color:var(--mut)}.strip .ar{color:#c4b98f}
+.strip .f.hi b{background:var(--y);padding:0 8px;border-radius:6px}
+.explain{color:var(--mut);margin-left:auto;max-width:560px;font-size:.92rem}
+#livebar{display:none;padding:8px 28px;background:#fff0f0;border-bottom:1px solid #f6c9ca;color:#a4262c;font-size:.92rem}
+/* layout */
+.view{display:none}.view.on{display:block}
+.split{display:grid;grid-template-columns:400px 1fr;height:calc(100vh - 66px - 58px)}.split.three{grid-template-columns:260px 380px 1fr}
+.col{overflow:auto;border-right:1px solid var(--line)}
+.side{padding:18px}.side h4{margin:18px 0 8px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}.side h4:first-child{margin-top:0}
+.cat{display:flex;justify-content:space-between;padding:7px 10px;border-radius:9px;cursor:pointer;font-size:.95rem}.cat:hover{background:var(--y2)}.cat.on{background:var(--y);font-weight:700}
+.cat .gap{font-size:.72rem;background:#fff;border:1px solid var(--amb);color:var(--amb);border-radius:10px;padding:0 6px;margin-left:6px}
+.listhead{position:sticky;top:0;background:#fffdf7;border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:10px;align-items:center;z-index:2}
+.listhead input{flex:1;padding:6px 10px}.mut{color:var(--mut)}.sm{font-size:.85rem}
+.item{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);cursor:pointer;background:#fff}
+.item:hover{background:#fffbea}.item.sel{background:var(--y2);box-shadow:inset 4px 0 var(--y)}
+.item.new{background:#fff0f0;animation:flash 1.2s 3}.item.rej{opacity:.6}
+@keyframes flash{50%{background:#ffd6d7}}
+.val{min-width:48px;height:48px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:1.1rem;background:#f1eee4;color:var(--mut)}
+.val.hi{background:var(--y);color:var(--text)}.val.mid{background:var(--y2);color:#8a6d00}
+.it{font-weight:650;line-height:1.3}.im{font-size:.84rem;color:var(--mut);margin-top:2px}
+/* detail */
+.detail{padding:22px 28px;overflow:auto}.empty{color:var(--mut);padding:40px;text-align:center}
+.vwrap{position:relative;background:#111;border-radius:14px;overflow:hidden}video{width:100%;display:block;max-height:48vh}canvas{position:absolute;inset:0;pointer-events:none}
+.dtop{display:flex;align-items:center;gap:10px;margin-bottom:10px}.dtop .sp{flex:1}
+h2{margin:16px 0 6px;font-size:1.55rem;letter-spacing:-.01em}
+.pill{display:inline-block;border:1px solid var(--line);background:#fff;border-radius:20px;padding:2px 10px;margin:3px 5px 3px 0;font-size:.82rem;color:var(--mut)}
+.pill.c{background:var(--y);border-color:var(--y);color:var(--text);font-weight:700}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0}.bar{font-size:.85rem;color:var(--mut)}.bar b{color:var(--text)}
+.bar div{height:9px;border-radius:5px;background:#f1eee4;margin-top:5px}.bar i{display:block;height:100%;border-radius:5px;background:var(--y)}
+.vbig{display:flex;align-items:center;gap:12px;background:var(--y2);border:1px solid var(--y3);border-radius:14px;padding:10px 14px;margin-top:12px}
+.vbig .val{width:58px;height:58px;font-size:1.4rem}
+.tip{position:relative;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#fff;border:1px solid var(--line);font-size:.75rem;cursor:help;color:var(--mut)}
+.tip span{display:none;position:absolute;left:26px;top:-8px;width:290px;background:var(--text);color:#fff;padding:10px 12px;border-radius:10px;font-size:.82rem;line-height:1.45;z-index:9;text-align:left}
+.tip:hover span{display:block}
+.review{display:flex;gap:8px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.review .ok.on{background:#e6f6ea;border-color:var(--green);color:var(--green);font-weight:700}.review .no.on{background:#fff0f0;border-color:var(--red);color:var(--red);font-weight:700}
+details{margin-top:14px;color:var(--mut);font-size:.92rem}summary{cursor:pointer;font-weight:600;color:var(--text)}
+.legend{display:flex;gap:14px;font-size:.8rem;color:var(--mut);margin-top:6px}.legend i{display:inline-block;width:12px;height:12px;border:2.5px solid;border-radius:3px;vertical-align:-2px;margin-right:4px}
+/* ask */
+.hero{padding:34px 28px 18px;text-align:center;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at top,#fff3c4,transparent 70%)}
+.hero h1{margin:0 0 6px;font-size:2.1rem;letter-spacing:-.02em}.hero p{margin:0 0 18px;color:var(--mut)}
+.askbox{display:flex;max-width:820px;margin:0 auto;background:#fff;border:2px solid var(--y);border-radius:16px;padding:6px;box-shadow:0 6px 24px #ffc80033}
+.askbox input{flex:1;border:0;font-size:1.15rem;padding:10px 14px;outline:0}.askbox button{font-size:1.05rem;padding:10px 22px}
+.chips{margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.chip{background:#fff;border:1px dashed #d8c98f;border-radius:20px;padding:5px 14px;font-size:.88rem;cursor:pointer}.chip:hover{background:var(--y2)}
+.progress{max-width:820px;margin:14px auto 0;font-size:.92rem;color:var(--mut);min-height:22px}
+.pbar{height:6px;background:#f1eee4;border-radius:4px;overflow:hidden;margin-top:6px}.pbar i{display:block;height:100%;background:var(--y);width:0;transition:width .3s}
+.ask .split{height:calc(100vh - 66px - 58px - 236px);min-height:420px}
+.addbtn{margin-left:auto}
+/* dataset & about */
+.page{max-width:1100px;margin:0 auto;padding:28px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}
+.card b{font-size:1.9rem;display:block}.card small{color:var(--mut)}
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:22px}
+.hbar{display:grid;grid-template-columns:200px 1fr 40px;gap:10px;align-items:center;margin:8px 0;font-size:.92rem}.hbar div{height:14px;background:#f1eee4;border-radius:7px}.hbar i{display:block;height:100%;background:var(--y);border-radius:7px}
+.hbar.gap i{background:repeating-linear-gradient(45deg,var(--y3),var(--y3) 4px,#fff 4px,#fff 8px)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line)}th{color:var(--mut);font-weight:600}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0 28px}.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;font-size:.88rem}
+.step b{display:block;font-size:1rem;margin-bottom:4px}.step .k{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--y);font-weight:800;margin-bottom:6px}
+#toast{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:50}
+.toast{background:#fff;border:2px solid var(--red);border-radius:14px;padding:12px 16px;box-shadow:0 10px 30px #0002;max-width:380px;animation:in .3s}
+.toast b{color:var(--red)}@keyframes in{from{transform:translateY(20px);opacity:0}}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:.78rem;background:#fff}
 </style></head><body>
-<header><div><h1>Edge Case <span>Miner</span></h1><div class="tag-line">Self-driving cars don't crash on the boring 99%. They crash on the weird 1%. We find it.</div></div>
-<div class="funnel"><div class="fstep"><b id="fIdx">–</b><small>clips indexed</small></div><span class="arrow">→</span>
-<div class="fstep"><b id="fCand">–</b><small>candidates</small></div><span class="arrow">→</span>
-<div class="fstep hi"><b id="fEdge">–</b><small>edge cases</small></div></div>
-<label class="m" style="margin-left:auto"><input type="checkbox" id="showAll"> Show rejected candidates</label></header>
-<main><aside><h3>Categories</h3><div id="cats"></div>
-<div class="export"><h3>Training dataset</h3>
-<div class="m">Minimum value <b id="mvv">5</b></div><input type="range" id="mv" min="3" max="9" step="0.5" value="5" style="width:100%">
-<div class="m" id="exCount"></div><button class="primary" id="exBtn" style="width:100%;margin-top:8px">Export dataset</button><div id="exres" class="m"></div></div></aside>
-<div id="list"></div><div id="detail"><p class="m">Pick a clip.</p></div></main>
+<nav><a class="logo" href="#/ask"><i><svg width="22" height="22" viewBox="0 0 32 32"><path d="M7 26 L25 7" stroke="#1d1d1b" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="9" r="2.6" fill="none" stroke="#1d1d1b" stroke-width="1.8"/></svg></i>Haystack</a>
+<div class="tabs"><a href="#/ask" data-v="ask">Ask the footage</a><a href="#/library" data-v="library">Needles <span class="n" id="nNeedles">0</span></a>
+<a href="#/dataset" data-v="dataset">Dataset</a><a href="#/about" data-v="about">How it works</a></div>
+<div class="navr"><span class="badge" id="precision" title="Share of accepted clips a human marked correct">Judge precision: not reviewed yet</span>
+<button class="live" id="liveBtn"><span class="dot"></span><span id="liveTxt">Start live agent</span></button></div></nav>
+<div class="strip"><div class="f"><b id="sVid">–</b><small>videos</small></div><span class="ar">→</span><div class="f"><b id="sClips">–</b><small>clips indexed</small></div><span class="ar">→</span>
+<div class="f"><b id="sCand">–</b><small>candidates</small></div><span class="ar">→</span><div class="f hi"><b id="sNeed">–</b><small>needles (edge cases)</small></div>
+<div class="explain">Self-driving cars don't crash on the boring 99%. They crash on the weird 1%. Haystack finds those moments in street video, explains why they're hard, and exports them as training data.</div></div>
+<div id="livebar"></div>
+
+<section class="view ask" id="v-ask">
+ <div class="hero"><h1>Find the needle.</h1><p>Describe a rare driving moment. Haystack searches every indexed clip, and an AI judge rates each match live.</p>
+ <form class="askbox" id="askForm"><input id="q" placeholder="Ask the footage, e.g. cyclist running a red light at night" autocomplete="off"><button class="y" id="askBtn">Search</button></form>
+ <div class="chips" id="chips"></div><div class="progress" id="prog"></div></div>
+ <div class="split"><div class="col" id="askList"><div class="empty">Results show up here as the judge scores them.</div></div><div class="col detail" id="askDetail"></div></div>
+</section>
+
+<section class="view" id="v-library"><div class="split three">
+ <div class="col side"><h4>Category</h4><div id="cats"></div>
+  <h4>Sort by</h4><select id="sort" style="width:100%"><option value="value">Value</option><option value="edge_score">Edge-case score</option><option value="difficulty">AV difficulty</option><option value="motion_score">Motion</option></select>
+  <h4>Show</h4><label class="sm"><input type="checkbox" id="showRej"> Rejected candidates</label><br><label class="sm"><input type="checkbox" id="showGaps"> Data gaps</label><br><label class="sm"><input type="checkbox" id="onlyUnrev"> Only unreviewed</label>
+  <h4>Keyboard</h4><div class="sm mut"><kbd>↑</kbd> <kbd>↓</kbd> move, <kbd>Y</kbd> correct, <kbd>N</kbd> wrong</div></div>
+ <div class="col" id="libCol"><div class="listhead"><input id="filter" placeholder="Filter titles, tags, cameras"><span class="sm mut" id="count"></span></div><div id="libList"></div></div>
+ <div class="col detail" id="libDetail"></div></div></section>
+
+<section class="view" id="v-dataset"><div class="page">
+ <div class="cards"><div class="card"><b id="dNeed">–</b><small>needles in the dataset</small></div><div class="card"><b id="dCats">–</b><small>categories covered</small></div>
+ <div class="card"><b id="dAvg">–</b><small>average value</small></div><div class="card"><b id="dRev">–</b><small>human-reviewed</small></div></div>
+ <div class="grid2"><div class="card"><h3 style="margin-top:0">Coverage by category</h3><div id="coverage"></div>
+  <p class="sm mut">Striped bars are thin categories. Use Ask or the live agent to find more of them.</p></div>
+ <div class="card"><h3 style="margin-top:0">Export training data</h3>
+  <label class="sm">Minimum value <b id="mvv">5</b></label><input type="range" id="mv" min="3" max="9" step="0.5" value="5" style="width:100%">
+  <label class="sm">Category</label><select id="exCat" style="width:100%;margin:4px 0 10px"></select>
+  <label class="sm"><input type="checkbox" id="withVid"> Include video clips (slower, larger zip)</label>
+  <p class="sm" id="exCount"></p><button class="y" id="exBtn" style="width:100%">Export dataset</button>
+  <div class="pbar" id="exBar" style="display:none"><i style="width:100%;animation:pulse 1s infinite"></i></div><div id="exRes" class="sm" style="margin-top:10px"></div>
+  <h4 class="sm mut" style="margin:20px 0 6px">Previous exports</h4><div id="exports" class="sm"></div></div></div>
+</div></section>
+
+<section class="view" id="v-about"><div class="page">
+ <h1 style="margin-top:0">How Haystack works</h1><p class="mut">An agent that turns raw street and dashcam video into a labelled dataset of the rare moments that trip up self-driving cars.</p>
+ <div class="steps">
+  <div class="step"><span class="k">1</span><b>Index</b>Video on VAST storage runs through the VSS pipeline: YOLO detections, NVIDIA Cosmos-Reason2 scene descriptions, Cosmos-Embed1 vectors in VastDB.</div>
+  <div class="step"><span class="k">2</span><b>Search</b>28 edge-case searches across 7 categories, or anything you type into Ask.</div>
+  <div class="step"><span class="k">3</span><b>Judge</b>An LLM on W&amp;B Inference reads the clip plus the clips before and after, with detector motion, and decides if it's a real edge case.</div>
+  <div class="step"><span class="k">4</span><b>Act</b>The live agent keeps scanning and auto-adds strong finds. Humans confirm or reject in one key press.</div>
+  <div class="step"><span class="k">5</span><b>Export</b>Clips, per-frame boxes, labels and a dataset card, versioned as a W&amp;B artifact.</div></div>
+ <div class="grid2"><div class="card"><h3 style="margin-top:0">What the value score means</h3>
+  <p class="sm mut">How useful a clip is as training data, out of 10.</p>
+  <table><tr><th>Signal</th><th>From</th><th>Weight</th></tr>
+  <tr><td>Edge-case score</td><td>AI judge: how rare and dangerous</td><td>55%</td></tr><tr><td>AV difficulty</td><td>AI judge: how hard for a self-driving car</td><td>20%</td></tr>
+  <tr><td>Motion</td><td>YOLO boxes: road users growing fast in the car's path</td><td>15%</td></tr><tr><td>Category rarity</td><td>Fewer examples in the dataset = more valuable</td><td>10%</td></tr></table>
+  <p class="sm">A clip counts as a needle when the judge says it's an edge case, it isn't routine, and its edge-case score is 5 or more.</p>
+  <div class="legend"><span><i style="border-color:var(--red)"></i>Pedestrian or cyclist in the car's path</span><span><i style="border-color:var(--amb)"></i>Vehicle in the path</span><span><i style="border-color:#2f9e44"></i>Other road user</span></div></div>
+ <div class="card"><h3 style="margin-top:0">Sponsor tools</h3><table>
+  <tr><td><b>VAST Data</b></td><td>S3 video storage, DataEngine ingest, VastDB vector search</td></tr>
+  <tr><td><b>NVIDIA</b></td><td>Cosmos-Reason2 descriptions, Cosmos-Embed1 search, YOLO detections</td></tr>
+  <tr><td><b>Weights &amp; Biases</b></td><td>Inference for the judge, Weave traces of every judgement, dataset artifacts</td></tr>
+  <tr><td><b>CoreWeave</b></td><td>GPU cloud hosting the models and W&amp;B (forge.coreweave.com)</td></tr>
+  <tr><td><b>Cursor</b></td><td>Built in Cursor over Remote-SSH to the lab VM</td></tr></table></div></div>
+</div></section>
+<div id="toast"></div>
+
 <script>
-let D={clips:[],categories:{}},cat="all",boxes=[],raf;
-const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const sc=v=>v>=7?"":v>=5?"mid":"lo";
-function cats(){
-  const edge=D.clips.filter(c=>c.is_edge_case),n={};edge.forEach(c=>n[c.category]=(n[c.category]||0)+1);
-  const mx=Math.max(1,...Object.values(n));
-  document.getElementById("cats").innerHTML=`<div class="cat ${cat=="all"?"on":""}" data-c="all"><div class="row"><span>All edge cases</span><b>${edge.length}</b></div></div>`+
-   Object.entries(D.categories).map(([k,l])=>`<div class="cat ${cat==k?"on":""}" data-c="${k}"><div class="row"><span>${esc(l)}</span><b>${n[k]||0}</b></div>
-   <div class="cbar"><i style="width:${100*(n[k]||0)/mx}%"></i></div>${(n[k]||0)<3?'<div class="gap">⚠ data gap: mine more of this</div>':""}</div>`).join("");
-  document.querySelectorAll(".cat").forEach(e=>e.onclick=()=>{cat=e.dataset.c;cats();list()});
-}
-function list(){
-  const all=document.getElementById("showAll").checked;
-  const rows=D.clips.filter(c=>(all||c.is_edge_case)&&(cat=="all"||c.category==cat));
-  document.getElementById("list").innerHTML=rows.map(c=>`<div class="item" data-id="${c.id}"><div class="score ${sc(c.value)}">${c.value}</div>
-   <div><div class="t">${esc(c.title)}</div><div class="m">${esc(D.categories[c.category]||c.category)} · ${esc(c.camera_id)}${c.is_edge_case?"":" · rejected"}</div></div></div>`).join("")||'<p class="m" style="padding:14px">Nothing here yet.</p>';
-  document.querySelectorAll(".item").forEach(e=>e.onclick=()=>show(e.dataset.id,e));
-  exCount();
-}
-function exCount(){const mv=+document.getElementById("mv").value;document.getElementById("mvv").textContent=mv;
-  document.getElementById("exCount").textContent=D.clips.filter(c=>c.is_edge_case&&c.value>=mv&&(cat=="all"||c.category==cat)).length+" clips will be exported"+(cat=="all"?"":" (this category)");}
-function draw(){const v=document.getElementById("vid"),c=document.getElementById("cv");if(!v||!c)return;
-  const r=v.getBoundingClientRect();c.width=r.width;c.height=r.height;const g=c.getContext("2d");g.clearRect(0,0,c.width,c.height);
-  if(document.getElementById("ov")?.checked&&boxes.length&&v.videoWidth){
-    const s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=(r.width-w)/2,oy=(r.height-h)/2;
-    let f=boxes[0];for(const b of boxes){if(b[0]<=v.currentTime)f=b;else break}
-    g.lineWidth=2;g.font="12px system-ui";
-    for(const [lab,x1,y1,x2,y2,ip] of f[1]){const col=ip?(lab=="person"||lab=="bicycle"||lab=="motorcycle"?"#f85149":"#d29922"):"#76b90088";
-      g.strokeStyle=col;g.strokeRect(ox+x1*w,oy+y1*h,(x2-x1)*w,(y2-y1)*h);g.fillStyle=col;g.fillText(lab,ox+x1*w+2,oy+y1*h-3)}}
-  raf=requestAnimationFrame(draw)}
-function show(id,el){cancelAnimationFrame(raf);boxes=[];
-  document.querySelectorAll(".item.sel").forEach(e=>e.classList.remove("sel"));el&&el.classList.add("sel");
-  const c=D.clips.find(x=>x.id==id),bar=(l,v)=>`<div class="bar m">${l} ${v??0}/10<div><i style="width:${(v||0)*10}%"></i></div></div>`;
-  document.getElementById("detail").innerHTML=`<label class="m" style="float:right"><input type="checkbox" id="ov" checked> Show labels</label>
-   <div class="m">${esc(c.camera_id)} · ${esc(c.location)} · segment ${esc(c.segment)}</div>
-   <div class="vwrap" style="margin-top:6px"><video id="vid" src="/api/stream?source=${encodeURIComponent(c.source)}" controls autoplay muted loop></video><canvas id="cv"></canvas></div>
-   <h2 style="margin:14px 0 4px">${esc(c.title)}</h2><span class="pill c">${esc(D.categories[c.category]||c.category)}</span>${(c.label_tags||[]).map(t=>`<span class="pill">#${esc(t)}</span>`).join("")}
-   <p>${esc(c.explanation)}</p>
-   <div class="bars">${bar("Edge-case",c.edge_score)}${bar("AV difficulty",c.difficulty)}${bar("Motion",c.motion_score)}${bar("Category rarity",Math.round(c.rarity_score))}</div>
-   <div class="m">Actors: ${esc((c.actors||[]).join(", ")||"–")} · Conditions: ${esc((c.conditions||[]).join(", ")||"–")}</div>
-   <div class="m">${(c.motion_reasons||[]).map(esc).join(" · ")}</div>
-   <details><summary>Scene description from NVIDIA Cosmos-Reason2</summary><p>${esc(c.description)}</p><p>Found by: ${esc(c.matched_queries.join("; "))}</p></details>`;
+const $=id=>document.getElementById(id), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let D={clips:[],categories:{},funnel:{}},EV={verdicts:{}},cat="all",libRows=[],cur={lib:null,ask:null},askRes=[],boxes=[],raf,es=null,newIds=new Set();
+const CHIPS=["cyclist running a red light","pedestrian stepping out from behind a parked truck","emergency vehicle with flashing lights","horse-drawn carriage on the road","car reversing into traffic"];
+const vcls=v=>v>=7?"hi":v>=5?"mid":"";
+const catName=k=>D.categories[k]||(k||"").replace(/_/g," ");
+function route(){const v=(location.hash.replace("#/","")||"ask");document.querySelectorAll(".view").forEach(e=>e.classList.toggle("on",e.id=="v-"+v));
+  document.querySelectorAll(".tabs a").forEach(a=>a.classList.toggle("on",a.dataset.v==v));cancelAnimationFrame(raf);
+  if(v=="library")renderLib(); if(v=="dataset")renderDataset(); if(v=="ask"&&cur.ask)show("ask",cur.ask)}
+window.onhashchange=route;
+async function load(){D=await fetch("/api/clips").then(r=>r.json());EV=await fetch("/api/eval").then(r=>r.json()).catch(()=>({verdicts:{}}));header()}
+function header(){const f=D.funnel||{},ix=D.index||{},need=D.clips.filter(c=>c.is_edge_case).length;
+  $("sVid").textContent=ix.videos??612;$("sClips").textContent=(ix.clips??f.indexed_segments??"–").toLocaleString();$("sCand").textContent=D.clips.length;
+  $("sNeed").textContent=need;$("nNeedles").textContent=need;
+  $("precision").textContent=EV.precision!=null?`Judge precision: ${EV.precision}% (${EV.precision_n} human-checked)`:"Judge precision: not reviewed yet"}
+/* ---------- list + detail (shared) ---------- */
+function itemHTML(c,sel){return `<div class="item ${sel?"sel":""} ${c.is_edge_case?"":"rej"} ${newIds.has(c.id)?"new":""}" data-id="${c.id}">
+ <div class="val ${vcls(c.value)}">${c.value}</div><div style="flex:1;min-width:0"><div class="it">${newIds.has(c.id)?"🚨 ":""}${esc(c.title)}</div>
+ <div class="im">${esc(catName(c.category))} · ${esc(c.camera_id)}${c.is_edge_case?"":" · not an edge case"}${EV.verdicts?.[c.id]=="correct"?" · ✓":EV.verdicts?.[c.id]=="wrong"?" · ✗":""}</div></div></div>`}
+function bar(l,v){return `<div class="bar">${l} <b>${v??0}</b>/10<div><i style="width:${(v||0)*10}%"></i></div></div>`}
+function show(where,c){cancelAnimationFrame(raf);boxes=[];cur[where]=c;if(!c)return;
+  const el=$(where=="ask"?"askDetail":"libDetail"),rows=where=="ask"?askRes:libRows,i=rows.findIndex(x=>x.id==c.id),inDs=D.clips.some(x=>x.id==c.id&&x.is_edge_case),v=EV.verdicts?.[c.id];
+  el.innerHTML=`<div class="dtop"><span class="sm mut">${esc(c.camera_id)} · ${esc(c.location||"")} · clip ${esc(c.segment)}</span><span class="sp"></span>
+   ${where=="lib"?`<span class="sm mut">${i+1} of ${rows.length}</span><button id="prv">‹ Prev</button><button id="nxt">Next ›</button>`:""}</div>
+   <div class="vwrap"><video id="vid" src="/api/stream?source=${encodeURIComponent(c.source)}" controls autoplay muted loop playsinline></video><canvas id="cv"></canvas></div>
+   <div class="legend"><label><input type="checkbox" id="ov" checked> Detector boxes</label><span><i style="border-color:var(--red)"></i>Pedestrian or cyclist in path</span><span><i style="border-color:var(--amb)"></i>Vehicle in path</span><span><i style="border-color:#2f9e44"></i>Other</span></div>
+   <h2>${esc(c.title)}</h2><span class="pill c">${esc(catName(c.category))}</span>${(c.label_tags||[]).map(t=>`<span class="pill">#${esc(t)}</span>`).join("")}
+   <p style="font-size:1.05rem">${esc(c.explanation)}</p>
+   <div class="vbig"><div class="val ${vcls(c.value)}">${c.value}</div><div><b>Training-data value</b> <span class="tip">?<span>How useful this clip is as training data, out of 10: 55% edge-case score from the AI judge, 20% AV difficulty, 15% motion from the object detector, 10% category rarity. 7+ is a strong needle.</span></span>
+   <div class="sm mut">${c.is_edge_case?"Counts as a needle":"Judge says this is not an edge case"}${c.added_by?` · added by ${esc(c.added_by)}`:""}</div></div>
+   ${where=="ask"?`<button class="y addbtn" id="add" ${inDs?"disabled":""}>${inDs?"✓ In dataset":"+ Add to dataset"}</button>`:""}</div>
+   <div class="bars">${bar("Edge-case",c.edge_score)}${bar("AV difficulty",c.difficulty)}${bar("Motion",c.motion_score)}${bar("Rarity",Math.round(c.rarity_score||0))}</div>
+   <div class="sm"><b>Actors:</b> ${esc((c.actors||[]).join(", ")||"–")} &nbsp; <b>Conditions:</b> ${esc((c.conditions||[]).join(", ")||"–")}</div>
+   ${(c.motion_reasons||[]).length?`<div class="sm mut" style="margin-top:4px"><b>Detector:</b> ${(c.motion_reasons||[]).map(esc).join(" · ")}</div>`:""}
+   <div class="review"><span class="sm"><b>Is the judge right?</b></span><button class="ok ${v=="correct"?"on":""}" id="rOk">✓ Correct <kbd>Y</kbd></button><button class="no ${v=="wrong"?"on":""}" id="rNo">✗ Wrong <kbd>N</kbd></button>
+   <span class="sm mut">${EV.reviewed||0} reviewed so far</span></div>
+   <details><summary>Scene description from NVIDIA Cosmos-Reason2</summary><p>${esc(c.description)}</p><p class="sm">Found by: ${esc((c.matched_queries||[]).join("; "))}</p></details>`;
+  $("ov").onchange=()=>{};$("rOk").onclick=()=>review(c,"correct",where);$("rNo").onclick=()=>review(c,"wrong",where);
+  if($("prv")){$("prv").onclick=()=>step(-1);$("nxt").onclick=()=>step(1)}
+  if($("add"))$("add").onclick=()=>addClip(c);
   fetch("/api/boxes/"+c.boxes_id).then(r=>r.json()).then(b=>{boxes=b;draw()});
 }
-document.getElementById("showAll").onchange=list;document.getElementById("mv").oninput=exCount;
-document.getElementById("exBtn").onclick=async()=>{const b=document.getElementById("exBtn"),o=document.getElementById("exres");
-  b.disabled=true;b.textContent="Packaging clips + labels…";o.textContent="";
-  try{const r=await fetch("/api/export",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({min_value:+document.getElementById("mv").value,categories:cat=="all"?null:[cat]})}).then(r=>r.json());
-    if(r.error)throw new Error(r.error);
-    o.innerHTML=`✅ <b>${r.clips}</b> clips packaged as <code>${esc(r.name)}</code><br><a href="${r.download}">Download .zip</a>`+
-     (r.wandb&&r.wandb.startsWith("http")?` · <a href="${esc(r.wandb)}" target="_blank">W&amp;B artifact</a>`:r.wandb?`<br>${esc(r.wandb)}`:"");
-  }catch(e){o.textContent="Export failed: "+e.message}
-  b.disabled=false;b.textContent="Export dataset"};
-fetch("/api/clips").then(r=>r.json()).then(d=>{D=d;const f=d.funnel||{};
-  document.getElementById("fIdx").textContent=f.indexed_segments??"612 videos";document.getElementById("fCand").textContent=f.candidates??0;
-  document.getElementById("fEdge").textContent=f.edge_cases??0;cats();list();const i=document.querySelector(".item");i&&i.click()});
+function draw(){const v=$("vid"),cv=$("cv");if(!v||!cv)return;const r=v.getBoundingClientRect();cv.width=r.width;cv.height=r.height;const g=cv.getContext("2d");
+  if($("ov")?.checked&&boxes.length&&v.videoWidth){const s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=(r.width-w)/2,oy=(r.height-h)/2;
+   let f=boxes[0];for(const b of boxes){if(b[0]<=v.currentTime)f=b;else break}g.lineWidth=2.5;g.font="bold 13px system-ui";
+   for(const [lab,x1,y1,x2,y2,ip] of f[1]){const col=ip?(["person","bicycle","motorcycle"].includes(lab)?"#e5484d":"#f08c00"):"#2f9e44aa";
+    g.strokeStyle=col;g.strokeRect(ox+x1*w,oy+y1*h,(x2-x1)*w,(y2-y1)*h);g.fillStyle=col;g.fillText(lab,ox+x1*w+3,oy+y1*h-4)}}
+  raf=requestAnimationFrame(draw)}
+async function review(c,verdict,where){if(EV.verdicts?.[c.id]==verdict)verdict="clear";
+  EV=await fetch("/api/review",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({id:c.id,verdict})}).then(r=>r.json());
+  if(verdict=="clear")delete EV.verdicts[c.id];header();
+  if(where=="lib"){renderLib(true);if(verdict!="clear")step(1)}else show(where,c)}
+async function addClip(c){const r=await fetch("/api/add",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({clip:c})}).then(r=>r.json());
+  await load();toast(`<b>Added to dataset</b><br>${esc(c.title)}`,"var(--y)");show("ask",c);renderAsk()}
+/* ---------- library ---------- */
+function renderCats(){const need=D.clips.filter(c=>c.is_edge_case),n={};need.forEach(c=>n[c.category]=(n[c.category]||0)+1);const gaps=$("showGaps").checked;
+  $("cats").innerHTML=`<div class="cat ${cat=="all"?"on":""}" data-c="all"><span>All needles</span><b>${need.length}</b></div>`+
+   Object.entries(D.categories).map(([k,l])=>`<div class="cat ${cat==k?"on":""}" data-c="${k}"><span>${esc(l)}${gaps&&(n[k]||0)<3?'<span class="gap">gap</span>':""}</span><b>${n[k]||0}</b></div>`).join("");
+  document.querySelectorAll(".cat").forEach(e=>e.onclick=()=>{cat=e.dataset.c;renderLib()})}
+function renderLib(keep){renderCats();const q=$("filter").value.toLowerCase(),s=$("sort").value,rej=$("showRej").checked,unrev=$("onlyUnrev").checked;
+  libRows=D.clips.filter(c=>(rej||c.is_edge_case)&&(cat=="all"||c.category==cat)&&(!unrev||!EV.verdicts?.[c.id])&&
+   (!q||[c.title,c.camera_id,c.category,...(c.label_tags||[])].join(" ").toLowerCase().includes(q)))
+   .sort((a,b)=>(newIds.has(b.id)-newIds.has(a.id))||(b.is_edge_case-a.is_edge_case)||((b[s]||0)-(a[s]||0)));
+  $("count").textContent=libRows.length+" clips";
+  $("libList").innerHTML=libRows.map(c=>itemHTML(c,cur.lib&&c.id==cur.lib.id)).join("")||'<div class="empty">Nothing matches.</div>';
+  document.querySelectorAll("#libList .item").forEach(e=>e.onclick=()=>{show("lib",libRows.find(x=>x.id==e.dataset.id));mark()});
+  const still=cur.lib&&libRows.find(x=>x.id==cur.lib.id);if(!keep||!still){if(libRows[0]&&!still)show("lib",libRows[0]);else if(still&&!keep)show("lib",still);mark()}}
+function mark(){document.querySelectorAll("#libList .item").forEach(e=>{const on=cur.lib&&e.dataset.id==cur.lib.id;e.classList.toggle("sel",on);if(on)e.scrollIntoView({block:"nearest"})})}
+function step(d){const i=libRows.findIndex(x=>x.id==cur.lib?.id),n=libRows[Math.max(0,Math.min(libRows.length-1,i+d))];if(n){show("lib",n);mark()}}
+["filter"].forEach(id=>$(id).oninput=()=>renderLib());["sort","showRej","showGaps","onlyUnrev"].forEach(id=>$(id).onchange=()=>renderLib());
+document.addEventListener("keydown",e=>{if(e.target.tagName=="INPUT"||e.target.tagName=="SELECT")return;const v=location.hash.replace("#/","")||"ask";
+  if(v=="library"){if(e.key=="ArrowDown"||e.key=="j"){step(1);e.preventDefault()}if(e.key=="ArrowUp"||e.key=="k"){step(-1);e.preventDefault()}
+   if(e.key=="y"&&cur.lib)review(cur.lib,"correct","lib");if(e.key=="n"&&cur.lib)review(cur.lib,"wrong","lib")}
+  if(v=="ask"&&askRes.length){const i=askRes.findIndex(x=>x.id==cur.ask?.id);if(e.key=="ArrowDown"){show("ask",askRes[Math.min(askRes.length-1,i+1)]);renderAsk();e.preventDefault()}
+   if(e.key=="ArrowUp"){show("ask",askRes[Math.max(0,i-1)]);renderAsk();e.preventDefault()}}});
+/* ---------- ask ---------- */
+$("chips").innerHTML=CHIPS.map(c=>`<span class="chip">${esc(c)}</span>`).join("");
+document.querySelectorAll(".chip").forEach(e=>e.onclick=()=>{$("q").value=e.textContent;ask()});
+$("askForm").onsubmit=e=>{e.preventDefault();ask()};
+function renderAsk(){const rows=[...askRes].sort((a,b)=>(b.is_edge_case-a.is_edge_case)||(b.value-a.value));askRes=rows;
+  $("askList").innerHTML=rows.map(c=>itemHTML(c,cur.ask&&c.id==cur.ask.id)).join("")||'<div class="empty">No matches yet.</div>';
+  document.querySelectorAll("#askList .item").forEach(e=>e.onclick=()=>{show("ask",askRes.find(x=>x.id==e.dataset.id));renderAsk()})}
+async function ask(){const q=$("q").value.trim();if(!q)return;askRes=[];cur.ask=null;$("askDetail").innerHTML="";$("askBtn").disabled=true;
+  const ix=D.index||{};let total=0,done=0;
+  const P=t=>$("prog").innerHTML=`${t}<div class="pbar"><i style="width:${total?100*done/total:8}%"></i></div>`;
+  P(`Searching ${(ix.clips||3537).toLocaleString()} clips from ${ix.videos||612} videos with NVIDIA Cosmos-Embed1…`);
+  $("askList").innerHTML='<div class="empty">Searching…</div>';
+  try{const r=await fetch("/api/ask",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:q})});
+   const rd=r.body.getReader(),dec=new TextDecoder();let buf="";
+   while(true){const {value,done:end}=await rd.read();if(end)break;buf+=dec.decode(value,{stream:true});let i;
+    while((i=buf.indexOf("\n"))>=0){const line=buf.slice(0,i);buf=buf.slice(i+1);if(!line.trim())continue;const ev=JSON.parse(line);
+     if(ev.stage){total=ev.hits;P(`Found ${total} matching street clips. AI judge is reviewing each one…`)}
+     if(ev.clip){done++;askRes.push(ev.clip);if(!cur.ask||ev.clip.value>cur.ask.value&&done<=1)show("ask",ev.clip);renderAsk();
+      P(`Judged ${done} of ${total}… ${askRes.filter(c=>c.is_edge_case).length} look like real edge cases`)}
+     if(ev.done!=null){const n=askRes.filter(c=>c.is_edge_case).length;total=total||1;done=total;
+      P(`Done. ${n} of ${ev.done} clips are real edge cases. Pick one and add it to the dataset.`);if(askRes.length){renderAsk();show("ask",askRes[0]);renderAsk()}}
+     if(ev.error)P("Something went wrong: "+esc(ev.error))}}
+  }catch(e){P("Search failed: "+esc(e.message))}
+  $("askBtn").disabled=false}
+/* ---------- dataset ---------- */
+function renderDataset(){const need=D.clips.filter(c=>c.is_edge_case),n={};need.forEach(c=>n[c.category]=(n[c.category]||0)+1);
+  $("dNeed").textContent=need.length;$("dCats").textContent=Object.keys(n).length+" / "+Object.keys(D.categories).length;
+  $("dAvg").textContent=need.length?(need.reduce((a,c)=>a+c.value,0)/need.length).toFixed(1):"–";$("dRev").textContent=EV.reviewed||0;
+  const mx=Math.max(1,...Object.values(n));
+  $("coverage").innerHTML=Object.entries(D.categories).map(([k,l])=>`<div class="hbar ${(n[k]||0)<3?"gap":""}"><span>${esc(l)}</span><div><i style="width:${Math.max(3,100*(n[k]||0)/mx)}%"></i></div><b>${n[k]||0}</b></div>`).join("");
+  if(!$("exCat").options.length)$("exCat").innerHTML='<option value="">All categories</option>'+Object.entries(D.categories).map(([k,l])=>`<option value="${k}">${esc(l)}</option>`).join("");
+  exCount();fetch("/api/datasets").then(r=>r.json()).then(x=>$("exports").innerHTML=x.map(d=>`<div><a href="${d.download}">${esc(d.name)}</a> · ${d.clips??"?"} clips · ${d.mb} MB</div>`).join("")||"None yet.")}
+function exCount(){const mv=+$("mv").value,c=$("exCat").value;$("mvv").textContent=mv;
+  $("exCount").textContent=D.clips.filter(x=>x.is_edge_case&&x.value>=mv&&(!c||x.category==c)).length+" clips will be exported."}
+$("mv").oninput=exCount;$("exCat").onchange=exCount;
+$("exBtn").onclick=async()=>{const b=$("exBtn");b.disabled=true;$("exBar").style.display="block";$("exRes").textContent="Packaging clips and labels, logging to W&B…";
+  const r=await fetch("/api/export",{method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({min_value:+$("mv").value,categories:$("exCat").value?[$("exCat").value]:null,with_video:$("withVid").checked})}).then(r=>r.json());
+  if(r.error){$("exRes").textContent=r.error;b.disabled=false;$("exBar").style.display="none";return}
+  const poll=setInterval(async()=>{const s=await fetch("/api/export/status").then(r=>r.json());if(s.running)return;clearInterval(poll);b.disabled=false;$("exBar").style.display="none";
+   if(s.error){$("exRes").textContent="Export failed: "+s.error;return}const x=s.result;
+   $("exRes").innerHTML=`✅ <b>${x.clips} clips</b> packaged as <code>${esc(x.name)}</code><br><a href="${x.download}">Download zip</a>`+
+    (x.wandb&&x.wandb.startsWith("http")?` · <a href="${esc(x.wandb)}" target="_blank">Open W&amp;B artifact</a>`:x.wandb?`<br>${esc(x.wandb)}`:"");renderDataset()},1500)};
+/* ---------- live agent ---------- */
+function toast(html,col){const t=document.createElement("div");t.className="toast";if(col)t.style.borderColor=col;t.innerHTML=html;$("toast").appendChild(t);setTimeout(()=>t.remove(),9000);return t}
+$("liveBtn").onclick=()=>{if(es){es.close();es=null;$("liveBtn").classList.remove("on");$("liveTxt").textContent="Start live agent";$("livebar").style.display="none";return}
+  es=new EventSource("/api/watch");$("liveBtn").classList.add("on");$("liveTxt").textContent="Live agent on";const lb=$("livebar");lb.style.display="block";lb.textContent="Live agent starting…";let found=0;
+  es.onmessage=async m=>{const e=JSON.parse(m.data);
+   if(e.type=="scan")lb.textContent=`🔴 Live agent, round ${e.round}: scanning for "${e.queries.slice(0,2).join('", "')}" and ${e.queries.length-2} more… ${found} new needles so far`;
+   if(e.type=="judged")lb.textContent=`🔴 Live agent: judged "${e.title}" (edge-case score ${e.edge_score}/10)… ${found} new needles so far`;
+   if(e.type=="found"){found++;const c=e.clip;newIds.add(c.id);await load();
+    const t=toast(`<b>🚨 New edge case found</b><br>${esc(c.title)} (${esc(c.camera_id)})<br><span class="sm mut">Auto-added to the dataset · value ${c.value}</span><br><button class="y" style="margin-top:8px">Open it</button>`);
+    t.querySelector("button").onclick=()=>{location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==c.id));renderLib(true);mark()},50)};
+    if((location.hash||"#/ask")=="#/library")renderLib(true)}};
+  es.onerror=()=>{lb.textContent="Live agent reconnecting…"}};
+load().then(route);
 </script></body></html>

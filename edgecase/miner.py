@@ -1,4 +1,4 @@
-"""Edge Case Miner: search every road camera for rare driving scenarios, judge each candidate with an LLM
+"""Haystack miner: search every road camera for rare driving scenarios, judge each candidate with an LLM
 (using the clips before/after) plus detector motion, score edge-case value, and write data/edge_cases.json.
 Run: python3 miner.py            (env: MINER_TOP_K per search, default 10)"""
 import hashlib, json, os, re, sys, time, urllib.parse
@@ -91,6 +91,8 @@ def main():
     for c in clips:
         c["motion_score"] = round(10 * sum(r <= c["motion_raw"] for r in raws) / len(raws)) if c["motion_raw"] > 0 else 0
     # category rarity: categories with fewer confirmed examples are worth more (gap-filling)
+    for c in clips:  # final edge-case rule first, so rarity counts only confirmed clips
+        c["is_edge_case"] = bool(c["is_edge_case"]) and c["category"] != "routine" and (c["edge_score"] or 0) >= 5
     confirmed = Counter(c["category"] for c in clips if c["is_edge_case"])
     mx = max(confirmed.values() or [1])
     for c in clips:
@@ -98,15 +100,17 @@ def main():
         c["rarity_score"] = round(rarity, 1)
         c["value"] = round(min(10, 0.55 * (c["edge_score"] or 1) + 0.2 * (c["difficulty"] or 1)
                                    + 0.15 * c["motion_score"] + 0.1 * rarity), 1)
-        c["is_edge_case"] = bool(c["is_edge_case"]) and c["category"] != "routine" and (c["edge_score"] or 0) >= 5
     clips.sort(key=lambda c: (c["is_edge_case"], c["value"]), reverse=True)
-    total_segments = next((v for k, v in (stats or {}).items() if "segment" in k.lower() and isinstance(v, int)), None)
+    total_segments = (stats or {}).get("overview", {}).get("indexed_clips")
     out = {"generated_at": time.strftime("%Y-%m-%dT%H:%M:%S"), "model": LLM_MODEL, "cameras": CAMERAS,
            "categories": {k: v["label"] for k, v in CATEGORIES.items()},
            "funnel": {"indexed_segments": total_segments, "searched_queries": len(jobs), "candidates": len(clips),
                       "edge_cases": sum(c["is_edge_case"] for c in clips)},
            "runtime_sec": round(time.time() - t0, 1), "clips": clips}
     json.dump(out, open(os.path.join(HERE, "data", "edge_cases.json"), "w"), indent=1)
+    keep = {c["boxes_id"] for c in clips}  # drop overlay files from older runs
+    for f in os.listdir(os.path.join(HERE, "data", "boxes")):
+        if f[:-5] not in keep: os.remove(os.path.join(HERE, "data", "boxes", f))
     print(json.dumps(out["funnel"]), f"in {out['runtime_sec']}s")
     print("by category:", dict(Counter(c["category"] for c in clips if c["is_edge_case"])))
     for c in clips[:12]:
