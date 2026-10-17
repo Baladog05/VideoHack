@@ -103,6 +103,22 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{text-align:left
 .le.edge{background:var(--y2);border-color:var(--y);color:var(--text);cursor:pointer;font-weight:600}.le small{display:block;font-weight:400;color:var(--mut)}
 .rst{border:1px solid var(--line);background:#fff;border-radius:50%;width:30px;height:30px;padding:0;font-size:1rem;line-height:1;cursor:pointer;margin-left:6px}.rst:hover{border-color:var(--y)}
 kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:.78rem;background:#fff}
+.about .card td b{font-size:.95rem;display:inline;white-space:nowrap}.about h1{font-size:2.1rem;line-height:1.2;margin:6px 0 12px;letter-spacing:-.02em}.about p{margin:0}
+.ab-hero{display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px 32px;margin-bottom:34px}
+.ab-hero>div>p{color:var(--mut);font-size:1.02rem;max-width:620px}
+.ab-eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a08200;background:var(--y2);padding:4px 10px;border-radius:20px}
+.ab-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ab-stats div{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.ab-stats b{display:block;font-size:1.7rem;line-height:1.1}.ab-stats small{color:var(--mut);font-size:.82rem}
+.ab-h{font-size:1.25rem;margin:0 0 14px;letter-spacing:-.01em}
+.flow{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:34px;counter-reset:f}
+.fstep{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 14px;font-size:.86rem}
+.fstep:not(:last-child)::after{content:"";position:absolute;right:-9px;top:28px;width:6px;height:6px;border-top:2px solid #c4b98f;border-right:2px solid #c4b98f;transform:rotate(45deg)}
+.fstep b{display:block;font-size:1rem;margin:2px 0 6px}.fstep p{color:var(--mut);line-height:1.45}
+.fstep .k{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--y);font-weight:800;font-size:.85rem}
+.guide{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.gcard{display:block;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;font-size:.88rem;transition:border-color .15s,transform .15s}
+.gcard:hover{border-color:var(--y);transform:translateY(-2px)}.gcard b{display:block;font-size:1.05rem;margin-bottom:6px}.gcard p{color:var(--mut);line-height:1.5}
+@media(max-width:1000px){.ab-hero{grid-template-columns:1fr}.flow{grid-template-columns:repeat(3,1fr)}.guide{grid-template-columns:1fr 1fr}.fstep::after{display:none}}
 </style></head><body>
 <nav><a class="logo" href="#/ask"><i><svg width="22" height="22" viewBox="0 0 32 32"><path d="M7 26 L25 7" stroke="#1d1d1b" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="9" r="2.6" fill="none" stroke="#1d1d1b" stroke-width="1.8"/></svg></i>Haystack</a>
 <div class="tabs"><a href="#/ask" data-v="ask">Search</a><a href="#/live" data-v="live"><span class="ldot"></span>Live agent</a><a href="#/library" data-v="library">Needles <span class="n" id="nNeedles">0</span></a>
@@ -150,26 +166,48 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
   <h4 class="sm mut" style="margin:20px 0 6px">Exports</h4><div id="exports" class="sm"></div></div></div>
 </div></section>
 
-<section class="view" id="v-about"><div class="page">
- <h1 style="margin-top:0">How Haystack works</h1><p class="mut">An agent that turns raw street and dashcam video into a labelled dataset of the rare moments that trip up self-driving cars.</p>
- <div class="steps">
-  <div class="step"><span class="k">1</span><b>Index</b>Video on VAST storage runs through the VSS pipeline: YOLO detections, NVIDIA Cosmos-Reason2 scene descriptions, Cosmos-Embed1 vectors in VastDB.</div>
-  <div class="step"><span class="k">2</span><b>Search</b>28 edge-case searches across 7 categories, or anything you type into Ask.</div>
-  <div class="step"><span class="k">3</span><b>Judge</b>An LLM on W&amp;B Inference reads the clip plus the clips before and after, with detector motion, and decides if it's a real edge case.</div>
-  <div class="step"><span class="k">4</span><b>Watch</b>The live agent watches unchecked footage camera by camera like a safety monitor, skips routine scenes and adds edge cases as it finds them. Humans confirm or reject in one key press.</div>
-  <div class="step"><span class="k">5</span><b>Export</b>Clips, per-frame boxes, labels and a dataset card, versioned as a W&amp;B artifact.</div></div>
- <div class="grid2"><div class="card"><h3 style="margin-top:0">What the value score means</h3>
+<section class="view" id="v-about"><div class="page about">
+ <div class="ab-hero">
+  <div><span class="ab-eyebrow">How it works</span>
+   <h1>Finding the needles in thousands of hours of driving video</h1>
+   <p>Self-driving systems fail on rare moments: a pedestrian stepping out from behind a truck, a cyclist running a red, a vehicle reversing into traffic. Those moments are a tiny fraction of real footage. Haystack is an agent that finds them, explains them and packages them as labelled training data.</p></div>
+  <div class="ab-stats">
+   <div><b id="abQ">28</b><small>edge-case searches</small></div>
+   <div><b id="abCand">&ndash;</b><small>candidate clips judged</small></div>
+   <div><b id="abEdge">&ndash;</b><small>edge cases found</small></div>
+   <div><b>7</b><small>scenario categories</small></div></div>
+ </div>
+
+ <h2 class="ab-h">The pipeline</h2>
+ <div class="flow">
+  <div class="fstep"><span class="k">1</span><b>Index</b><p>Footage stored on VAST is processed by the VSS pipeline: YOLO11 object detection, NVIDIA Cosmos-Reason2 scene descriptions, and Cosmos-Embed1 vectors stored in VastDB.</p></div>
+  <div class="fstep"><span class="k">2</span><b>Search</b><p>Haystack runs 28 targeted semantic searches across 7 edge-case categories, plus any question you type, to pull a shortlist of candidate clips.</p></div>
+  <div class="fstep"><span class="k">3</span><b>Judge</b><p>An LLM on W&amp;B Inference reviews each candidate with the clips before and after it and the detector's motion signal, then decides whether it is a genuine edge case and why.</p></div>
+  <div class="fstep"><span class="k">4</span><b>Score</b><p>Every edge case gets a value out of 10, combining how rare and dangerous it is, how hard it is for an autonomous stack, motion in the car's path, and category rarity.</p></div>
+  <div class="fstep"><span class="k">5</span><b>Review</b><p>A person confirms or rejects each clip with one key press. Those verdicts measure the judge's accuracy and decide what goes into the dataset.</p></div>
+  <div class="fstep"><span class="k">6</span><b>Export</b><p>Clips, per-frame boxes, COCO annotations, a train/val split and a dataset card are packaged into a zip and versioned as a W&amp;B artifact.</p></div>
+ </div>
+
+ <h2 class="ab-h">Using the site</h2>
+ <div class="guide">
+  <a class="gcard" href="#/ask"><b>Search</b><p>Ask for a scenario in plain English, for example &ldquo;cyclist running a red light&rdquo;. Haystack searches the index, judges the matches and shows which ones are real edge cases. Use <kbd>&uarr;</kbd> <kbd>&darr;</kbd> to step through results.</p></a>
+  <a class="gcard" href="#/live"><b>Live agent</b><p>Press <em>Go live</em> and the agent works through unchecked footage camera by camera, like a safety monitor. Routine scenes are skipped; edge cases are added to the library and announced in the corner. It runs until you press <em>Pause</em>.</p></a>
+  <a class="gcard" href="#/library"><b>Needles</b><p>Every edge case found so far, filterable by category, with the video, object boxes and the judge's explanation. Review with <kbd>Y</kbd> (correct) and <kbd>N</kbd> (wrong), and move with <kbd>J</kbd> <kbd>K</kbd>.</p></a>
+  <a class="gcard" href="#/dataset"><b>Dataset</b><p>Coverage by category and the export. Choose a minimum value, a category, whether to include video, and whether to keep only human-confirmed clips. Clips a person rejected are always left out.</p></a>
+ </div>
+
+ <div class="grid2" style="margin-top:28px"><div class="card"><h3 style="margin-top:0">What the value score means</h3>
   <p class="sm mut">How useful a clip is as training data, out of 10.</p>
-  <table><tr><th>Signal</th><th>From</th><th>Weight</th></tr>
+  <table><tr><th>Signal</th><th>Source</th><th>Weight</th></tr>
   <tr><td>Edge-case score</td><td>AI judge: how rare and dangerous</td><td>55%</td></tr><tr><td>AV difficulty</td><td>AI judge: how hard for a self-driving car</td><td>20%</td></tr>
-  <tr><td>Motion</td><td>YOLO boxes: road users growing fast in the car's path</td><td>15%</td></tr><tr><td>Category rarity</td><td>Fewer examples in the dataset = more valuable</td><td>10%</td></tr></table>
-  <p class="sm">A clip counts as a needle when the judge says it's an edge case, it isn't routine, and its edge-case score is 5 or more.</p>
+  <tr><td>Motion</td><td>YOLO boxes: road users growing fast in the car's path</td><td>15%</td></tr><tr><td>Category rarity</td><td>Fewer examples in the dataset means more valuable</td><td>10%</td></tr></table>
+  <p class="sm">A clip counts as a needle when the judge marks it as an edge case with an edge-case score of 5 or more.</p>
   <div class="legend"><span><i style="border-color:var(--red)"></i>Pedestrian or cyclist in the car's path</span><span><i style="border-color:var(--amb)"></i>Vehicle in the path</span><span><i style="border-color:#2f9e44"></i>Other road user</span></div></div>
- <div class="card"><h3 style="margin-top:0">Sponsor tools</h3><table>
+ <div class="card"><h3 style="margin-top:0">Built with</h3><table>
   <tr><td><b>VAST Data</b></td><td>S3 video storage, DataEngine ingest, VastDB vector search</td></tr>
-  <tr><td><b>NVIDIA</b></td><td>Cosmos-Reason2 descriptions, Cosmos-Embed1 search, YOLO detections</td></tr>
+  <tr><td><b>NVIDIA</b></td><td>Cosmos-Reason2 scene descriptions, Cosmos-Embed1 search</td></tr>
   <tr><td><b>Weights &amp; Biases</b></td><td>Inference for the judge, Weave traces of every judgement, dataset artifacts</td></tr>
-  <tr><td><b>CoreWeave</b></td><td>GPU cloud hosting the models and W&amp;B (forge.coreweave.com)</td></tr>
+  <tr><td><b>CoreWeave</b></td><td>GPU cloud hosting the models and W&amp;B</td></tr>
   <tr><td><b>Cursor</b></td><td>Built in Cursor over Remote-SSH to the lab VM</td></tr></table></div></div>
 </div></section>
 <div id="toast"></div>
@@ -326,5 +364,7 @@ $("goLive").onclick=()=>{if(LS)return stopLive();
  LS.onerror=()=>{$("lverdict").textContent="Reconnecting…"}};
 $("rstAcc").onclick=async()=>{if(!confirm("Reset judge accuracy? This clears all ✓/✗ reviews."))return;
  EV=await fetch("/api/review/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());header();route()};
-load().then(route);
+function fillAbout(){if(typeof D=="undefined"||!D||!D.funnel)return;$("abCand").textContent=D.funnel.candidates??"–";$("abEdge").textContent=D.clips.filter(x=>x.is_edge_case).length;if(D.funnel.searched_queries)$("abQ").textContent=D.funnel.searched_queries}
+window.addEventListener("hashchange",fillAbout);
+load().then(()=>{route();fillAbout()});
 </script></body></html>
