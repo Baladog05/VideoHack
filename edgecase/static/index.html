@@ -322,7 +322,6 @@ $("goLive").onclick=()=>{if(LS)return stopLive();
    else{$("lverdict").className="lverdict routine";$("lverdict").innerHTML=`<b>Routine, skipping.</b> ${esc(e.reason).slice(0,180)}`}}
   if(e.type=="stopped"){if(LS){LS.close();LS=null}$("goLive").textContent="▶ Go live";$("lbadge").style.display="none";$("lverdict").className="lverdict";$("lverdict").textContent="Paused (the agent was started in another tab or stopped). Press Go live to carry on."}
   if(e.type=="error"){$("lverdict").textContent="Feed error: "+e.message}};
- window.addEventListener("hashchange",()=>{if(LS&&location.hash!="#/live")stopLive()});
  LS.onerror=()=>{$("lverdict").textContent="Reconnecting…"}};
 $("rstAcc").onclick=async()=>{if(!confirm("Reset judge accuracy? This clears all ✓/✗ reviews."))return;
  EV=await fetch("/api/review/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());header();route()};
