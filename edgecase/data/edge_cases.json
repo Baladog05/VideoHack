@@ -27,7 +27,7 @@
   "indexed_segments": null,
   "searched_queries": 28,
   "candidates": 184,
-  "edge_cases": 39
+  "edge_cases": 42
  },
  "runtime_sec": 147.7,
  "clips": [
@@ -138,6 +138,58 @@
    "added_by": "ask"
   },
   {
+   "id": "b8fca7e62ea2",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_065510_VID_20261006_171812_002_chunk_0025_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_065510_VID_20261006_171812_002_chunk_0025.mp4",
+   "boxes_id": "b8fca7e62ea2",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 10.0,
+   "segment_end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.346,
+   "object_counts": "{\"car\": 5, \"person\": 12, \"traffic light\": 3, \"backpack\": 2, \"truck\": 3, \"bicycle\": 2, \"handbag\": 2}",
+   "description": "A man in a green striped shirt and beige pants stands near orange traffic cones and red barriers on a city street corner. Pedestrians are visible on the sidewalks, some waiting at the crosswalk. A black SUV drives through the intersection, followed by a white van with \"AFGO\" branding and a ladder on its roof. A white sedan also passes through the intersection. Traffic lights are visible, showing red for vehicles. Street signs indicate \"Walker St\" and \"401.\" A white utility truck is parked on the right side of the frame. The scene captures typical urban traffic flow and pedestrian activity.",
+   "matched_queries": [
+    "traffic cones and roadworks"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 4.375,
+   "motion_reasons": [
+    "vehicle in path, up to 11.4% of frame, grew 1.6x",
+    "pedestrian in path, up to 3.5% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 8,
+   "difficulty": 7,
+   "title": "Vehicles run red light at intersection",
+   "explanation": "Multiple vehicles drive through the intersection while the traffic light is red for vehicles, with pedestrians nearby; this is a red-light violation that an autonomous vehicle must detect and respond to.",
+   "actors": [
+    "black SUV",
+    "white van",
+    "white sedan",
+    "pedestrians"
+   ],
+   "conditions": [
+    "urban intersection",
+    "red light for vehicles"
+   ],
+   "label_tags": [
+    "red_light_running",
+    "intersection",
+    "vehicle_violation",
+    "pedestrian_present",
+    "urban_traffic"
+   ],
+   "motion_score": 7,
+   "rarity_score": 9.3,
+   "value": 7.8,
+   "added_by": "ask"
+  },
+  {
    "id": "0828405f1687",
    "source": "s3://team-39-vss-chunks-segments/segments/20261001_095126_sf2_chunk_0000_segment_001_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261001_095126_sf2_chunk_0000.mp4",
@@ -189,6 +241,115 @@
    "motion_score": 10,
    "rarity_score": 7.3,
    "value": 7.5
+  },
+  {
+   "id": "9539e0a3e245",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_065905_VID_20261006_174811_003_chunk_0003_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_065905_VID_20261006_174811_003_chunk_0003.mp4",
+   "boxes_id": "9539e0a3e245",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.357,
+   "object_counts": "{\"truck\": 3, \"car\": 4, \"person\": 12, \"motorcycle\": 2, \"clock\": 1, \"chair\": 2, \"handbag\": 1, \"backpack\": 1, \"bicycle\": 2, \"traffic light\": 1}",
+   "description": "A person in a green striped shirt and a patterned hat stands near orange traffic cones and a red barrier on a city street. A large white truck with the word \"reade\" on its side is parked on the left side of the frame. A black car is stopped in the middle of the intersection, and a silver car is parked on the right side. A person in a blue jacket rides a motorcycle across the intersection. A pedestrian in a yellow jacket and blue jeans walks across the street in front of the camera. Another person in a dark jacket and light pants walks toward the black car. A traffic light pole with a pedestrian signal is visible on the right side of the frame. A street sign reading \"Walker St\" is attached to the pole. A white truck with a large cab is parked on the far right side of the frame. A person in a plaid shirt walks past the camera in the foreground. A person in a dark jacket and light pants walks toward the black car. A person in a dark jacket and light pants walks toward the black car. A person in a dark jacket...",
+   "matched_queries": [
+    "traffic cones and roadworks"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 10.988,
+   "motion_reasons": [
+    "pedestrian in path, up to 10.8% of frame, grew 3.3x",
+    "vehicle in path, up to 4.9% of frame",
+    "cyclist in path, up to 2.8% of frame, grew 2.0x"
+   ],
+   "is_edge_case": true,
+   "category": "occluded_pedestrian",
+   "edge_score": 7,
+   "difficulty": 7,
+   "title": "Pedestrian emerges from behind parked truck",
+   "explanation": "A pedestrian in a yellow jacket crosses in front of the camera, likely emerging from behind a parked delivery truck, while roadwork cones and other pedestrians clutter the intersection. The sudden appearance in the vehicle's path makes it hard for an autonomous system to predict and yield safely.",
+   "actors": [
+    "pedestrian",
+    "delivery truck",
+    "motorcyclist",
+    "car",
+    "worker"
+   ],
+   "conditions": [
+    "daylight",
+    "urban intersection",
+    "roadwork cones",
+    "red barrier"
+   ],
+   "label_tags": [
+    "occluded_pedestrian",
+    "pedestrian_in_path",
+    "work_zone",
+    "urban_intersection",
+    "delivery_truck",
+    "sudden_appearance"
+   ],
+   "motion_score": 10,
+   "rarity_score": 7.3,
+   "value": 7.5,
+   "added_by": "ask"
+  },
+  {
+   "id": "80ae4fe3a470",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_064731_VID_20261006_171812_002_chunk_0007_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_064731_VID_20261006_171812_002_chunk_0007.mp4",
+   "boxes_id": "80ae4fe3a470",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 0.0,
+   "segment_end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.34,
+   "object_counts": "{\"car\": 3, \"person\": 12, \"clock\": 1, \"truck\": 2, \"bicycle\": 1, \"traffic light\": 1, \"handbag\": 1}",
+   "description": "A man in a green striped shirt and a patterned hat walks across a crosswalk in a city street, carrying an orange traffic cone. He moves from left to right, passing a red plastic construction barrier and orange traffic cones placed on the road. A gray minivan drives past him from left to right, while a red SUV is parked on the street near a building with a storefront labeled \"UNIFORM.\" Pedestrians are visible on the sidewalk, some standing near a white utility truck and others walking or waiting at the crosswalk. A traffic light is visible, showing a red signal for vehicles. The street is marked with white crosswalk lines and has a \"ONE WAY\" sign. A clock is visible on the building facade. The scene includes various street furniture such as mailboxes, a bicycle parked on the sidewalk, and a pedestrian crossing signal.",
+   "matched_queries": [
+    "traffic cones and roadworks"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 4.279,
+   "motion_reasons": [
+    "pedestrian in path, up to 3.3% of frame",
+    "vehicle in path, up to 6.0% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 7,
+   "difficulty": 8,
+   "title": "Minivan runs red light as worker crosses",
+   "explanation": "A construction worker carrying a traffic cone crosses the crosswalk on a red vehicle signal while a minivan drives through, violating the signal. The ego vehicle must detect the red-light runner and yield to the pedestrian, complicated by the unusual cone and construction zone.",
+   "actors": [
+    "pedestrian",
+    "minivan"
+   ],
+   "conditions": [
+    "urban",
+    "daylight",
+    "red_light",
+    "construction_zone"
+   ],
+   "label_tags": [
+    "red_light_running",
+    "pedestrian_in_crosswalk",
+    "construction_worker",
+    "traffic_cone",
+    "vehicle_violation"
+   ],
+   "motion_score": 7,
+   "rarity_score": 9.3,
+   "value": 7.4,
+   "added_by": "ask"
   },
   {
    "id": "7f665a560ade",

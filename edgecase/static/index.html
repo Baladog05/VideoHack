@@ -266,8 +266,14 @@ function toast(html,col){const t=document.createElement("div");t.className="toas
 $("liveBtn").onclick=()=>{if(es){es.close();es=null;$("liveBtn").classList.remove("on");$("liveTxt").textContent="Live agent";$("livebar").style.display="none";return}
   es=new EventSource("/api/watch");$("liveBtn").classList.add("on");$("liveTxt").textContent="Live agent on";const lb=$("livebar");lb.style.display="block";lb.textContent="Starting…";let found=0;
   es.onmessage=async m=>{const e=JSON.parse(m.data);
-   if(e.type=="scan")lb.textContent=`Scanning: ${e.queries[0]}… · ${found} found`;
-   if(e.type=="judged")lb.textContent=`Checked: ${e.title} · ${found} found`;
+   const st=e.stats?` · ${e.stats.judged} checked · ${e.stats.found} found`:` · ${found} found`;
+   if(e.type=="start")lb.textContent=`Live agent started · already knows ${e.known} clips · ${e.hunts} hunts`;
+   if(e.type=="scan")lb.textContent=`Hunting: “${e.query}”${e.depth?` (digging deeper, past top ${e.depth})`:""}${st}`;
+   if(e.type=="dry")lb.textContent=`Nothing new for “${e.query}”, moving on${st}`;
+   if(e.type=="think")lb.textContent=`Thinking up new things to hunt for…${st}`;
+   if(e.type=="new_hunt")toast(`<b>New hunt</b><br>${esc(e.query)}`,"#c9c2ad");
+   if(e.type=="judged")lb.textContent=`${e.hit?"✓ Edge case":"✗ Not an edge case"}: ${e.title} (${e.edge_score??"–"})${st}`;
+   if(e.type=="error")lb.textContent=`Search hiccup, retrying${st}`;
    if(e.type=="found"){found++;const c=e.clip;newIds.add(c.id);await load();
     const t=toast(`<b>New edge case</b><br>${esc(c.title)}<br><button class="y" style="margin-top:8px">View</button>`);
     t.querySelector("button").onclick=()=>{location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==c.id));renderLib(true);mark()},50)};
