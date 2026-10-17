@@ -1,92 +1,165 @@
-# Haystack 🪡
+<div align="center">
 
-**Find the needle in your driving footage.**
+# 🪡 Haystack
 
-> Self-driving cars don't crash on the boring 99%. They crash on the weird 1%.
-> Finding that 1% in petabytes of footage is the bottleneck. Haystack finds it.
+### Find the needle in your driving footage
 
-Haystack is a real-time video agent built for the **VAST Builders Challenge (Video Agents)**. It searches indexed street
-and dashcam footage for rare driving moments, such as a pedestrian hidden behind a bus, a cyclist running a red, a double-parked
-truck, an emergency vehicle or a near miss. An AI judge explains why each moment is hard for a self-driving car, and the
-agent acts on what it finds: it adds confirmed edge cases to a labelled dataset and exports it as a versioned training set.
+**An autonomous video agent that mines rare, safety-critical driving moments from raw street footage<br>and packages them as labelled, versioned training data for self-driving teams.**
 
-**Demo video:** _add link here_ · **Team 39:** Aadeeb Khan (@lifeageometer), @Baladog05, _add teammates_
+`VAST Builders Challenge: Video Agents` · `Team 39` · `London 2026`
 
-![Haystack screenshot](docs/screenshot.png)
+![Haystack: the Needles view, showing a mined edge case with detector boxes, judge explanation and value score](docs/needles.png)
 
-## Try it in 60 seconds
+</div>
 
-1. On the lab VM: `cd edgecase && ../.venv/bin/python server.py`. Plain `python3 server.py` also works, but without Weave tracing.
-2. From your laptop: `ssh -N -L 8080:localhost:8080 bc-<username>`, then open http://localhost:8080.
-3. Type a scenario into **Ask the footage** (e.g. "cyclist running a red light"), click **Start live agent**, then export from **Dataset**.
+---
 
-## What it does
+## The problem
 
-| Screen | What happens |
+Self-driving systems don't fail on the routine 99% of driving. They fail on the rare 1%: a pedestrian stepping out from behind a bus, a cyclist riding the wrong way, a lorry double-parked across a lane. Fleets record petabytes of footage, but finding those few seconds by hand is slow and expensive, and that is now the bottleneck for training safer models.
+
+## What Haystack does
+
+Haystack watches the footage for you. It searches every indexed clip for risky scenarios, has an AI judge explain why each moment is hard for an autonomous vehicle, scores how valuable that clip is as training data, and adds the confirmed ones to a dataset you can review and export.
+
+| | |
 |---|---|
-| **Ask the footage** | Free-text search over every indexed clip (Cosmos-Embed1 vectors in VastDB). Each hit is judged live by the LLM and streamed in as it's scored. One click adds it to the dataset. |
-| **Live agent** | Keeps cycling through 28 edge-case searches. It judges every clip it hasn't seen, auto-adds anything with edge-case score ≥ 7, and raises an alert. |
-| **Needles** | The mined dataset. Filter by category, sort, play each clip with the detector boxes drawn on top, and mark the judge ✓ correct or ✗ wrong (keys `Y`/`N`). |
-| **Dataset** | Coverage per category, highlighting thin categories, and export to a zip plus a W&B artifact. |
+| **Input** | 612 street and dashcam videos from 11 road cameras, split into 3,537 five-second clips and indexed by the VAST Video Search Service |
+| **Output** | A curated dataset of edge cases, each with category, plain-English explanation, scores, scene description and per-frame bounding boxes |
+| **First mining run** | 3,537 clips → 184 candidates → 38 needles. The live agent and search keep adding more (72 at the time of writing) |
+
+## How it works
 
 ```mermaid
 flowchart LR
-  A[Street video on VAST S3] --> B[VSS: YOLO + NVIDIA Cosmos-Reason2 + Cosmos-Embed1 → VastDB]
-  B --> C[Search: 28 edge-case queries, Ask box, live agent]
-  C --> D[Judge: LLM on W&B Inference + clips before/after + detector motion]
-  D --> E[Value score]
-  E --> F[Human review ✓/✗ → precision]
-  E --> G[Export: clips + per-frame labels + dataset card → W&B artifact]
+  A["🎥 Street video<br/>VAST S3"] --> B["🧠 Index<br/>YOLO · Cosmos-Reason2 · Cosmos-Embed1<br/>→ VastDB"]
+  B --> C["🔎 Search<br/>28 edge-case queries,<br/>free text, live agent"]
+  C --> D["⚖️ Judge<br/>LLM on W&B Inference<br/>+ neighbouring clips + motion"]
+  D --> E["📊 Value score"]
+  E --> F["✅ Human review"]
+  F --> G["📦 Export<br/>labels · boxes · splits<br/>→ W&B artifact"]
 ```
 
-## Sponsor tools used
+1. **Index.** VAST's pipeline runs YOLO detection, NVIDIA Cosmos-Reason2 scene descriptions and Cosmos-Embed1 embeddings over every clip, and stores them in VastDB.
+2. **Search.** 28 targeted queries across 7 edge-case categories retrieve candidate clips by vector similarity.
+3. **Judge.** An LLM reads the scene description, the clips just before and after, and detector motion, then decides whether the moment is a genuine edge case and explains why.
+4. **Score.** Each clip gets a 0–10 value score so the most useful training examples rise to the top.
+5. **Review.** People mark the judge right or wrong, which gives a live precision figure and keeps bad labels out of the export.
+6. **Export.** Selected clips become a versioned dataset with labels, boxes and a dataset card, logged to Weights & Biases.
 
-| Sponsor | What we actually use |
+## The app
+
+| View | What it's for |
 |---|---|
-| **VAST Data** | S3 video storage, the DataEngine ingest pipeline, and VastDB vector search via the VSS API (`/api/v1/search`, `/videos/detections`, `/videos/stream`, re-ingest) |
-| **NVIDIA** | Cosmos-Reason2 scene descriptions (the judge's main evidence), Cosmos-Embed1 search embeddings, YOLO detections for the motion score and the overlay |
-| **Weights & Biases** | W&B Inference serves the judge (`DeepSeek-V4.1-Flash`), Weave traces every judge call, and exports are logged as `edge-case-dataset` artifacts |
-| **CoreWeave** | The GPUs serving the lab models, and the W&B instance we log to (forge.coreweave.com) |
-| **Cursor** | All development in Cursor over Remote-SSH to the lab VM |
+| **Search** | Describe a scenario in plain English ("cyclist running a red light"). Results stream in as each clip is judged, and one click adds a clip to the dataset. |
+| **Live agent** | Works through unchecked clips across all cameras like a safety operator watching live feeds. Quiet scenes are triaged out cheaply, the rest go to the judge, and anything scoring 6+ is added automatically with an on-screen alert. |
+| **Needles** | The mined dataset. Filter by category, play each clip with detector boxes overlaid, and mark the judge ✓ or ✗ (keys `Y` / `N`). |
+| **Dataset** | Coverage per category, a gallery tab of every clip the current export settings select, and a one-click demo reset. |
+| **How it works** | Live pipeline stats and a guide to the site. |
+
+Box colours: **red** is a pedestrian or cyclist in the vehicle's path, **amber** is a vehicle in the path, **green** is any other road user.
+
+![Dataset view with category coverage and export settings](docs/dataset.png)
+
+## Edge-case taxonomy
+
+| Category | Example |
+|---|---|
+| Occluded pedestrian / jaywalker | Pedestrian hidden by a turning bus |
+| Cyclist / scooter rule violation | Wrong-way cyclist in the vehicle's path |
+| Blocked lane / double-parked vehicle | Delivery truck stopped across a lane |
+| Unexpected vehicle manoeuvre | Car running a red light at a junction |
+| Emergency / special vehicle | Ambulance or fire engine approaching |
+| Road anomaly / odd object | Debris, roadworks or an unusual obstacle |
+| Near miss / close call | Two road users narrowly avoiding contact |
 
 ## Scoring
 
-**Value (0–10)** = 55% edge-case score (judge) + 20% AV difficulty (judge) + 15% motion (YOLO: how big and fast road users
-grow in the vehicle's path, as a percentile) + 10% category rarity (fewer confirmed examples = more valuable).
-A clip is a **needle** when the judge says it's an edge case, the category isn't `routine`, and its edge-case score is at least 5.
-Box colours: red = pedestrian or cyclist in the vehicle's path, amber = vehicle in the path, green = other.
+$$
+\text{value} = 0.55 \cdot \text{edge score} + 0.20 \cdot \text{AV difficulty} + 0.15 \cdot \text{motion} + 0.10 \cdot \text{rarity}
+$$
 
-## Inputs and outputs
+- **Edge score** and **AV difficulty** come from the judge.
+- **Motion** is a percentile from YOLO tracks: how large and how fast road users grow in the vehicle's path.
+- **Rarity** rewards categories with fewer confirmed examples, so the dataset stays balanced.
 
-- **Input:** the team's VSS index (612 videos, 3,537 five-second clips) with Cosmos descriptions, embeddings and YOLO detections.
-- **`data/edge_cases.json`:** every candidate with category, title, explanation, tags, actors, conditions and scores.
-- **Export** (`datasets/<name>/`): `labels/<id>.json` (category, tags, scores, scene description, per-frame normalised boxes
-  with an in-path flag), `manifest.jsonl`, `DATASET_CARD.md`, optional `clips/<id>.mp4`, and a zip logged to W&B.
+A clip counts as a **needle** when the judge calls it an edge case, its category isn't `routine`, and its edge score is at least 5.
 
-## Evaluation
+## Dataset export
 
-- **Judge precision:** reviewers mark clips ✓ or ✗ in the app, and `python3 evaluate.py` writes `data/eval.json` with precision on
-  accepted clips, the false-reject rate on reviewed rejected clips, and per-category precision. The header shows the live number.
-  _Result: X% precision on N human-checked clips (fill in after review)._
-- **Traceability:** every judge call is a Weave trace ([team-39 Weave project](https://wandb.ai/vastdata/team-39/weave)), and every
-  label keeps the raw scene description and the searches that found it.
-- **Funnel:** 3,537 clips → 184 candidates → 38 needles from the batch run. The rest of the footage is filtered out as routine.
+Each export (`edgecase/datasets/<name>/`) is a ready-to-train package:
 
-## Run the batch miner
+- `labels/<id>.json` with category, tags, scores, scene description and per-frame normalised boxes flagged as in-path or not
+- `annotations_coco.json` with the boxes in COCO format
+- `splits/train.txt` and `splits/val.txt`, holding out whole cameras for validation (about 20%) so the model is tested on scenes it hasn't seen
+- `manifest.jsonl`, `DATASET_CARD.md` and a `preview.jpg` contact sheet
+- optional `clips/<id>.mp4`, all zipped and logged to W&B as a versioned `edge-case-dataset` artifact
+
+Clips a reviewer marked ✗ are always left out, and `--only-confirmed` keeps only clips a person has checked.
+
+## Built with
+
+| Partner | How Haystack uses it |
+|---|---|
+| **VAST Data** | S3 video storage, the DataEngine ingest pipeline, and VastDB vector search through the VSS API |
+| **NVIDIA** | Cosmos-Reason2 scene descriptions (the judge's main evidence), Cosmos-Embed1 search embeddings, and YOLO detections for motion and box overlays |
+| **Weights & Biases** | W&B Inference serves the judge (DeepSeek-V4.1-Flash), Weave traces every judge call, and exports are logged as artifacts |
+| **CoreWeave** | GPUs serving the lab models, and the W&B instance at forge.coreweave.com |
+| **Cursor** | All development, over Remote-SSH to the lab VM |
+
+## Quick start
+
+```bash
+# On the lab VM
+cd edgecase
+../.venv/bin/python server.py        # plain python3 also works, without Weave tracing
+
+# On your laptop
+ssh -N -L 8080:localhost:8080 bc-<username>
+open http://localhost:8080
+```
+
+The app and miner use only the Python standard library. Weave tracing and W&B artifacts need the repo venv:
+
+```bash
+uv venv .venv && uv pip install --python .venv/bin/python wandb weave
+```
+
+Credentials are read from the VM's team config (`/config/*.config`) and are never stored in the repo.
+
+## Command line
 
 ```bash
 cd edgecase
-python3 miner.py                  # 28 searches x 11 road cameras, judge, score -> data/edge_cases.json (~4 min)
-python3 export.py --min-value 6   # CLI export; add --no-video to skip clip downloads
-python3 reindex.py <stream_id> 10 near_miss   # gap filling: re-index a stream with a category-focused Cosmos prompt (changes the shared index!)
+python3 miner.py                          # batch mining: 28 searches × 11 cameras → data/edge_cases.json (~4 min)
+python3 export.py --min-value 6           # build a dataset; add --no-video, --only-confirmed, --categories
+python3 evaluate.py                       # judge precision from human reviews → data/eval.json
+python3 reindex.py <stream_id> 10 near_miss   # re-index a stream with a category-focused prompt (changes the shared index)
 ```
 
-Mining and the app use only the Python standard library. Weave and W&B artifacts need the repo venv:
-`uv venv .venv && uv pip install --python .venv/bin/python wandb weave`. Credentials are read from the VM team config
-(`/config/*.config`) and are never stored in the repo.
+## Evaluation and traceability
 
-## Files
+- **Judge precision.** Every ✓ / ✗ review feeds `evaluate.py`, which reports precision on accepted clips, the false-reject rate on rejected ones, and a per-category breakdown. The live figure appears in the app header.
+- **Full trace.** Every judge call is recorded in Weave ([team-39 project](https://wandb.ai/vastdata/team-39/weave)), and every label keeps the raw scene description and the searches that found it.
 
-`edgecase/server.py` web app and API · `static/index.html` UI · `ask.py` live search and judging · `watch.py` live agent ·
-`miner.py` batch mining · `motion.py` detector motion · `taxonomy.py` categories and searches · `evaluate.py` judge precision ·
-`export.py` + `wandb_log.py` dataset export · `reindex.py` gap filling · `vss.py` API, LLM and Weave helpers.
+## Repository layout
+
+```
+edgecase/
+├── server.py        web app and API
+├── static/          index.html (app) and gallery.html (selected-clips tab)
+├── live.py          live agent: triage, judge, auto-add
+├── ask.py           free-text search with live judging
+├── miner.py         batch mining and value scoring
+├── motion.py        detector-based motion score
+├── taxonomy.py      categories, queries and cameras
+├── evaluate.py      judge precision from human reviews
+├── export.py        dataset export (labels, COCO, splits, preview)
+├── wandb_log.py     W&B artifact logging
+├── reindex.py       category-focused re-indexing
+└── vss.py           VSS API, LLM and Weave helpers
+```
+
+## Team
+
+Team 39 at the VAST Builders Challenge, London: Aadeeb Khan ([@lifeageometer](https://github.com/lifeageometer)) and [@Baladog05](https://github.com/Baladog05).
