@@ -27,7 +27,7 @@
   "indexed_segments": null,
   "searched_queries": 28,
   "candidates": 184,
-  "edge_cases": 50
+  "edge_cases": 54
  },
  "runtime_sec": 147.7,
  "clips": [
@@ -630,6 +630,72 @@
    "value": 7.3
   },
   {
+   "id": "433600208c7c",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_064433_VID_20261006_171812_002_chunk_0000_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_064433_VID_20261006_171812_002_chunk_0000.mp4",
+   "boxes_id": "433600208c7c",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 20.0,
+   "segment_end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0,
+   "object_counts": {
+    "bus": 1,
+    "person": 9,
+    "car": 5,
+    "truck": 2,
+    "traffic light": 1,
+    "clock": 1,
+    "bicycle": 1,
+    "backpack": 1
+   },
+   "description": "A red Toyota pickup truck with a white roof drives through an intersection in New York City. The truck has a visible license plate and a driver inside. Behind it, a white bus with blue stripes and an American flag on its side is partially visible. A yellow taxi is stopped at the intersection, and a white utility truck is parked on the right side of the street. Pedestrians are crossing the street, including a person in a green striped shirt carrying an orange flag and another person in a dark jacket walking across the crosswalk. A traffic light is visible on a pole, showing a red signal for vehicles. A street sign reading \"Walker St\" is mounted on the same pole. The buildings in the background have large windows and storefronts, one of which displays the number \"401\" above the entrance. A few people are standing near the storefronts, and a bicycle is parked on the sidewalk. The scene captures typical urban traffic and pedestrian activity.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 5.407,
+   "motion_reasons": [
+    "vehicle in path, up to 38.3% of frame",
+    "pedestrian in path, up to 4.1% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 7,
+   "difficulty": 8,
+   "title": "Pickup runs red as pedestrians cross",
+   "explanation": "A red pickup drives through an intersection while the traffic signal is red and pedestrians, including a crossing guard with an orange flag, are in the crosswalk. The AV must detect the red light, predict the violating vehicle, and protect vulnerable road users.",
+   "actors": [
+    "red Toyota pickup truck",
+    "pedestrians",
+    "crossing guard with orange flag",
+    "bus",
+    "taxi",
+    "utility truck"
+   ],
+   "conditions": [
+    "urban intersection",
+    "daytime",
+    "red traffic signal",
+    "crosswalk"
+   ],
+   "label_tags": [
+    "red_light_running",
+    "pedestrian_crossing",
+    "crossing_guard",
+    "intersection",
+    "vehicle_in_path",
+    "urban"
+   ],
+   "motion_score": 8,
+   "rarity_score": 5.3,
+   "value": 7.2,
+   "added_by": "ask"
+  },
+  {
    "id": "04615bd8d1c1",
    "source": "s3://team-39-vss-chunks-segments/segments/reingest/f29b3aeaf33c49fea5d3a51ba03b1201/20261001_072039_set06_video_chunk_0024_segment_001_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261001_072039_set06_video_chunk_0024.mp4",
@@ -843,6 +909,69 @@
    "motion_score": 8,
    "rarity_score": 0.7,
    "value": 6.7
+  },
+  {
+   "id": "bbf0dacf844b",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_094101_sf1_chunk_0000_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_094101_sf1_chunk_0000.mp4",
+   "boxes_id": "bbf0dacf844b",
+   "camera_id": "sf_streets_cam-1",
+   "location": "san_francisco",
+   "segment_start_sec": 20.0,
+   "segment_end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0,
+   "object_counts": {
+    "person": 8,
+    "car": 7,
+    "handbag": 3,
+    "bicycle": 1,
+    "parking meter": 2,
+    "traffic light": 2,
+    "motorcycle": 1,
+    "bench": 1,
+    "backpack": 1
+   },
+   "description": "A person wearing a backpack is walking on the sidewalk near a blue mailbox. Another person is standing near the mailbox, facing away from the camera. A third person is walking across the street, moving from left to right. A fourth person is walking on the sidewalk, moving from right to left. A fifth person is walking on the sidewalk, moving from left to right. A sixth person is walking on the sidewalk, moving from right to left. A seventh person is walking on the sidewalk, moving from left to right. A handbag is being carried by one of the pedestrians. A bicycle is parked on the sidewalk near the blue mailbox. A motorcycle is parked on the sidewalk near the blue mailbox. A parking meter is located on the sidewalk near the blue mailbox. A bench is located on the sidewalk near the blue mailbox. A traffic light is located at the intersection, showing a red light for the crosswalk. A car is driving through the intersection, moving from left to right. A car is driving through the intersection, moving from right...",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 12.054,
+   "motion_reasons": [
+    "vehicle in path, up to 5.3% of frame, grew 2.6x",
+    "cyclist in path, up to 2.5% of frame",
+    "pedestrian in path, up to 3.6% of frame, grew 6.0x"
+   ],
+   "is_edge_case": true,
+   "category": "vru_violation",
+   "edge_score": 6,
+   "difficulty": 7,
+   "title": "Pedestrian crosses against red signal",
+   "explanation": "A pedestrian walks across the street against a red pedestrian signal while vehicles are moving through the intersection. An autonomous vehicle must detect this unexpected crossing and yield safely without disrupting traffic.",
+   "actors": [
+    "pedestrian",
+    "vehicles"
+   ],
+   "conditions": [
+    "clear",
+    "daytime",
+    "urban intersection"
+   ],
+   "label_tags": [
+    "pedestrian_violation",
+    "red_light",
+    "jaywalking",
+    "intersection",
+    "vru",
+    "yielding"
+   ],
+   "motion_score": 10,
+   "rarity_score": 4.7,
+   "value": 6.7,
+   "added_by": "ask"
   },
   {
    "id": "5676a7f7c484",
@@ -1490,6 +1619,63 @@
    "value": 6.1
   },
   {
+   "id": "e0dbd5e333ac",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_100703_sf4_chunk_0000_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_100703_sf4_chunk_0000.mp4",
+   "boxes_id": "e0dbd5e333ac",
+   "camera_id": "sf_streets_cam-4",
+   "location": "san_francisco",
+   "segment_start_sec": 20.0,
+   "segment_end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 7,
+    "traffic light": 2,
+    "person": 7,
+    "bicycle": 1,
+    "motorcycle": 1
+   },
+   "description": "A person wearing a white helmet, a white top, and dark pants rides a bicycle across the intersection from right to left. The cyclist moves steadily through the crosswalk, passing in front of the camera's view. The traffic light facing the cyclist is red, yet the cyclist proceeds through the intersection, potentially violating traffic rules. In the background, several cars are visible, including a white sedan and a dark-colored SUV, both stopped at the intersection. Pedestrians are seen waiting at the crosswalk on the left side of the frame, near a building with a curved facade. The scene is set in an urban environment with multiple lanes, crosswalks, and overhead wires. The cyclist continues moving leftward, exiting the frame after passing the camera's position.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 4.001,
+   "motion_reasons": [
+    "nobody in the vehicle's path"
+   ],
+   "is_edge_case": true,
+   "category": "vru_violation",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "Cyclist runs red light through crosswalk",
+   "explanation": "A cyclist enters the intersection against a red signal, crossing the crosswalk from right to left while pedestrians wait and cars are stopped. An autonomous vehicle must predict and yield to a red-light-violating cyclist whose path conflicts with its right-of-way.",
+   "actors": [
+    "cyclist",
+    "pedestrians",
+    "stopped cars"
+   ],
+   "conditions": [
+    "urban_intersection",
+    "red_traffic_light",
+    "crosswalk"
+   ],
+   "label_tags": [
+    "vru_violation",
+    "cyclist_red_light",
+    "intersection_conflict",
+    "crosswalk",
+    "red_light_runner"
+   ],
+   "motion_score": 7,
+   "rarity_score": 5.3,
+   "value": 6.1,
+   "added_by": "ask"
+  },
+  {
    "id": "0069ea0da5b8",
    "source": "s3://team-39-vss-chunks-segments/segments/reingest/f29b3aeaf33c49fea5d3a51ba03b1201/20261001_072105_set06_video_chunk_0025_segment_001_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261001_072105_set06_video_chunk_0025.mp4",
@@ -1969,6 +2155,64 @@
    ],
    "motion_score": 2,
    "rarity_score": 6.0,
+   "value": 5.6,
+   "added_by": "ask"
+  },
+  {
+   "id": "386eb182ac02",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_072353_GOPR0130_chunk_0000_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_072353_GOPR0130_chunk_0000.mp4",
+   "boxes_id": "386eb182ac02",
+   "camera_id": "nyc_bike_gopro-1",
+   "location": "new_york",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 2,
+    "truck": 3,
+    "person": 8,
+    "bus": 1
+   },
+   "description": "The scene is captured from a cyclist\u2019s perspective, with the handlebars and rider\u2019s hands visible in the foreground. The cyclist is stopped on a narrow city street. Ahead, a white United States Postal Service (USPS) delivery truck is parked, partially blocking the lane. In front of the truck, an orange construction barrier with graffiti is placed on the road, further obstructing the path. To the right of the barrier, several black trash bags are piled on the sidewalk. On the left side of the street, a silver sedan is parked along the curb. Across the street, a yellow building with a lit sign is visible, and a few pedestrians can be seen near the entrance. Another USPS truck is parked further down the street, near the corner. A pedestrian wearing a dark jacket and light-colored pants walks along the sidewalk on the right side of the frame, moving away from the camera. The road appears to be a one-way or narrow two-way street with no visible traffic lights or road signs in the immediate vicinity. The overall...",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 3.84,
+   "motion_reasons": [
+    "vehicle in path, up to 15.3% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "blocked_lane",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "USPS truck and barrier block narrow lane",
+   "explanation": "A parked USPS delivery truck and an orange construction barrier obstruct the cyclist's lane on a narrow city street, forcing a merge around the obstacle. This is hard for an autonomous vehicle because it must detect a static blockage, judge clearance, and interact with nearby pedestrians and possible oncoming traffic in a tight space.",
+   "actors": [
+    "USPS delivery truck",
+    "construction barrier",
+    "pedestrian",
+    "cyclist"
+   ],
+   "conditions": [
+    "urban street",
+    "narrow lane",
+    "construction zone"
+   ],
+   "label_tags": [
+    "blocked_lane",
+    "double_parked",
+    "construction_barrier",
+    "narrow_street",
+    "delivery_vehicle",
+    "cyclist_pov"
+   ],
+   "motion_score": 7,
+   "rarity_score": 0.7,
    "value": 5.6,
    "added_by": "ask"
   },

@@ -109,6 +109,11 @@ class H(SimpleHTTPRequestHandler):
             from ask import add
             with ADD_LOCK: n = add(self._body()["clip"])
             return self._json({"edge_cases": n})
+        if self.path == "/api/review/reset":
+            rp = os.path.join(HERE, "data", "reviews.jsonl")
+            if os.path.exists(rp): os.replace(rp, rp.replace(".jsonl", f"-{int(time.time())}.jsonl.bak"))   # keep a backup
+            from evaluate import evaluate
+            return self._json(evaluate())
         if self.path == "/api/review":
             b = self._body()
             if b.get("verdict") not in ("correct", "wrong", "clear"): return self._json({"error": "bad verdict"}, 400)

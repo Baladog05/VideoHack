@@ -101,12 +101,13 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{text-align:left
 .lfeed{border-left:1px solid var(--line);overflow:auto;padding:22px 18px;background:#fff}
 .le{padding:9px 10px;border-radius:10px;margin-bottom:6px;font-size:.88rem;color:var(--mut);border:1px solid transparent}
 .le.edge{background:var(--y2);border-color:var(--y);color:var(--text);cursor:pointer;font-weight:600}.le small{display:block;font-weight:400;color:var(--mut)}
+.rst{border:1px solid var(--line);background:#fff;border-radius:50%;width:30px;height:30px;padding:0;font-size:1rem;line-height:1;cursor:pointer;margin-left:6px}.rst:hover{border-color:var(--y)}
 kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:.78rem;background:#fff}
 </style></head><body>
 <nav><a class="logo" href="#/ask"><i><svg width="22" height="22" viewBox="0 0 32 32"><path d="M7 26 L25 7" stroke="#1d1d1b" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="9" r="2.6" fill="none" stroke="#1d1d1b" stroke-width="1.8"/></svg></i>Haystack</a>
 <div class="tabs"><a href="#/ask" data-v="ask">Search</a><a href="#/live" data-v="live"><span class="ldot"></span>Live agent</a><a href="#/library" data-v="library">Needles <span class="n" id="nNeedles">0</span></a>
 <a href="#/dataset" data-v="dataset">Dataset</a><a href="#/about" data-v="about">How it works</a></div>
-<div class="navr"><span class="badge" id="precision" style="display:none"></span>
+<div class="navr"><span class="badge" id="precision" style="display:none"></span><button class="rst" id="rstAcc" title="Reset judge accuracy" style="display:none">↺</button>
 </div></nav>
 
 <section class="view ask" id="v-ask">
@@ -186,7 +187,7 @@ function route(){const v=(location.hash.replace("#/","")||"ask");document.queryS
 window.onhashchange=route;
 async function load(){D=await fetch("/api/clips").then(r=>r.json());EV=await fetch("/api/eval").then(r=>r.json()).catch(()=>({verdicts:{}}));header()}
 function header(){const need=D.clips.filter(c=>c.is_edge_case).length;$("nNeedles").textContent=need;const p=$("precision");
-  if(EV.precision!=null){p.style.display="";p.textContent=`Judge accuracy ${EV.precision}%`;p.title=`${EV.precision_n} clips checked by a person`}else p.style.display="none"}
+  if(EV.precision!=null){p.style.display="";p.textContent=`Judge accuracy ${EV.precision}%`;p.title=`${EV.precision_n} clips checked by a person`}else p.style.display="none";$("rstAcc").style.display=EV.reviewed?"":"none"}
 /* ---------- list + detail (shared) ---------- */
 function itemHTML(c,sel){return `<div class="item ${sel?"sel":""} ${c.is_edge_case?"":"rej"} ${newIds.has(c.id)?"new":""}" data-id="${c.id}">
  <div class="val ${vcls(c.value)}">${c.value}</div><div style="flex:1;min-width:0"><div class="it">${esc(c.title)}</div>
@@ -318,5 +319,7 @@ $("goLive").onclick=()=>{if(LS)return stopLive();
    else{$("lverdict").className="lverdict routine";$("lverdict").innerHTML=`<b>Routine, skipping.</b> ${esc(e.reason).slice(0,180)}`}}
   if(e.type=="error"){$("lverdict").textContent="Feed error: "+e.message}};
  LS.onerror=()=>{$("lverdict").textContent="Reconnecting…"}};
+$("rstAcc").onclick=async()=>{if(!confirm("Reset judge accuracy? This clears all ✓/✗ reviews."))return;
+ EV=await fetch("/api/review/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());header();route()};
 load().then(route);
 </script></body></html>
