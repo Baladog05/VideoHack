@@ -27,7 +27,7 @@ nav{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var
 #livebar{display:none;padding:8px 28px;background:#fff0f0;border-bottom:1px solid #f6c9ca;color:#a4262c;font-size:.92rem}
 /* layout */
 .view{display:none}.view.on{display:block}
-.split{display:grid;grid-template-columns:400px 1fr;height:calc(100vh - 66px - 58px)}.split.three{grid-template-columns:260px 380px 1fr}
+.split{display:grid;grid-template-columns:400px 1fr;height:calc(100vh - 66px)}.split.three{grid-template-columns:260px 380px 1fr}
 .col{overflow:auto;border-right:1px solid var(--line)}
 .side{padding:18px}.side h4{margin:18px 0 8px;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}.side h4:first-child{margin-top:0}
 .cat{display:flex;justify-content:space-between;padding:7px 10px;border-radius:9px;cursor:pointer;font-size:.95rem}.cat:hover{background:var(--y2)}.cat.on{background:var(--y);font-weight:700}
@@ -67,7 +67,7 @@ details{margin-top:14px;color:var(--mut);font-size:.92rem}summary{cursor:pointer
 .chips{margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}.chip{background:#fff;border:1px dashed #d8c98f;border-radius:20px;padding:5px 14px;font-size:.88rem;cursor:pointer}.chip:hover{background:var(--y2)}
 .progress{max-width:820px;margin:14px auto 0;font-size:.92rem;color:var(--mut);min-height:22px}
 .pbar{height:6px;background:#f1eee4;border-radius:4px;overflow:hidden;margin-top:6px}.pbar i{display:block;height:100%;background:var(--y);width:0;transition:width .3s}
-.ask .split{height:calc(100vh - 66px - 58px - 236px);min-height:420px}
+.ask .split{height:calc(100vh - 66px - 230px);min-height:420px}
 .addbtn{margin-left:auto}
 /* dataset & about */
 .page{max-width:1100px;margin:0 auto;padding:28px}
@@ -82,45 +82,42 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{text-align:left
 #toast{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:50}
 .toast{background:#fff;border:2px solid var(--red);border-radius:14px;padding:12px 16px;box-shadow:0 10px 30px #0002;max-width:380px;animation:in .3s}
 .toast b{color:var(--red)}@keyframes in{from{transform:translateY(20px);opacity:0}}
+.htop{display:flex;align-items:center;gap:14px;margin-top:14px}.htop h2{flex:1;margin:0}.lead{font-size:1.05rem;margin:12px 0}.bar.vb b{font-size:1.1rem}.bar.vb i{background:var(--text)}
 kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:.78rem;background:#fff}
 </style></head><body>
 <nav><a class="logo" href="#/ask"><i><svg width="22" height="22" viewBox="0 0 32 32"><path d="M7 26 L25 7" stroke="#1d1d1b" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="9" r="2.6" fill="none" stroke="#1d1d1b" stroke-width="1.8"/></svg></i>Haystack</a>
-<div class="tabs"><a href="#/ask" data-v="ask">Ask the footage</a><a href="#/library" data-v="library">Needles <span class="n" id="nNeedles">0</span></a>
+<div class="tabs"><a href="#/ask" data-v="ask">Search</a><a href="#/library" data-v="library">Needles <span class="n" id="nNeedles">0</span></a>
 <a href="#/dataset" data-v="dataset">Dataset</a><a href="#/about" data-v="about">How it works</a></div>
-<div class="navr"><span class="badge" id="precision" title="Share of accepted clips a human marked correct">Judge precision: not reviewed yet</span>
-<button class="live" id="liveBtn"><span class="dot"></span><span id="liveTxt">Start live agent</span></button></div></nav>
-<div class="strip"><div class="f"><b id="sVid">–</b><small>videos</small></div><span class="ar">→</span><div class="f"><b id="sClips">–</b><small>clips indexed</small></div><span class="ar">→</span>
-<div class="f"><b id="sCand">–</b><small>candidates</small></div><span class="ar">→</span><div class="f hi"><b id="sNeed">–</b><small>needles (edge cases)</small></div>
-<div class="explain">Self-driving cars don't crash on the boring 99%. They crash on the weird 1%. Haystack finds those moments in street video, explains why they're hard, and exports them as training data.</div></div>
+<div class="navr"><span class="badge" id="precision" style="display:none"></span>
+<button class="live" id="liveBtn"><span class="dot"></span><span id="liveTxt">Live agent</span></button></div></nav>
 <div id="livebar"></div>
 
 <section class="view ask" id="v-ask">
- <div class="hero"><h1>Find the needle.</h1><p>Describe a rare driving moment. Haystack searches every indexed clip, and an AI judge rates each match live.</p>
- <form class="askbox" id="askForm"><input id="q" placeholder="Ask the footage, e.g. cyclist running a red light at night" autocomplete="off"><button class="y" id="askBtn">Search</button></form>
+ <div class="hero"><h1>Find the needle.</h1><p>Describe a rare driving moment. We'll find it in the footage.</p>
+ <form class="askbox" id="askForm"><input id="q" placeholder="e.g. cyclist running a red light" autocomplete="off"><button class="y" id="askBtn">Search</button></form>
  <div class="chips" id="chips"></div><div class="progress" id="prog"></div></div>
- <div class="split"><div class="col" id="askList"><div class="empty">Results show up here as the judge scores them.</div></div><div class="col detail" id="askDetail"></div></div>
+ <div class="split" id="askSplit" style="display:none"><div class="col" id="askList"></div><div class="col detail" id="askDetail"></div></div>
 </section>
 
 <section class="view" id="v-library"><div class="split three">
  <div class="col side"><h4>Category</h4><div id="cats"></div>
-  <h4>Sort by</h4><select id="sort" style="width:100%"><option value="value">Value</option><option value="edge_score">Edge-case score</option><option value="difficulty">AV difficulty</option><option value="motion_score">Motion</option></select>
-  <h4>Show</h4><label class="sm"><input type="checkbox" id="showRej"> Rejected candidates</label><br><label class="sm"><input type="checkbox" id="showGaps"> Data gaps</label><br><label class="sm"><input type="checkbox" id="onlyUnrev"> Only unreviewed</label>
-  <h4>Keyboard</h4><div class="sm mut"><kbd>↑</kbd> <kbd>↓</kbd> move, <kbd>Y</kbd> correct, <kbd>N</kbd> wrong</div></div>
- <div class="col" id="libCol"><div class="listhead"><input id="filter" placeholder="Filter titles, tags, cameras"><span class="sm mut" id="count"></span></div><div id="libList"></div></div>
+  <h4>Sort by</h4><select id="sort" style="width:100%"><option value="value">Value</option><option value="edge_score">Edge case</option><option value="difficulty">Difficulty</option><option value="motion_score">Motion</option></select>
+  <h4>Show</h4><label class="sm"><input type="checkbox" id="showRej"> Rejected clips</label><input type="checkbox" id="showGaps" hidden><input type="checkbox" id="onlyUnrev" hidden>
+ </div>
+ <div class="col" id="libCol"><div class="listhead"><input id="filter" placeholder="Filter"><span class="sm mut" id="count"></span></div><div id="libList"></div></div>
  <div class="col detail" id="libDetail"></div></div></section>
 
 <section class="view" id="v-dataset"><div class="page">
- <div class="cards"><div class="card"><b id="dNeed">–</b><small>needles in the dataset</small></div><div class="card"><b id="dCats">–</b><small>categories covered</small></div>
- <div class="card"><b id="dAvg">–</b><small>average value</small></div><div class="card"><b id="dRev">–</b><small>human-reviewed</small></div></div>
- <div class="grid2"><div class="card"><h3 style="margin-top:0">Coverage by category</h3><div id="coverage"></div>
-  <p class="sm mut">Striped bars are thin categories. Use Ask or the live agent to find more of them.</p></div>
+ <div class="cards"><div class="card"><b id="dNeed">–</b><small>needles</small></div><div class="card"><b id="dCats">–</b><small>categories</small></div>
+ <div class="card"><b id="dAvg">–</b><small>average value</small></div><div class="card"><b id="dRev">–</b><small>reviewed</small></div></div>
+ <div class="grid2"><div class="card"><h3 style="margin-top:0">Coverage by category</h3><div id="coverage"></div></div>
  <div class="card"><h3 style="margin-top:0">Export training data</h3>
   <label class="sm">Minimum value <b id="mvv">5</b></label><input type="range" id="mv" min="3" max="9" step="0.5" value="5" style="width:100%">
   <label class="sm">Category</label><select id="exCat" style="width:100%;margin:4px 0 10px"></select>
-  <label class="sm"><input type="checkbox" id="withVid"> Include video clips (slower, larger zip)</label>
+  <label class="sm"><input type="checkbox" id="withVid"> Include video</label>
   <p class="sm" id="exCount"></p><button class="y" id="exBtn" style="width:100%">Export dataset</button>
   <div class="pbar" id="exBar" style="display:none"><i style="width:100%;animation:pulse 1s infinite"></i></div><div id="exRes" class="sm" style="margin-top:10px"></div>
-  <h4 class="sm mut" style="margin:20px 0 6px">Previous exports</h4><div id="exports" class="sm"></div></div></div>
+  <h4 class="sm mut" style="margin:20px 0 6px">Exports</h4><div id="exports" class="sm"></div></div></div>
 </div></section>
 
 <section class="view" id="v-about"><div class="page">
@@ -150,40 +147,39 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
 <script>
 const $=id=>document.getElementById(id), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let D={clips:[],categories:{},funnel:{}},EV={verdicts:{}},cat="all",libRows=[],cur={lib:null,ask:null},askRes=[],boxes=[],raf,es=null,newIds=new Set();
-const CHIPS=["cyclist running a red light","pedestrian stepping out from behind a parked truck","emergency vehicle with flashing lights","horse-drawn carriage on the road","car reversing into traffic"];
+const CHIPS=["pedestrian behind a parked truck","emergency vehicle","car reversing into traffic"];
 const vcls=v=>v>=7?"hi":v>=5?"mid":"";
-const catName=k=>D.categories[k]||(k||"").replace(/_/g," ");
+const SHORT={occluded_pedestrian:"Hidden pedestrian",vru_violation:"Cyclist violation",blocked_lane:"Blocked lane",unexpected_vehicle:"Unexpected vehicle",emergency_special:"Emergency vehicle",road_anomaly:"Road hazard",near_miss:"Near miss",routine:"Routine"};
+const catName=k=>SHORT[k]||D.categories[k]||(k||"").replace(/_/g," ");
 function route(){const v=(location.hash.replace("#/","")||"ask");document.querySelectorAll(".view").forEach(e=>e.classList.toggle("on",e.id=="v-"+v));
   document.querySelectorAll(".tabs a").forEach(a=>a.classList.toggle("on",a.dataset.v==v));cancelAnimationFrame(raf);
   if(v=="library")renderLib(); if(v=="dataset")renderDataset(); if(v=="ask"&&cur.ask)show("ask",cur.ask)}
 window.onhashchange=route;
 async function load(){D=await fetch("/api/clips").then(r=>r.json());EV=await fetch("/api/eval").then(r=>r.json()).catch(()=>({verdicts:{}}));header()}
-function header(){const f=D.funnel||{},ix=D.index||{},need=D.clips.filter(c=>c.is_edge_case).length;
-  $("sVid").textContent=ix.videos??612;$("sClips").textContent=(ix.clips??f.indexed_segments??"–").toLocaleString();$("sCand").textContent=D.clips.length;
-  $("sNeed").textContent=need;$("nNeedles").textContent=need;
-  $("precision").textContent=EV.precision!=null?`Judge precision: ${EV.precision}% (${EV.precision_n} human-checked)`:"Judge precision: not reviewed yet"}
+function header(){const need=D.clips.filter(c=>c.is_edge_case).length;$("nNeedles").textContent=need;const p=$("precision");
+  if(EV.precision!=null){p.style.display="";p.textContent=`Judge accuracy ${EV.precision}%`;p.title=`${EV.precision_n} clips checked by a person`}else p.style.display="none"}
 /* ---------- list + detail (shared) ---------- */
 function itemHTML(c,sel){return `<div class="item ${sel?"sel":""} ${c.is_edge_case?"":"rej"} ${newIds.has(c.id)?"new":""}" data-id="${c.id}">
- <div class="val ${vcls(c.value)}">${c.value}</div><div style="flex:1;min-width:0"><div class="it">${newIds.has(c.id)?"🚨 ":""}${esc(c.title)}</div>
- <div class="im">${esc(catName(c.category))} · ${esc(c.camera_id)}${c.is_edge_case?"":" · not an edge case"}${EV.verdicts?.[c.id]=="correct"?" · ✓":EV.verdicts?.[c.id]=="wrong"?" · ✗":""}</div></div></div>`}
-function bar(l,v){return `<div class="bar">${l} <b>${v??0}</b>/10<div><i style="width:${(v||0)*10}%"></i></div></div>`}
+ <div class="val ${vcls(c.value)}">${c.value}</div><div style="flex:1;min-width:0"><div class="it">${esc(c.title)}</div>
+ <div class="im">${esc(catName(c.category))}${EV.verdicts?.[c.id]=="correct"?" · ✓":EV.verdicts?.[c.id]=="wrong"?" · ✗":""}</div></div></div>`}
+function bar(l,v){return `<div class="bar">${l} <b>${v??0}</b><div><i style="width:${(v||0)*10}%"></i></div></div>`}
 function show(where,c){cancelAnimationFrame(raf);boxes=[];cur[where]=c;if(!c)return;
   const el=$(where=="ask"?"askDetail":"libDetail"),rows=where=="ask"?askRes:libRows,i=rows.findIndex(x=>x.id==c.id),inDs=D.clips.some(x=>x.id==c.id&&x.is_edge_case),v=EV.verdicts?.[c.id];
-  el.innerHTML=`<div class="dtop"><span class="sm mut">${esc(c.camera_id)} · ${esc(c.location||"")} · clip ${esc(c.segment)}</span><span class="sp"></span>
-   ${where=="lib"?`<span class="sm mut">${i+1} of ${rows.length}</span><button id="prv">‹ Prev</button><button id="nxt">Next ›</button>`:""}</div>
+  el.innerHTML=`${where=="lib"?`<div class="dtop"><span class="sp"></span><span class="sm mut">${i+1} / ${rows.length}</span><button id="prv">‹</button><button id="nxt">›</button></div>`:""}
    <div class="vwrap"><video id="vid" src="/api/stream?source=${encodeURIComponent(c.source)}" controls autoplay muted loop playsinline></video><canvas id="cv"></canvas></div>
-   <div class="legend"><label><input type="checkbox" id="ov" checked> Detector boxes</label><span><i style="border-color:var(--red)"></i>Pedestrian or cyclist in path</span><span><i style="border-color:var(--amb)"></i>Vehicle in path</span><span><i style="border-color:#2f9e44"></i>Other</span></div>
-   <h2>${esc(c.title)}</h2><span class="pill c">${esc(catName(c.category))}</span>${(c.label_tags||[]).map(t=>`<span class="pill">#${esc(t)}</span>`).join("")}
-   <p style="font-size:1.05rem">${esc(c.explanation)}</p>
-   <div class="vbig"><div class="val ${vcls(c.value)}">${c.value}</div><div><b>Training-data value</b> <span class="tip">?<span>How useful this clip is as training data, out of 10: 55% edge-case score from the AI judge, 20% AV difficulty, 15% motion from the object detector, 10% category rarity. 7+ is a strong needle.</span></span>
-   <div class="sm mut">${c.is_edge_case?"Counts as a needle":"Judge says this is not an edge case"}${c.added_by?` · added by ${esc(c.added_by)}`:""}</div></div>
-   ${where=="ask"?`<button class="y addbtn" id="add" ${inDs?"disabled":""}>${inDs?"✓ In dataset":"+ Add to dataset"}</button>`:""}</div>
-   <div class="bars">${bar("Edge-case",c.edge_score)}${bar("AV difficulty",c.difficulty)}${bar("Motion",c.motion_score)}${bar("Rarity",Math.round(c.rarity_score||0))}</div>
-   <div class="sm"><b>Actors:</b> ${esc((c.actors||[]).join(", ")||"–")} &nbsp; <b>Conditions:</b> ${esc((c.conditions||[]).join(", ")||"–")}</div>
-   ${(c.motion_reasons||[]).length?`<div class="sm mut" style="margin-top:4px"><b>Detector:</b> ${(c.motion_reasons||[]).map(esc).join(" · ")}</div>`:""}
-   <div class="review"><span class="sm"><b>Is the judge right?</b></span><button class="ok ${v=="correct"?"on":""}" id="rOk">✓ Correct <kbd>Y</kbd></button><button class="no ${v=="wrong"?"on":""}" id="rNo">✗ Wrong <kbd>N</kbd></button>
-   <span class="sm mut">${EV.reviewed||0} reviewed so far</span></div>
-   <details><summary>Scene description from NVIDIA Cosmos-Reason2</summary><p>${esc(c.description)}</p><p class="sm">Found by: ${esc((c.matched_queries||[]).join("; "))}</p></details>`;
+   <div class="htop"><h2>${esc(c.title)}</h2>${where=="ask"?`<button class="y" id="add" ${inDs?"disabled":""}>${inDs?"✓ Added":"+ Add to dataset"}</button>`:""}</div>
+   <span class="pill c">${esc(catName(c.category))}</span><span class="pill">${esc(c.camera_id)}</span>
+   <p class="lead">${esc(c.explanation)}</p>
+   <div class="bars"><div class="bar vb">Value <span class="tip">?<span>Training-data value out of 10: 55% edge-case score, 20% difficulty for a self-driving car, 15% motion in the car's path, 10% category rarity.</span></span> <b>${c.value}</b><div><i style="width:${c.value*10}%"></i></div></div>
+    ${bar("Edge case",c.edge_score)}${bar("Difficulty",c.difficulty)}${bar("Motion",c.motion_score)}</div>
+   <div class="review"><span class="sm mut">Is this right?</span><button class="ok ${v=="correct"?"on":""}" id="rOk">✓</button><button class="no ${v=="wrong"?"on":""}" id="rNo">✗</button>
+    <label class="sm mut" style="margin-left:auto"><input type="checkbox" id="ov" checked> Boxes</label></div>
+   <details><summary>Details</summary>
+    <p>${(c.label_tags||[]).map(t=>`<span class="pill">#${esc(t)}</span>`).join("")}</p>
+    <p><b>Actors:</b> ${esc((c.actors||[]).join(", ")||"–")}<br><b>Conditions:</b> ${esc((c.conditions||[]).join(", ")||"–")}<br><b>Location:</b> ${esc(c.location||"–")}, clip ${esc(c.segment)}</p>
+    ${(c.motion_reasons||[]).length?`<p><b>Detector:</b> ${(c.motion_reasons||[]).map(esc).join(" · ")}</p>`:""}
+    <p><b>Scene (NVIDIA Cosmos):</b> ${esc(c.description)}</p>
+    <div class="legend"><span><i style="border-color:var(--red)"></i>Person or cyclist in path</span><span><i style="border-color:var(--amb)"></i>Vehicle in path</span><span><i style="border-color:#2f9e44"></i>Other</span></div></details>`;
   $("ov").onchange=()=>{};$("rOk").onclick=()=>review(c,"correct",where);$("rNo").onclick=()=>review(c,"wrong",where);
   if($("prv")){$("prv").onclick=()=>step(-1);$("nxt").onclick=()=>step(1)}
   if($("add"))$("add").onclick=()=>addClip(c);
@@ -200,17 +196,17 @@ async function review(c,verdict,where){if(EV.verdicts?.[c.id]==verdict)verdict="
   if(verdict=="clear")delete EV.verdicts[c.id];header();
   if(where=="lib"){renderLib(true);if(verdict!="clear")step(1)}else show(where,c)}
 async function addClip(c){const r=await fetch("/api/add",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({clip:c})}).then(r=>r.json());
-  await load();toast(`<b>Added to dataset</b><br>${esc(c.title)}`,"var(--y)");show("ask",c);renderAsk()}
+  await load();toast(`<b style="color:var(--text)">Added</b> ${esc(c.title)}`,"var(--y)");show("ask",c);renderAsk()}
 /* ---------- library ---------- */
 function renderCats(){const need=D.clips.filter(c=>c.is_edge_case),n={};need.forEach(c=>n[c.category]=(n[c.category]||0)+1);const gaps=$("showGaps").checked;
-  $("cats").innerHTML=`<div class="cat ${cat=="all"?"on":""}" data-c="all"><span>All needles</span><b>${need.length}</b></div>`+
-   Object.entries(D.categories).map(([k,l])=>`<div class="cat ${cat==k?"on":""}" data-c="${k}"><span>${esc(l)}${gaps&&(n[k]||0)<3?'<span class="gap">gap</span>':""}</span><b>${n[k]||0}</b></div>`).join("");
+  $("cats").innerHTML=`<div class="cat ${cat=="all"?"on":""}" data-c="all"><span>All</span><b>${need.length}</b></div>`+
+   Object.keys(D.categories).map(k=>[k,catName(k)]).map(([k,l])=>`<div class="cat ${cat==k?"on":""}" data-c="${k}"><span>${esc(l)}${gaps&&(n[k]||0)<3?'<span class="gap">gap</span>':""}</span><b>${n[k]||0}</b></div>`).join("");
   document.querySelectorAll(".cat").forEach(e=>e.onclick=()=>{cat=e.dataset.c;renderLib()})}
 function renderLib(keep){renderCats();const q=$("filter").value.toLowerCase(),s=$("sort").value,rej=$("showRej").checked,unrev=$("onlyUnrev").checked;
   libRows=D.clips.filter(c=>(rej||c.is_edge_case)&&(cat=="all"||c.category==cat)&&(!unrev||!EV.verdicts?.[c.id])&&
    (!q||[c.title,c.camera_id,c.category,...(c.label_tags||[])].join(" ").toLowerCase().includes(q)))
    .sort((a,b)=>(newIds.has(b.id)-newIds.has(a.id))||(b.is_edge_case-a.is_edge_case)||((b[s]||0)-(a[s]||0)));
-  $("count").textContent=libRows.length+" clips";
+  $("count").textContent=libRows.length;
   $("libList").innerHTML=libRows.map(c=>itemHTML(c,cur.lib&&c.id==cur.lib.id)).join("")||'<div class="empty">Nothing matches.</div>';
   document.querySelectorAll("#libList .item").forEach(e=>e.onclick=()=>{show("lib",libRows.find(x=>x.id==e.dataset.id));mark()});
   const still=cur.lib&&libRows.find(x=>x.id==cur.lib.id);if(!keep||!still){if(libRows[0]&&!still)show("lib",libRows[0]);else if(still&&!keep)show("lib",still);mark()}}
@@ -229,20 +225,20 @@ $("askForm").onsubmit=e=>{e.preventDefault();ask()};
 function renderAsk(){const rows=[...askRes].sort((a,b)=>(b.is_edge_case-a.is_edge_case)||(b.value-a.value));askRes=rows;
   $("askList").innerHTML=rows.map(c=>itemHTML(c,cur.ask&&c.id==cur.ask.id)).join("")||'<div class="empty">No matches yet.</div>';
   document.querySelectorAll("#askList .item").forEach(e=>e.onclick=()=>{show("ask",askRes.find(x=>x.id==e.dataset.id));renderAsk()})}
-async function ask(){const q=$("q").value.trim();if(!q)return;askRes=[];cur.ask=null;$("askDetail").innerHTML="";$("askBtn").disabled=true;
+async function ask(){const q=$("q").value.trim();if(!q)return;askRes=[];cur.ask=null;$("askDetail").innerHTML="";$("askSplit").style.display="grid";$("askBtn").disabled=true;
   const ix=D.index||{};let total=0,done=0;
   const P=t=>$("prog").innerHTML=`${t}<div class="pbar"><i style="width:${total?100*done/total:8}%"></i></div>`;
-  P(`Searching ${(ix.clips||3537).toLocaleString()} clips from ${ix.videos||612} videos with NVIDIA Cosmos-Embed1…`);
-  $("askList").innerHTML='<div class="empty">Searching…</div>';
+  P(`Searching ${(ix.clips||3537).toLocaleString()} clips…`);
+  $("askList").innerHTML='';
   try{const r=await fetch("/api/ask",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:q})});
    const rd=r.body.getReader(),dec=new TextDecoder();let buf="";
    while(true){const {value,done:end}=await rd.read();if(end)break;buf+=dec.decode(value,{stream:true});let i;
     while((i=buf.indexOf("\n"))>=0){const line=buf.slice(0,i);buf=buf.slice(i+1);if(!line.trim())continue;const ev=JSON.parse(line);
-     if(ev.stage){total=ev.hits;P(`Found ${total} matching street clips. AI judge is reviewing each one…`)}
+     if(ev.stage){total=ev.hits;P(`Reviewing ${total} matches…`)}
      if(ev.clip){done++;askRes.push(ev.clip);if(!cur.ask||ev.clip.value>cur.ask.value&&done<=1)show("ask",ev.clip);renderAsk();
-      P(`Judged ${done} of ${total}… ${askRes.filter(c=>c.is_edge_case).length} look like real edge cases`)}
+      P(`Reviewed ${done} of ${total}`)}
      if(ev.done!=null){const n=askRes.filter(c=>c.is_edge_case).length;total=total||1;done=total;
-      P(`Done. ${n} of ${ev.done} clips are real edge cases. Pick one and add it to the dataset.`);if(askRes.length){renderAsk();show("ask",askRes[0]);renderAsk()}}
+      P(`${n} edge case${n==1?"":"s"} found`);if(askRes.length){renderAsk();show("ask",askRes[0]);renderAsk()}}
      if(ev.error)P("Something went wrong: "+esc(ev.error))}}
   }catch(e){P("Search failed: "+esc(e.message))}
   $("askBtn").disabled=false}
@@ -251,31 +247,31 @@ function renderDataset(){const need=D.clips.filter(c=>c.is_edge_case),n={};need.
   $("dNeed").textContent=need.length;$("dCats").textContent=Object.keys(n).length+" / "+Object.keys(D.categories).length;
   $("dAvg").textContent=need.length?(need.reduce((a,c)=>a+c.value,0)/need.length).toFixed(1):"–";$("dRev").textContent=EV.reviewed||0;
   const mx=Math.max(1,...Object.values(n));
-  $("coverage").innerHTML=Object.entries(D.categories).map(([k,l])=>`<div class="hbar ${(n[k]||0)<3?"gap":""}"><span>${esc(l)}</span><div><i style="width:${Math.max(3,100*(n[k]||0)/mx)}%"></i></div><b>${n[k]||0}</b></div>`).join("");
-  if(!$("exCat").options.length)$("exCat").innerHTML='<option value="">All categories</option>'+Object.entries(D.categories).map(([k,l])=>`<option value="${k}">${esc(l)}</option>`).join("");
+  $("coverage").innerHTML=Object.keys(D.categories).map(k=>[k,catName(k)]).map(([k,l])=>`<div class="hbar ${(n[k]||0)<3?"gap":""}"><span>${esc(l)}</span><div><i style="width:${Math.max(3,100*(n[k]||0)/mx)}%"></i></div><b>${n[k]||0}</b></div>`).join("");
+  if(!$("exCat").options.length)$("exCat").innerHTML='<option value="">All categories</option>'+Object.keys(D.categories).map(k=>[k,catName(k)]).map(([k,l])=>`<option value="${k}">${esc(l)}</option>`).join("");
   exCount();fetch("/api/datasets").then(r=>r.json()).then(x=>$("exports").innerHTML=x.map(d=>`<div><a href="${d.download}">${esc(d.name)}</a> · ${d.clips??"?"} clips · ${d.mb} MB</div>`).join("")||"None yet.")}
 function exCount(){const mv=+$("mv").value,c=$("exCat").value;$("mvv").textContent=mv;
-  $("exCount").textContent=D.clips.filter(x=>x.is_edge_case&&x.value>=mv&&(!c||x.category==c)).length+" clips will be exported."}
+  $("exCount").textContent=D.clips.filter(x=>x.is_edge_case&&x.value>=mv&&(!c||x.category==c)).length+" clips"}
 $("mv").oninput=exCount;$("exCat").onchange=exCount;
-$("exBtn").onclick=async()=>{const b=$("exBtn");b.disabled=true;$("exBar").style.display="block";$("exRes").textContent="Packaging clips and labels, logging to W&B…";
+$("exBtn").onclick=async()=>{const b=$("exBtn");b.disabled=true;$("exBar").style.display="block";$("exRes").textContent="Exporting…";
   const r=await fetch("/api/export",{method:"POST",headers:{"Content-Type":"application/json"},
    body:JSON.stringify({min_value:+$("mv").value,categories:$("exCat").value?[$("exCat").value]:null,with_video:$("withVid").checked})}).then(r=>r.json());
   if(r.error){$("exRes").textContent=r.error;b.disabled=false;$("exBar").style.display="none";return}
   const poll=setInterval(async()=>{const s=await fetch("/api/export/status").then(r=>r.json());if(s.running)return;clearInterval(poll);b.disabled=false;$("exBar").style.display="none";
    if(s.error){$("exRes").textContent="Export failed: "+s.error;return}const x=s.result;
-   $("exRes").innerHTML=`✅ <b>${x.clips} clips</b> packaged as <code>${esc(x.name)}</code><br><a href="${x.download}">Download zip</a>`+
-    (x.wandb&&x.wandb.startsWith("http")?` · <a href="${esc(x.wandb)}" target="_blank">Open W&amp;B artifact</a>`:x.wandb?`<br>${esc(x.wandb)}`:"");renderDataset()},1500)};
+   $("exRes").innerHTML=`✅ ${x.clips} clips · <a href="${x.download}">Download</a>`+
+    (x.wandb&&x.wandb.startsWith("http")?` · <a href="${esc(x.wandb)}" target="_blank">W&amp;B</a>`:x.wandb?`<br>${esc(x.wandb)}`:"");renderDataset()},1500)};
 /* ---------- live agent ---------- */
 function toast(html,col){const t=document.createElement("div");t.className="toast";if(col)t.style.borderColor=col;t.innerHTML=html;$("toast").appendChild(t);setTimeout(()=>t.remove(),9000);return t}
-$("liveBtn").onclick=()=>{if(es){es.close();es=null;$("liveBtn").classList.remove("on");$("liveTxt").textContent="Start live agent";$("livebar").style.display="none";return}
-  es=new EventSource("/api/watch");$("liveBtn").classList.add("on");$("liveTxt").textContent="Live agent on";const lb=$("livebar");lb.style.display="block";lb.textContent="Live agent starting…";let found=0;
+$("liveBtn").onclick=()=>{if(es){es.close();es=null;$("liveBtn").classList.remove("on");$("liveTxt").textContent="Live agent";$("livebar").style.display="none";return}
+  es=new EventSource("/api/watch");$("liveBtn").classList.add("on");$("liveTxt").textContent="Live agent on";const lb=$("livebar");lb.style.display="block";lb.textContent="Starting…";let found=0;
   es.onmessage=async m=>{const e=JSON.parse(m.data);
-   if(e.type=="scan")lb.textContent=`🔴 Live agent, round ${e.round}: scanning for "${e.queries.slice(0,2).join('", "')}" and ${e.queries.length-2} more… ${found} new needles so far`;
-   if(e.type=="judged")lb.textContent=`🔴 Live agent: judged "${e.title}" (edge-case score ${e.edge_score}/10)… ${found} new needles so far`;
+   if(e.type=="scan")lb.textContent=`Scanning: ${e.queries[0]}… · ${found} found`;
+   if(e.type=="judged")lb.textContent=`Checked: ${e.title} · ${found} found`;
    if(e.type=="found"){found++;const c=e.clip;newIds.add(c.id);await load();
-    const t=toast(`<b>🚨 New edge case found</b><br>${esc(c.title)} (${esc(c.camera_id)})<br><span class="sm mut">Auto-added to the dataset · value ${c.value}</span><br><button class="y" style="margin-top:8px">Open it</button>`);
+    const t=toast(`<b>New edge case</b><br>${esc(c.title)}<br><button class="y" style="margin-top:8px">View</button>`);
     t.querySelector("button").onclick=()=>{location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==c.id));renderLib(true);mark()},50)};
     if((location.hash||"#/ask")=="#/library")renderLib(true)}};
-  es.onerror=()=>{lb.textContent="Live agent reconnecting…"}};
+  es.onerror=()=>{lb.textContent="Reconnecting…"}};
 load().then(route);
 </script></body></html>
