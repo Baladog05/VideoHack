@@ -15,7 +15,8 @@ main{display:grid;grid-template-columns:400px 1fr;height:calc(100vh - 70px)}
 .risk{min-width:42px;height:42px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:18px}
 .r-hi{background:#f8514933;color:var(--red)}.r-md{background:#d2992233;color:var(--amb)}.r-lo{background:#3fb95022;color:var(--grn)}
 .t{font-weight:600}.m{color:var(--mut);font-size:12px}
-#detail{padding:24px;overflow:auto}video{width:100%;max-height:60vh;background:#000;border-radius:8px}
+#detail{padding:24px;overflow:auto}.vwrap{position:relative;width:100%;background:#000;border-radius:8px;overflow:hidden}video{width:100%;display:block;max-height:60vh}
+canvas{position:absolute;inset:0;pointer-events:none}.bars{display:flex;gap:18px;margin:8px 0}.bar{flex:1}.bar div{height:8px;border-radius:4px;background:var(--line);margin-top:4px}.bar i{display:block;height:100%;border-radius:4px;background:var(--amb)}
 .tag{display:inline-block;border:1px solid var(--line);border-radius:12px;padding:1px 9px;margin:2px 4px 2px 0;font-size:12px;color:var(--mut)}
 .badge{color:var(--red);font-weight:700;font-size:12px;letter-spacing:.05em}
 details{margin-top:14px;color:var(--mut)}
@@ -39,15 +40,32 @@ function render(){
    <div class="m">${i.near_miss?'<span class="badge">NEAR MISS</span> · ':""}${esc(i.type)} · ${esc(i.drive)} · seg ${esc(i.segment)}</div></div></div>`).join("")||'<p class="m" style="padding:16px">No matches.</p>';
   document.querySelectorAll(".item").forEach(e=>e.onclick=()=>show(+e.dataset.k,e));
 }
-function show(k,el){
+let boxes=[],raf;
+function draw(){const v=document.getElementById("vid"),c=document.getElementById("cv");if(!v||!c)return;
+  const r=v.getBoundingClientRect();c.width=r.width;c.height=r.height;const g=c.getContext("2d");g.clearRect(0,0,c.width,c.height);
+  if(document.getElementById("ov")?.checked&&boxes.length&&v.videoWidth){
+    const s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=(r.width-w)/2,oy=(r.height-h)/2;
+    let f=boxes[0];for(const b of boxes){if(b[0]<=v.currentTime)f=b;else break}
+    g.lineWidth=2;g.font="12px system-ui";
+    for(const [lab,x1,y1,x2,y2,ip] of f[1]){const col=ip?(lab=="person"||lab=="bicycle"?"#f85149":"#d29922"):"#3fb95099";
+      g.strokeStyle=col;g.strokeRect(ox+x1*w,oy+y1*h,(x2-x1)*w,(y2-y1)*h);
+      if(ip){g.fillStyle=col;g.fillText(lab,ox+x1*w+2,oy+y1*h-3)}}
+    g.strokeStyle="#ffffff40";g.setLineDash([6,6]);g.strokeRect(ox+.3*w,oy+.55*h,.4*w,.45*h);g.setLineDash([])}
+  raf=requestAnimationFrame(draw)}
+function show(k,el){cancelAnimationFrame(raf);boxes=[];
   document.querySelectorAll(".item.sel").forEach(e=>e.classList.remove("sel"));el&&el.classList.add("sel");
   const i=all[k],oc=Object.entries(i.object_counts||{}).map(([a,b])=>`<span class="tag">${esc(a)} × ${b}</span>`).join("");
-  document.getElementById("detail").innerHTML=`<video src="/api/stream?source=${encodeURIComponent(i.source)}" controls autoplay muted loop></video>
+  document.getElementById("detail").innerHTML=`<label class="m" style="float:right"><input type="checkbox" id="ov" checked> Show detections</label>
+   <div class="vwrap"><video id="vid" src="/api/stream?source=${encodeURIComponent(i.source)}" controls autoplay muted loop></video><canvas id="cv"></canvas></div>
    <h2><span class="risk ${cls(i.risk)}" style="display:inline-grid;vertical-align:middle;margin-right:10px">${i.risk}</span>${esc(i.title)}</h2>
    ${i.near_miss?'<div class="badge">NEAR MISS DETECTED</div>':'<div class="m">Not classed as a near miss</div>'}
-   <p>${esc(i.explanation)}</p><div>${(i.factors||[]).map(f=>`<span class="tag">⚠ ${esc(f)}</span>`).join("")}</div>
+   <p>${esc(i.explanation)}</p>
+   <div class="bars"><div class="bar m">Scene reasoning ${i.llm_risk}/10<div><i style="width:${i.llm_risk*10}%"></i></div></div>
+   <div class="bar m">Motion in path ${i.motion_risk}/10<div><i style="width:${i.motion_risk*10}%"></i></div></div></div>
+   <div class="m">${(i.motion_reasons||[]).map(esc).join(" · ")}</div><div>${(i.factors||[]).map(f=>`<span class="tag">⚠ ${esc(f)}</span>`).join("")}</div>
    <p class="m">Detected objects: ${oc||"none"}</p><p class="m">Drive ${esc(i.drive)} · segment ${esc(i.segment)} · search match ${i.similarity}</p>
    <details><summary>What the vision model saw</summary><p>${esc(i.description)}</p><p>Matched searches: ${esc(i.matched_queries.join("; "))}</p></details>`;
+  fetch("/api/boxes/"+i.boxes_id).then(r=>r.json()).then(b=>{boxes=b;draw()});
 }
 document.querySelectorAll("button[data-t]").forEach(b=>b.onclick=()=>{document.querySelectorAll("button[data-t]").forEach(x=>x.classList.remove("on"));b.classList.add("on");type=b.dataset.t;render()});
 document.getElementById("min").onchange=render;document.getElementById("nmOnly").onchange=render;

@@ -16,6 +16,12 @@ class H(SimpleHTTPRequestHandler):
             body = open(os.path.join(HERE, "data", "incidents.json"), "rb").read()
             self.send_response(200); self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(body))); self.end_headers(); self.wfile.write(body); return
+        if u.path.startswith("/api/boxes/"):
+            bid = os.path.basename(u.path)
+            p = os.path.join(HERE, "data", "boxes", bid + ".json")
+            body = open(p, "rb").read() if bid.isalnum() and os.path.exists(p) else b"[]"
+            self.send_response(200); self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body))); self.end_headers(); self.wfile.write(body); return
         if u.path == "/api/stream":
             src = urllib.parse.parse_qs(u.query).get("source", [""])[0]
             url = f"{BACKEND}/api/v1/videos/stream?" + urllib.parse.urlencode({"source": src, "token": token()})
