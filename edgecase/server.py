@@ -77,6 +77,11 @@ class H(SimpleHTTPRequestHandler):
                     out.append({"name": n, "download": f"/api/datasets/{z}", "mb": round(os.path.getsize(os.path.join(HERE, "datasets", z)) / 1e6, 1),
                                 "clips": sum(1 for _ in open(man)) if os.path.exists(man) else None})
             return self._json(out)
+        if u.path.startswith("/api/datasets/") and u.path.endswith("/preview.jpg"):
+            n = u.path.split("/")[3]; p = os.path.join(HERE, "datasets", n, "preview.jpg")
+            if "/" in n or ".." in n or not os.path.exists(p): self.send_response(404); self.end_headers(); return
+            data = open(p, "rb").read(); self.send_response(200); self.send_header("Content-Type", "image/jpeg")
+            self.send_header("Content-Length", str(len(data))); self.end_headers(); self.wfile.write(data); return
         if u.path.startswith("/api/datasets/") and u.path.endswith(".zip"):
             name = os.path.basename(u.path)[:-4]; p = os.path.join(HERE, "datasets", name + ".zip")
             if not (name.replace("-", "").isalnum() and os.path.exists(p)): return self._json({"error": "not found"}, 404)

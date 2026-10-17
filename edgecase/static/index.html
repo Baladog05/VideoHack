@@ -289,8 +289,9 @@ $("exBtn").onclick=async()=>{const b=$("exBtn");b.disabled=true;$("exBar").style
   if(r.error){$("exRes").textContent=r.error;b.disabled=false;$("exBar").style.display="none";return}
   const poll=setInterval(async()=>{const s=await fetch("/api/export/status").then(r=>r.json());if(s.running)return;clearInterval(poll);b.disabled=false;$("exBar").style.display="none";
    if(s.error){$("exRes").textContent="Export failed: "+s.error;return}const x=s.result;
-   $("exRes").innerHTML=`✅ ${x.clips} clips (${x.human_confirmed} human-checked ✓, ${x.human_rejected_excluded} marked ✗ left out) · <a href="${x.download}">Download</a>`+
-    (x.wandb&&x.wandb.startsWith("http")?` · <a href="${esc(x.wandb)}" target="_blank">W&amp;B</a>`:x.wandb?`<br>${esc(x.wandb)}`:"");renderDataset()},1500)};
+   $("exRes").innerHTML=`✅ ${x.clips} clips (${x.human_confirmed} human-checked ✓, ${x.human_rejected_excluded} marked ✗ left out) · <a href="${x.download}">Download</a>`+(x.preview?` · <a href="/api/datasets/${x.name}/preview.jpg" target="_blank">Preview</a>`:"")+
+    `<br><span class="sm">${x.split?x.split.train+" train / "+x.split.val+" val (split by camera) · ":""}${x.boxes??"?"} boxes, COCO format included${x.video_failed?` · ${x.video_failed} video(s) unavailable, labels kept`:""}</span>`+
+    (x.wandb&&x.wandb.startsWith("http")?` · <a href="${esc(x.wandb)}" target="_blank">W&amp;B dataset</a>`:x.wandb?`<br>${esc(x.wandb)}`:"");renderDataset()},1500)};
 /* ---------- live agent ---------- */
 function toast(html,col){const t=document.createElement("div");t.className="toast";if(col)t.style.borderColor=col;t.innerHTML=html;$("toast").appendChild(t);setTimeout(()=>t.remove(),9000);return t}
 /* ---------- live agent ---------- */

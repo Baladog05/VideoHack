@@ -15,6 +15,13 @@ art = wandb.Artifact("edge-case-dataset", type="dataset", metadata=result,
                      description="Rare driving scenarios mined by Haystack")
 art.add_dir(root)
 run.log({"clips": result["clips"], **{f"category/{k}": v for k, v in result["by_category"].items()}})
+prev = os.path.join(root, "preview.jpg")
+if os.path.exists(prev): run.log({"preview": wandb.Image(prev, caption="One frame per clip, with boxes")})
 run.log_artifact(art)
+url = run.url
+try:
+    art.wait()                                   # link straight to the dataset artifact, not the run page
+    url = run.url.split("/runs/")[0] + f"/artifacts/dataset/{art.name.split(':')[0]}/{art.version}"
+except Exception: pass
 run.finish()
-print(run.url)
+print(url)
