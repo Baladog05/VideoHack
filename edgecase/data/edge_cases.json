@@ -27,7 +27,7 @@
   "indexed_segments": null,
   "searched_queries": 28,
   "candidates": 184,
-  "edge_cases": 38
+  "edge_cases": 39
  },
  "runtime_sec": 147.7,
  "clips": [
@@ -82,6 +82,60 @@
    "motion_score": 10,
    "rarity_score": 7.3,
    "value": 8.2
+  },
+  {
+   "id": "aa796d0698ab",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_061917_set02_video_chunk_0002_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_061917_set02_video_chunk_0002.mp4",
+   "boxes_id": "aa796d0698ab",
+   "camera_id": "pie_cam-3",
+   "location": "toronto",
+   "segment_start_sec": 20.0,
+   "segment_end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.343,
+   "object_counts": "{\"car\": 7, \"person\": 5, \"truck\": 2, \"handbag\": 1, \"bus\": 1, \"bicycle\": 1}",
+   "description": "The scene is captured from a vehicle traveling along a one-way street. The road is a single lane with cars parked on both sides. The vehicle approaches an intersection where a cyclist is riding in the opposite direction. The cyclist is wearing a helmet and a black top. The cyclist is riding toward the camera, moving into the path of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is riding in the opposite direction of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is riding in the opposite direction of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is riding in the opposite direction of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is riding in the opposite direction of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is...",
+   "matched_queries": [
+    "cyclist riding the wrong way against traffic"
+   ],
+   "search_categories": [
+    "watch"
+   ],
+   "motion_raw": 9.048,
+   "motion_reasons": [
+    "vehicle in path, up to 3.3% of frame, grew 4.0x",
+    "pedestrian in path, up to 1.2% of frame, grew 6.0x"
+   ],
+   "is_edge_case": true,
+   "category": "vru_violation",
+   "edge_score": 8,
+   "difficulty": 8,
+   "title": "Wrong-way cyclist rides into vehicle path",
+   "explanation": "A cyclist rides the wrong way down a narrow one-way street, moving head-on into the ego vehicle's path from the middle of the road. This is hard because the vehicle must predict and avoid a wrong-way VRU in a tight corridor with parked cars limiting escape space.",
+   "actors": [
+    "cyclist",
+    "ego vehicle",
+    "parked cars"
+   ],
+   "conditions": [
+    "dry asphalt",
+    "partly cloudy",
+    "urban one-way street",
+    "parked cars on both sides"
+   ],
+   "label_tags": [
+    "wrong_way_cyclist",
+    "head_on_conflict",
+    "vru_in_path",
+    "narrow_street",
+    "parked_cars",
+    "one_way"
+   ],
+   "motion_score": 10,
+   "rarity_score": 7.3,
+   "value": 8.2,
+   "added_by": "ask"
   },
   {
    "id": "0828405f1687",

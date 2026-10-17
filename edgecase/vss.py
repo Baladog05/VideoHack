@@ -43,3 +43,12 @@ def llm_json(system, user):
     if txt.startswith("```"):
         txt = txt.strip("`").split("\n", 1)[1].rsplit("```", 1)[0]
     return json.loads(txt)
+
+# W&B Weave tracing of every judge call, when weave is installed (run with ../.venv/bin/python)
+try:
+    import weave
+    weave.init(f'{ENV["WANDB_TEAM"]}/{ENV["WANDB_PROJECT"]}')
+    llm_json = weave.op(llm_json, name="haystack_judge")
+    WEAVE = True
+except Exception:
+    WEAVE = False
