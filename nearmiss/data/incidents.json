@@ -1,0 +1,2015 @@
+{
+ "camera": "pie_cam-3",
+ "model": "deepseek-ai/DeepSeek-V4.1-Flash",
+ "incidents": [
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_061917_set02_video_chunk_0002_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_061917_set02_video_chunk_0002.mp4",
+   "drive": "set02",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.275,
+   "object_counts": "{\"car\": 7, \"person\": 5, \"truck\": 2, \"handbag\": 1, \"bus\": 1, \"bicycle\": 1}",
+   "description": "The scene is captured from a vehicle traveling along a one-way street. The road is a single lane with cars parked on both sides. The vehicle approaches an intersection where a cyclist is riding in the opposite direction. The cyclist is wearing a helmet and a black top. The cyclist is riding toward the camera, moving into the path of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is riding in the opposite direction of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is riding in the opposite direction of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is riding in the opposite direction of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is riding in the opposite direction of the vehicle. The cyclist is riding in the middle of the road, not in a designated bike lane. The cyclist is...",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle",
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": true,
+   "risk": 8,
+   "type": "cyclist",
+   "title": "Wrong-way cyclist enters vehicle path",
+   "explanation": "A cyclist riding against traffic in the middle of a one-way street moved into the ego vehicle's path at an intersection, creating a head-on conflict. The gap was dangerously small and required avoidance.",
+   "factors": [
+    "wrong-way cyclist",
+    "cyclist in middle of lane",
+    "no bike lane",
+    "intersection conflict",
+    "parked cars narrowing space"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_072155_set06_video_chunk_0027_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_072155_set06_video_chunk_0027.mp4",
+   "drive": "set06",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.126,
+   "object_counts": "{\"car\": 4, \"person\": 7, \"truck\": 4, \"traffic light\": 3, \"fire hydrant\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a narrow street with utility work in progress. The road surface is paved and appears to be a single-lane or shared lane configuration. On the right side, a large white utility truck with an extended orange and white boom arm is parked, partially blocking the lane. Orange traffic cones are placed along the road to mark the work zone and guide traffic. A dark-colored SUV is stopped in the middle of the road, facing the camera, with its hazard lights flashing. Another dark-colored car is approaching from the opposite direction, moving slowly toward the camera. A worker in an orange high-visibility vest is visible near the utility truck, standing on the road and directing traffic. Additional workers in similar vests are seen further down the street near parked vehicles and a white building structure. There are no visible traffic lights or stop signs in the immediate area. The sky is partly cloudy, and utility poles with multiple wires run along the...",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 4,
+   "type": "none",
+   "title": "Work zone with stopped and oncoming cars",
+   "explanation": "The ego vehicle is in a narrow utility work zone with a parked truck, cones, a stopped SUV with hazards, and a slow oncoming car. No collision or dangerously small gap with a pedestrian, cyclist, or vehicle is described.",
+   "factors": [
+    "narrow shared lane",
+    "utility truck partially blocking lane",
+    "workers on road",
+    "stopped SUV with hazards",
+    "slow oncoming vehicle"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071717_set06_video_chunk_0016_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071717_set06_video_chunk_0016.mp4",
+   "drive": "set06",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.262,
+   "object_counts": "{\"car\": 5, \"truck\": 3, \"person\": 6}",
+   "description": "The scene is a narrow, one-way street with a single lane of traffic. A large dump truck is parked on the left side of the road, partially blocking the lane. In front of the camera vehicle, a dark-colored SUV is stopped, its brake lights illuminated. Pedestrians are visible on the right side of the street, walking along the sidewalk. The sky is overcast with clouds. No traffic signals or signs are clearly visible in the immediate area. The parked dump truck and the stopped SUV are the primary vehicles affecting the flow of traffic in this confined space.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 3,
+   "type": "none",
+   "title": "Stopped traffic on narrow street",
+   "explanation": "The ego vehicle is behind a stopped SUV on a narrow one-way street, with a parked dump truck partially blocking the lane and pedestrians walking on the sidewalk. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "narrow one-way street",
+    "parked truck obstructs lane",
+    "stopped SUV ahead",
+    "pedestrians on sidewalk"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062422_set02_video_chunk_0014_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062422_set02_video_chunk_0014.mp4",
+   "drive": "set02",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.242,
+   "object_counts": "{\"car\": 7, \"person\": 3, \"bicycle\": 4, \"bench\": 1, \"truck\": 2, \"fire hydrant\": 1, \"bus\": 1}",
+   "description": "The scene is a narrow, one-way urban street lined with tall buildings. The road surface is dark asphalt with visible cracks and some yellow painted markings near the curb. There are no traffic lights or stop signs visible in the immediate area. On the left side of the street, several vehicles are parked along the curb, including a black SUV, a silver sedan, and a dark-colored minivan. A white delivery truck is also parked further down on the left. On the right side, a few bicycles are parked along the sidewalk, and a person is standing near the curb, partially obscured by a tree. Another person is visible further down the sidewalk on the right, walking away from the camera. A silver minivan is driving toward the camera in the opposite direction, occupying the single lane. The camera vehicle continues straight down the street, passing the parked cars and pedestrians. The buildings on both sides are modern, with glass facades and concrete structures. The sky is partly cloudy, and the overall lighting suggests...",
+   "matched_queries": [
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 3,
+   "type": "none",
+   "title": "No near miss in narrow street",
+   "explanation": "The ego vehicle proceeds straight past parked cars and pedestrians while an oncoming minivan occupies the single lane, but no collision-avoidance or dangerously small gap is described.",
+   "factors": [
+    "narrow street",
+    "oncoming vehicle",
+    "pedestrians near curb",
+    "parked cars reduce clearance"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_065332_set04_video_chunk_0020_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_065332_set04_video_chunk_0020.mp4",
+   "drive": "set04",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.233,
+   "object_counts": "{\"car\": 7, \"person\": 5, \"bicycle\": 4, \"potted plant\": 1, \"motorcycle\": 1}",
+   "description": "The scene is captured from a vehicle moving along a narrow, one-way urban street lined with parked cars on both sides. The road surface is dry and appears to be a typical city street. There are no visible traffic lights or stop signs controlling the flow of traffic in this segment. The sky is partly cloudy with bright daylight illuminating the scene. On the left side of the street, a row of bicycles is parked along a designated bike rack. Several pedestrians are walking along the sidewalk and crossing the street. A person wearing a yellow jacket is visible near the center of the street, walking away from the camera. Another pedestrian, dressed in dark clothing, is seen walking toward the camera on the right side of the street. There are no trucks or buses visible in the frame. The parked vehicles on the right side include a dark-colored SUV, a silver sedan, and a white SUV. The white SUV is positioned near the curb, partially blocking the lane. There are no visible traffic violations or immediate hazards in...",
+   "matched_queries": [
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 3,
+   "type": "none",
+   "title": "No near miss on narrow street",
+   "explanation": "Pedestrians are walking and crossing, and a white SUV partially blocks the lane, but the description reports no sudden braking, swerving, or dangerously small gap.",
+   "factors": [
+    "pedestrians in roadway",
+    "narrow one-way street",
+    "parked cars obstructing lane"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071328_set06_video_chunk_0007_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071328_set06_video_chunk_0007.mp4",
+   "drive": "set06",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.216,
+   "object_counts": "{\"truck\": 3, \"car\": 9, \"bus\": 1}",
+   "description": "The scene is a narrow, two-lane road with a single lane in each direction. The ego vehicle is stopped behind a dark blue SUV that is also stopped with its brake lights illuminated. To the left of the ego vehicle, a large yellow and red dump truck is positioned in the opposite lane, partially blocking the ego vehicle\u2019s lane. The truck\u2019s rear wheels and the back of its dump bed are visible. Ahead of the SUV, a dark-colored box truck is also stopped, facing the same direction as the ego vehicle. On the right side of the road, several parked cars line the curb, including a silver sedan and a black SUV. The road is bordered by multi-story brick buildings with large windows, and overhead power lines run along the street. There are no visible traffic lights or road signs in the immediate area. The sky is overcast with clouds.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 3,
+   "type": "none",
+   "title": "Stopped traffic with lane obstruction",
+   "explanation": "The ego vehicle is stopped behind an SUV while a dump truck in the opposite lane partially blocks the ego lane. No pedestrian, cyclist, or vehicle movement creates a dangerously small gap or avoided collision in the described segment.",
+   "factors": [
+    "stopped traffic",
+    "opposing dump truck partially blocks lane",
+    "narrow two-lane road",
+    "no visible movement or conflict"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_061720_set01_video_chunk_0028_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_061720_set01_video_chunk_0028.mp4",
+   "drive": "set01",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.19,
+   "object_counts": "{\"car\": 8, \"person\": 11, \"umbrella\": 1, \"bicycle\": 3, \"truck\": 2, \"handbag\": 1, \"traffic light\": 1, \"stop sign\": 1}",
+   "description": "The scene unfolds on a narrow, one-way street lined with parked vehicles on the left and a sidewalk on the right. The road is a single lane in the direction of travel, with no visible lane markings. A black sedan is directly ahead of the camera vehicle, moving slowly through the street. A white van is parked on the left side of the road, partially blocking the lane and forcing the black sedan to maneuver around it. The van\u2019s side door is open, and a person is standing beside it. Pedestrians are present on the right sidewalk, some walking and others standing near storefronts. A cyclist is visible further ahead, riding in the same direction as the vehicles. The street is flanked by small commercial buildings with signage, including a \u201cBurger & Steak\u201d restaurant and a \u201cKrepe\u201d shop. A stop sign is visible on the right side of the street, indicating an intersection ahead. The sky is partly cloudy, and utility poles with overhead wires run along the street.",
+   "matched_queries": [
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 3,
+   "type": "none",
+   "title": "No near miss; slow traffic around parked van",
+   "explanation": "The ego vehicle follows a black sedan slowly past a parked van with an open door and a person beside it; no collision or dangerously small gap is described. Pedestrians and a cyclist remain at a distance.",
+   "factors": [
+    "narrow one-way street",
+    "parked van partially blocks lane",
+    "open van door with person beside it",
+    "pedestrians on sidewalk",
+    "cyclist ahead"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062835_set02_video_chunk_0024_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062835_set02_video_chunk_0024.mp4",
+   "drive": "set02",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.382,
+   "object_counts": "{\"car\": 5, \"person\": 12, \"traffic light\": 6, \"handbag\": 1, \"skateboard\": 1, \"bicycle\": 1}",
+   "description": "The scene is captured from a vehicle stopped at a city intersection on a partly cloudy day. The road surface is dry and features a marked pedestrian crosswalk directly in front of the vehicle. Traffic lights are visible at the intersection, with signals facing the vehicle showing red. Pedestrians are actively crossing the street in front of the vehicle, including a man in a light blue patterned shirt and dark pants walking from left to right, and another person in a dark shirt and shorts crossing from right to left. Additional pedestrians are visible on the sidewalks and further down the street. A white car is parked along the curb on the right side of the intersection. The surrounding area includes tall buildings with glass facades and commercial signage, including a visible \u201cRBC Royal Bank\u201d sign on the right. No trucks, buses, or bicycles are clearly visible in the immediate foreground. The vehicle remains stationary, yielding to the pedestrians in the crosswalk.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped car yields to crosswalk pedestrians",
+   "explanation": "The ego vehicle is stationary at a red light while pedestrians cross in the marked crosswalk ahead; no conflict or close gap occurred.",
+   "factors": [
+    "ego vehicle stationary",
+    "red signal",
+    "marked crosswalk",
+    "pedestrians crossing legally"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062809_set02_video_chunk_0023_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062809_set02_video_chunk_0023.mp4",
+   "drive": "set02",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.379,
+   "object_counts": "{\"person\": 12, \"traffic light\": 10, \"car\": 10, \"bicycle\": 1, \"fire hydrant\": 1, \"handbag\": 1, \"truck\": 1}",
+   "description": "The scene unfolds on a multi-lane urban road with a marked crosswalk at an intersection. The road surface is dry and the sky is partly cloudy. The camera vehicle is positioned in the lane closest to the sidewalk on the right, where a pedestrian is walking. The vehicle proceeds forward and approaches the crosswalk, where several pedestrians are crossing the street. The traffic light facing the camera is red, requiring the vehicle to stop. The vehicle comes to a halt at the crosswalk, yielding to the pedestrians. The crosswalk is clearly marked with white stripes on the road. A street sign reading \"Bloor St E\" is visible near the intersection. A white van is stopped at the intersection, and a yellow taxi is visible further down the road. The vehicle remains stationary at the crosswalk, waiting for the pedestrians to finish crossing.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Vehicle stops at red, yields to pedestrians",
+   "explanation": "The camera vehicle halts at a marked crosswalk on a red light and waits while several pedestrians cross ahead; no conflict or dangerously small gap occurred.",
+   "factors": [
+    "red light compliance",
+    "yielded at crosswalk",
+    "pedestrians crossing well ahead",
+    "dry road, good visibility"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062900_set02_video_chunk_0025_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062900_set02_video_chunk_0025.mp4",
+   "drive": "set02",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.371,
+   "object_counts": "{\"person\": 11, \"car\": 5, \"traffic light\": 4, \"truck\": 1, \"handbag\": 1, \"backpack\": 2, \"suitcase\": 1, \"bicycle\": 2, \"boat\": 1}",
+   "description": "The scene is captured from a vehicle stopped at a cross intersection on a partly cloudy day. The road surface is dry and features clearly marked pedestrian crosswalks. Traffic lights are visible at the intersection, with the signal facing the camera showing red. A white SUV is stopped in the adjacent lane, and a white van is visible further ahead in the same direction. A cyclist wearing a backpack rides through the intersection, crossing from left to right in front of the camera. Pedestrians are actively using the crosswalk, with some walking across the street and others waiting on the sidewalks. A person carrying a suitcase is also seen crossing the street. The surrounding area includes modern high-rise buildings with glass facades and a brick building on the right side of the intersection. No vehicles are blocking the lane, and there are no visible traffic violations or immediate hazards in the scene.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped at red light, cyclist crosses",
+   "explanation": "The ego vehicle is stationary at a red signal while a cyclist and several pedestrians cross the intersection ahead; no conflict or dangerously small gap is described.",
+   "factors": [
+    "ego stopped at red light",
+    "cyclist crossing legally in front",
+    "pedestrians on marked crosswalk",
+    "no reported hazard or violation"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062809_set02_video_chunk_0023_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062809_set02_video_chunk_0023.mp4",
+   "drive": "set02",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.356,
+   "object_counts": "{\"car\": 7, \"person\": 11, \"traffic light\": 7, \"backpack\": 1, \"skateboard\": 1, \"truck\": 2, \"handbag\": 1, \"bicycle\": 1}",
+   "description": "The scene is a busy city intersection with a marked pedestrian crosswalk. Pedestrians are crossing the street from both directions. Traffic lights are visible, and vehicles are stopped or moving slowly to yield to the crossing pedestrians. A white delivery truck with \u201cExecutive Furniture Rentals\u201d printed on its side is driving through the intersection. Other vehicles, including a black SUV and a white sedan, are also present. The road surface shows clear lane markings and crosswalk lines. Tall office buildings with glass facades surround the intersection, and the sky is partly cloudy.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in busy intersection",
+   "explanation": "Vehicles are stopped or moving slowly to yield to pedestrians crossing at a marked crosswalk, and no dangerously close gap or avoided collision is described.",
+   "factors": [
+    "busy intersection",
+    "pedestrians crossing",
+    "vehicles yielding",
+    "no close call described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062951_set02_video_chunk_0027_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062951_set02_video_chunk_0027.mp4",
+   "drive": "set02",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.354,
+   "object_counts": "{\"traffic light\": 4, \"person\": 9, \"car\": 6, \"skateboard\": 1, \"potted plant\": 3, \"bus\": 1, \"tv\": 1, \"handbag\": 2, \"truck\": 1, \"fire hydrant\": 1}",
+   "description": "The scene unfolds at an intersection on a partly cloudy day, with the camera mounted on a vehicle that is preparing to turn left. The road surface is dry and features a marked crosswalk and lane markings. A green traffic light is visible ahead, allowing the vehicle to proceed through the intersection. Pedestrians are present on the sidewalks and crossing the street, some walking along the crosswalk while others stand near the curb. A few individuals are carrying bags or personal items as they move through the area. The surrounding environment includes modern high-rise buildings with glass facades and commercial storefronts at street level. In the distance, a bus can be seen traveling along the road, and a white SUV is parked or moving slowly on the left side of the frame. There are no visible traffic violations or immediate hazards in the scene. The overall atmosphere suggests a typical urban setting with moderate pedestrian and vehicle activity.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss at intersection",
+   "explanation": "The ego vehicle is preparing to turn left on a green light while pedestrians cross and stand nearby, but the description reports no immediate hazard or dangerously small gap.",
+   "factors": [
+    "urban intersection",
+    "pedestrians present",
+    "left-turn preparation",
+    "no reported conflict"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062809_set02_video_chunk_0023_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062809_set02_video_chunk_0023.mp4",
+   "drive": "set02",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.352,
+   "object_counts": "{\"car\": 7, \"person\": 13, \"backpack\": 3, \"traffic light\": 7, \"handbag\": 2, \"truck\": 2, \"bicycle\": 2}",
+   "description": "The scene is captured from a vehicle stopped at an intersection in a city, with a wide-angle view of the road and surrounding buildings. The road surface is dry and marked with white pedestrian crosswalk lines. Traffic lights are visible at the intersection, and the signal facing the camera appears to be red, requiring the vehicle to remain stopped. Pedestrians are actively crossing the street in front of the vehicle, using the marked crosswalk. Several cars and a white van are visible in the intersection, moving through the crosswalk area. A person wearing a backpack is among the pedestrians crossing. The surrounding area includes tall buildings with glass facades and commercial signage, indicating an urban business district. No specific violations or hazards are evident in the scene.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Ego stopped; pedestrians cross legally",
+   "explanation": "The ego vehicle is stationary at a red light while pedestrians use the marked crosswalk ahead and other vehicles pass through the intersection. The description explicitly notes no violations or hazards, so no dangerously small gap occurred.",
+   "factors": [
+    "ego stopped at red light",
+    "pedestrians in marked crosswalk",
+    "no reported violation or hazard",
+    "urban intersection with mixed traffic"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063740_set03_video_chunk_0014_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063740_set03_video_chunk_0014.mp4",
+   "drive": "set03",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.351,
+   "object_counts": "{\"truck\": 2, \"car\": 6, \"bicycle\": 2, \"person\": 5, \"backpack\": 1, \"potted plant\": 1, \"traffic light\": 1}",
+   "description": "The scene is a narrow city street with two lanes of traffic moving in the same direction. The road surface is dry and marked with white lane lines. A bicycle lane is visible on the right side of the street, separated by a dashed white line. A cyclist wearing a bright green jacket and a helmet is riding in this designated bike lane, moving away from the camera. The cyclist is riding on the right side of the bike lane, following the direction of traffic. In the left lane, a black SUV is driving ahead of the camera vehicle. In the right lane, a silver minivan is directly in front of the camera vehicle. Behind the silver minivan, a black sedan is visible. On the far left side of the street, a large white box truck is partially visible, parked or moving slowly. The truck has a logo on its side, but the text is not clearly readable. The truck is positioned near the curb, not blocking the lane. On the right side of the street, a tall building with a modern facade features a red awning over a storefront. A banner...",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle",
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in traffic scene",
+   "explanation": "The ego vehicle follows a silver minivan while a cyclist rides ahead in the designated bike lane; no close pass or evasive action is described.",
+   "factors": [
+    "cyclist in protected bike lane",
+    "normal following distance",
+    "no reported conflict"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_065124_set04_video_chunk_0015_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_065124_set04_video_chunk_0015.mp4",
+   "drive": "set04",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.35,
+   "object_counts": "{\"car\": 8, \"bus\": 1, \"traffic light\": 6, \"person\": 7, \"bicycle\": 3}",
+   "description": "The scene is a wide intersection with a marked pedestrian crosswalk in the foreground. The road surface shows tram tracks running through the intersection. A red bus is visible in the distance, approaching or waiting at the intersection. Several cars are present, including a dark SUV on the left side of the frame and a white car on the right. A cyclist rides across the intersection from left to right. Pedestrians are crossing the street in the foreground, with one person walking toward the camera and others crossing to the right. Traffic lights are visible at the intersection, though their signals are not clearly discernible. Overhead, numerous wires crisscross the sky, typical of a city with trolley or tram lines. The sky is partly cloudy with blue patches visible.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Ordinary intersection activity, no conflict",
+   "explanation": "Pedestrians and a cyclist cross in a wide intersection while cars and a bus are present, but no dangerously small gap or avoided collision is described.",
+   "factors": [
+    "busy intersection",
+    "multiple road users",
+    "no close interaction reported"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062008_set02_video_chunk_0004_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062008_set02_video_chunk_0004.mp4",
+   "drive": "set02",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.346,
+   "object_counts": "{\"car\": 8, \"person\": 1, \"bicycle\": 2, \"backpack\": 1, \"skateboard\": 1, \"fire hydrant\": 1}",
+   "description": "The scene is a city street with a multi-story building in the background and trees lining the sidewalk. A man wearing a black shirt and dark pants walks across the road from left to right, moving in front of the camera. Several cars are visible: a silver sedan drives past from left to right, followed by a white sedan that also moves from left to right. A white SUV is parked along the curb near the building. The road appears to be a two-way street with no visible traffic lights or stop signs. The man walking across the road is the primary moving pedestrian, and there are no bicycles or cyclists visible. No vehicles are blocking the road, and no traffic violations are evident.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Pedestrian crosses road without close call",
+   "explanation": "A man walked across the road in front of the camera while cars passed normally. No dangerously small gap or avoidance maneuver is described.",
+   "factors": [
+    "no proximity details",
+    "no evasive action",
+    "normal traffic flow"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062538_set02_video_chunk_0017_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062538_set02_video_chunk_0017.mp4",
+   "drive": "set02",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.345,
+   "object_counts": "{\"car\": 6, \"person\": 11, \"traffic light\": 6, \"truck\": 1, \"bus\": 1, \"kite\": 1, \"backpack\": 1, \"handbag\": 2, \"bicycle\": 1}",
+   "description": "The scene is a busy city intersection with a marked crosswalk and traffic lights. Pedestrians are crossing the street from right to left in front of the camera. A black car is stopped at the intersection, waiting for the pedestrians to clear. Another black car is visible in the background, moving through the intersection. A red truck is parked on the right side of the street. The traffic lights are visible and appear to be functioning normally. There are no visible violations or hazards in the scene.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Pedestrians cross while cars wait",
+   "explanation": "Pedestrians crossed right to left in front of the camera while a black car stopped and waited for them to clear. No conflict or dangerously small gap is described; the scene is a normal, orderly crosswalk interaction.",
+   "factors": [
+    "busy intersection",
+    "multiple pedestrians in crosswalk",
+    "stopped vehicle yielding",
+    "no reported violation"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063353_set03_video_chunk_0005_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063353_set03_video_chunk_0005.mp4",
+   "drive": "set03",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.344,
+   "object_counts": "{\"car\": 10, \"person\": 3, \"traffic light\": 3, \"bicycle\": 1, \"horse\": 1, \"backpack\": 1}",
+   "description": "The scene is a daytime view from a vehicle stopped at an intersection. A black car is directly ahead, with a silver car to the left. A pedestrian wearing a backpack walks across the intersection in front of the silver car. A cyclist on a bicycle rides through the intersection from right to left. Traffic lights are visible at the intersection, and lane markings are present on the road surface.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car",
+    "cyclist cutting across in front of the vehicle",
+    "bicycle very close to the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped at intersection, no near miss",
+   "explanation": "The ego vehicle is stopped at an intersection while a pedestrian crosses in front of a silver car and a cyclist rides through. No dangerously small gap or avoided collision is described.",
+   "factors": [
+    "ego stopped",
+    "pedestrian crossing ahead",
+    "cyclist crossing intersection",
+    "no close gap described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070258_set05_video_chunk_0012_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070258_set05_video_chunk_0012.mp4",
+   "drive": "set05",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.343,
+   "object_counts": "{\"car\": 11, \"person\": 3, \"bicycle\": 2, \"handbag\": 1, \"stop sign\": 2, \"traffic light\": 1}",
+   "description": "The scene is captured from a vehicle traveling along a two-lane residential street with a yellow center line. The road is lined with trees and houses, and the weather is clear with daylight. A cyclist wearing a helmet and light-colored shorts is riding ahead in the same direction, positioned near the right curb. A pedestrian in light-colored pants and a dark shirt walks along the right sidewalk, carrying a white bag. A black car is parked on the left side of the street, and another vehicle is visible further ahead. A stop sign is visible at an upcoming intersection, and a traffic light hangs above the road. The cyclist continues riding forward, and the vehicle from which the footage is taken maintains a steady pace behind them.",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle",
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in steady following",
+   "explanation": "The ego vehicle maintains a steady pace behind a cyclist riding near the right curb, with a pedestrian on the sidewalk and no reported close pass or evasive action.",
+   "factors": [
+    "cyclist ahead in same lane",
+    "steady following distance",
+    "pedestrian separated on sidewalk",
+    "no evasive maneuver described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062422_set02_video_chunk_0014_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062422_set02_video_chunk_0014.mp4",
+   "drive": "set02",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.328,
+   "object_counts": "{\"car\": 12, \"person\": 6, \"bicycle\": 4, \"stop sign\": 1, \"traffic light\": 1}",
+   "description": "The scene unfolds at an intersection on a partly cloudy day. The road surface is dry and features a double yellow centerline, indicating a two-way street. A black sedan is stopped at the intersection, positioned in the lane the camera vehicle is approaching. A pedestrian in a dark suit is crossing the street in front of the camera vehicle, moving from left to right. The camera vehicle yields to this pedestrian, who is walking across the road in front of it. The camera vehicle then proceeds forward and makes a right turn onto a street lined with parked cars on both sides. The street the camera vehicle enters has a single lane in each direction. A stop sign is visible on the left side of the intersection. No traffic lights are visible in the scene.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car",
+    "car turning across the path of the vehicle"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Vehicle yields to pedestrian at intersection",
+   "explanation": "A pedestrian crossed in front of the camera vehicle, which yielded and then proceeded. No dangerously small gap or avoided collision is described.",
+   "factors": [
+    "pedestrian crossing",
+    "vehicle yielded",
+    "no close gap described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071510_set06_video_chunk_0011_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071510_set06_video_chunk_0011.mp4",
+   "drive": "set06",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.316,
+   "object_counts": "{\"car\": 6, \"person\": 3, \"handbag\": 2, \"truck\": 2, \"potted plant\": 1}",
+   "description": "The scene is a narrow, one-way urban street with a single lane in each direction. The ego vehicle is traveling behind a dark SUV that is stopped in the middle of the road. A blue sedan is parked on the left side of the street, partially blocking the lane. A pedestrian is walking along the left side of the road, moving away from the camera. Another person is standing near the parked blue sedan, appearing to be getting into or out of the vehicle. A truck is visible further down the street, stopped behind the ego vehicle. There are no traffic lights or stop signs visible in this segment. The road surface is dry and appears to be in good condition. The surrounding buildings are brick structures with large windows, typical of an older urban area.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car",
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss; stopped traffic and pedestrians",
+   "explanation": "The ego vehicle is behind a stopped SUV while pedestrians are on the left side and near a parked car. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "stopped SUV in lane",
+    "parked car partially blocks lane",
+    "pedestrians near roadway"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070258_set05_video_chunk_0012_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070258_set05_video_chunk_0012.mp4",
+   "drive": "set05",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.303,
+   "object_counts": "{\"stop sign\": 1, \"person\": 4, \"car\": 7, \"bicycle\": 2, \"fire hydrant\": 1, \"kite\": 1, \"traffic light\": 1, \"bench\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a residential street intersection under a clear sky. The road is paved with a single lane in each direction, separated by a dashed yellow centerline. A stop sign is visible on the right side of the road, and a traffic light hangs over the intersection, currently showing red. A cyclist wearing a helmet and light-colored shorts is riding ahead of the camera vehicle, moving slowly through the intersection. Pedestrians are visible on the sidewalks, with one person in orange crossing the street. Several parked cars line the sides of the road, and a fire hydrant is visible near the curb. The surroundings include houses with mature trees and utility poles with overhead wires. No trucks, buses, or lane-blocking vehicles are present. The cyclist\u2019s movement and the red traffic light are the primary dynamic elements in the scene.",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle",
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Cyclist ahead at red light",
+   "explanation": "A cyclist is riding slowly ahead through the intersection while the traffic light is red, and a pedestrian is crossing on the sidewalk area. No collision avoidance or dangerously small gap is described.",
+   "factors": [
+    "red traffic light",
+    "cyclist ahead",
+    "pedestrian crossing nearby",
+    "no reported close call"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070117_set05_video_chunk_0008_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070117_set05_video_chunk_0008.mp4",
+   "drive": "set05",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.302,
+   "object_counts": "{\"car\": 9, \"person\": 2, \"stop sign\": 1, \"truck\": 1, \"skateboard\": 1}",
+   "description": "The scene is a residential street intersection with a stop sign on the right side of the road. A silver sedan is stopped at the intersection, facing the camera, with its brake lights illuminated. In front of the sedan, a pedestrian is crossing the street using the marked crosswalk. The pedestrian is wearing dark clothing and appears to be walking from left to right across the intersection. The sky is partly cloudy, and there are trees and houses lining both sides of the street. The road has a yellow center line and white crosswalk markings. No other vehicles, trucks, or buses are clearly visible in the immediate vicinity of the intersection.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Sedan stopped yielding to crosswalk pedestrian",
+   "explanation": "A silver sedan is stopped at the intersection with brake lights on while a pedestrian crosses in the marked crosswalk ahead of it. The vehicle is fully halted and yielding normally, with no dangerously small gap or evasive action described.",
+   "factors": [
+    "vehicle stopped and yielding",
+    "pedestrian in marked crosswalk",
+    "residential intersection, low speed",
+    "dark clothing reduces pedestrian visibility"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070258_set05_video_chunk_0012_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070258_set05_video_chunk_0012.mp4",
+   "drive": "set05",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.27,
+   "object_counts": "{\"person\": 3, \"bicycle\": 1, \"traffic light\": 1, \"car\": 9, \"bench\": 1, \"backpack\": 1}",
+   "description": "The scene is a residential street with a single lane in each direction and no dedicated turn lanes. The road surface is dry and shows some cracks and potholes. A traffic light is suspended over the intersection, showing a red signal. A cyclist wearing a helmet rides along the right side of the road, moving away from the camera. Several cars are parked along the left side of the street, and a few vehicles are visible driving in the opposite direction. There are no trucks or buses present. No pedestrians are visible in the frame. A speed limit sign indicating 40 is visible on the right side of the road. The cyclist is riding in the correct direction and there are no apparent traffic violations or immediate hazards.",
+   "matched_queries": [
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Cyclist rides ahead, no conflict",
+   "explanation": "A helmeted cyclist travels away from the camera on the right side of a residential street while the ego vehicle approaches a red light; no vehicle, cyclist or pedestrian came dangerously close.",
+   "factors": [
+    "red light intersection ahead",
+    "cyclist in correct direction",
+    "parked cars on left",
+    "no immediate hazard reported"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_064154_set03_video_chunk_0024_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_064154_set03_video_chunk_0024.mp4",
+   "drive": "set03",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.261,
+   "object_counts": "{\"person\": 7, \"car\": 6, \"truck\": 2, \"bicycle\": 2, \"bus\": 2, \"motorcycle\": 1, \"potted plant\": 1, \"backpack\": 1, \"traffic light\": 2, \"fire hydrant\": 1}",
+   "description": "The scene is a city street with a two-lane road and a bike lane on the right. The camera vehicle is traveling straight in the right lane, following a silver car ahead. A cyclist in dark clothing rides in the bike lane to the right. A black pickup truck is stopped in the left lane, partially blocking traffic. On the left side of the street, a white utility truck with orange markings is parked near the curb, and workers in orange safety vests are standing nearby. Orange traffic cones are placed along the left side of the road, indicating a work zone. A white car is stopped in the left lane, and a yellow taxi is visible further ahead. A pedestrian is walking on the right sidewalk. The traffic light ahead is yellow. A speed limit sign reading 40 is visible on the right side of the street.",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in city traffic",
+   "explanation": "The ego vehicle travels straight behind a silver car while a cyclist stays in the bike lane and a pedestrian walks on the sidewalk; no collision or dangerously small gap is described.",
+   "factors": [
+    "work zone",
+    "stopped pickup partially blocking left lane",
+    "yellow traffic light",
+    "cyclist in adjacent bike lane"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071742_set06_video_chunk_0017_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071742_set06_video_chunk_0017.mp4",
+   "drive": "set06",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.258,
+   "object_counts": "{\"car\": 5, \"truck\": 3, \"person\": 4}",
+   "description": "The scene is a narrow, one-way street with a single lane in each direction. The ego vehicle is stopped behind a dark blue SUV, which is also stationary. A large white dump truck is parked on the left side of the road, partially blocking the lane. Pedestrians are visible on the right side of the street, walking along the sidewalk. The sky is partly cloudy, and there are buildings and trees lining the street. No traffic lights or road signs are clearly visible in the frame.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped traffic, pedestrians on sidewalk",
+   "explanation": "The ego vehicle is stationary behind an SUV while pedestrians walk on the right sidewalk. No pedestrian, cyclist, or vehicle conflict or dangerously small gap is described.",
+   "factors": [
+    "stationary ego vehicle",
+    "parked truck partially blocks lane",
+    "pedestrians separated on sidewalk"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071717_set06_video_chunk_0016_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071717_set06_video_chunk_0016.mp4",
+   "drive": "set06",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.251,
+   "object_counts": "{\"car\": 6, \"truck\": 2, \"person\": 5}",
+   "description": "The scene is a narrow, one-way street with a single lane of traffic. The sky is partly cloudy, and the road surface appears dry. A large dump truck is parked on the left side of the street, partially blocking the lane. In front of the camera vehicle, a dark-colored SUV is stopped with its brake lights illuminated. The SUV has a visible license plate reading AZJY 712. To the right, a dark-colored SUV is parked along the curb. Pedestrians are walking on the sidewalk to the right, including one person in a blue jacket and others in darker clothing. There are no visible traffic signals or signs in the immediate area. The camera vehicle remains stationary behind the SUV, with no movement or change in position observed during the clip.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stationary traffic behind stopped SUV",
+   "explanation": "The camera vehicle remains stopped behind a dark SUV with brake lights on, while pedestrians walk on the sidewalk and a dump truck is parked ahead. No movement or close interaction with a pedestrian, cyclist, or vehicle is described.",
+   "factors": [
+    "stationary ego vehicle",
+    "pedestrians on sidewalk",
+    "parked truck partially blocks lane",
+    "no observed movement"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071535_set06_video_chunk_0012_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071535_set06_video_chunk_0012.mp4",
+   "drive": "set06",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.251,
+   "object_counts": "{\"truck\": 1, \"car\": 3, \"person\": 3, \"potted plant\": 1, \"bicycle\": 1, \"bench\": 1, \"parking meter\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a road with a brick building on the right and trees on the left. The sky is partly cloudy. A large dump truck is visible on the left side of the road, moving forward. In front of the camera vehicle, a dark-colored SUV is stopped with its brake lights illuminated. A construction or roadwork warning sign is visible on the right side of the road, near the building. Pedestrians are standing on the sidewalk to the right of the road, near the building entrance. Another vehicle, a dark-colored sedan, is seen approaching from the opposite direction in the distance. The road appears to be a two-lane street with no visible traffic lights or stop signs in the immediate area. The overall environment suggests an urban or suburban setting with moderate traffic.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in moderate traffic",
+   "explanation": "A stopped SUV, moving dump truck, distant oncoming sedan, and pedestrians on the sidewalk are described with no close interaction or avoided collision.",
+   "factors": [
+    "stopped SUV ahead",
+    "pedestrians on sidewalk",
+    "distant oncoming vehicle",
+    "moderate traffic"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071717_set06_video_chunk_0016_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071717_set06_video_chunk_0016.mp4",
+   "drive": "set06",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.243,
+   "object_counts": "{\"car\": 5, \"truck\": 3, \"person\": 4}",
+   "description": "The scene is a narrow, single-lane, one-way urban street with parked vehicles on both sides. The sky is partly cloudy and the lighting is natural daylight. A large gray dump truck is parked on the left side of the road, partially blocking the lane. In front of the camera vehicle, a dark blue SUV with a visible license plate is stopped, its brake lights illuminated. Behind the SUV, another large white truck is also stopped. Pedestrians are visible on the right sidewalk, walking away from the camera. There are no traffic lights or visible traffic signs in the immediate area. The vehicles are stationary, and no moving traffic or active maneuvers are occurring.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss; vehicles stationary",
+   "explanation": "All vehicles are stopped in a narrow street with parked trucks, and pedestrians are walking away on the sidewalk. No collision was plausibly avoided and no dangerously small gap occurred.",
+   "factors": [
+    "narrow street",
+    "parked trucks partially block lane",
+    "stationary traffic",
+    "pedestrians on sidewalk"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071510_set06_video_chunk_0011_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071510_set06_video_chunk_0011.mp4",
+   "drive": "set06",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.243,
+   "object_counts": "{\"truck\": 2, \"car\": 4, \"bicycle\": 1, \"person\": 1, \"bus\": 1, \"potted plant\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a road with a dark blue SUV directly ahead. The SUV has a visible license plate reading AZJY 712 and its brake lights are illuminated. To the left of the SUV, a white flatbed tow truck is partially visible, displaying the letters \u201cCAA\u201d on its side. The tow truck is positioned in the adjacent lane, moving slowly or stopped. On the right side of the road, there is an orange diamond-shaped construction sign featuring a black silhouette of a worker with a shovel, indicating road work ahead. Behind the SUV, a dark-colored sedan is visible, also with its brake lights on. Further down the road, another vehicle can be seen approaching from the opposite direction. The environment includes a large brick building with multiple windows on the right side of the road. Trees line the left side, and overhead power lines stretch across the sky. The sky is partly cloudy, and the overall lighting suggests daytime conditions. There are no pedestrians or...",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in traffic",
+   "explanation": "Vehicles are queued with brake lights on near a construction zone, but no pedestrian, cyclist, or vehicle conflict is described. Gaps appear ordinary and no evasive action is reported.",
+   "factors": [
+    "queued traffic",
+    "construction zone",
+    "no conflict described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071742_set06_video_chunk_0017_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071742_set06_video_chunk_0017.mp4",
+   "drive": "set06",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.239,
+   "object_counts": "{\"car\": 5, \"truck\": 3, \"person\": 2}",
+   "description": "The scene is a narrow, single-lane, one-way street with a brick-paved sidewalk on the right. The sky is partly cloudy with patches of blue. A large white dump truck is parked on the left side of the road, partially blocking the lane. In front of the camera vehicle, a dark blue SUV is stopped with its brake lights illuminated. Behind the SUV, another white truck is visible, also stopped. On the right side of the street, several vehicles are parked along the curb, including a dark-colored SUV and a white pickup truck. A person is walking on the sidewalk to the right, moving away from the camera. There are no visible traffic lights or road signs in the immediate area. The vehicles ahead are stationary, and the overall traffic flow is minimal.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped traffic on narrow street",
+   "explanation": "Vehicles ahead are stationary and a pedestrian walks away on the sidewalk. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "narrow street",
+    "parked truck partially blocks lane",
+    "stationary traffic",
+    "pedestrian on sidewalk"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070555_set05_video_chunk_0019_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070555_set05_video_chunk_0019.mp4",
+   "drive": "set05",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.232,
+   "object_counts": "{\"car\": 7, \"person\": 2, \"stop sign\": 1, \"traffic light\": 1, \"umbrella\": 1, \"bicycle\": 1}",
+   "description": "The scene is a residential street with a two-lane road, each lane marked by a solid yellow center line. The road is lined with trees and houses, and the sky is partly cloudy. A silver minivan is directly ahead of the camera vehicle, traveling in the same direction. The minivan is approaching an intersection controlled by a stop sign on the right side of the road. A pedestrian is visible on the left side of the street, walking away from the camera. There are no trucks or buses present in the scene. The stop sign is clearly visible, and there are no other traffic lights or signals in view. The overall traffic flow is light, and there are no apparent violations or hazards.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss on residential street",
+   "explanation": "A minivan ahead approaches a stop sign while a pedestrian walks away on the left; no collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "light traffic",
+    "pedestrian walking away",
+    "stop sign approach",
+    "no reported violation"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063353_set03_video_chunk_0005_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063353_set03_video_chunk_0005.mp4",
+   "drive": "set03",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.231,
+   "object_counts": "{\"car\": 7, \"traffic light\": 2, \"bicycle\": 2, \"person\": 5, \"potted plant\": 1, \"truck\": 2, \"fire hydrant\": 1, \"handbag\": 1, \"backpack\": 1}",
+   "description": "The scene is captured from a vehicle traveling along a two-lane road in a city environment. The road is dry and marked with white lane lines. On the right side, a dedicated bicycle lane is visible, separated by a painted bicycle symbol and white lane markings. A cyclist wearing a backpack rides in this bicycle lane, moving in the same direction as the camera vehicle. Traffic is light to moderate. Ahead of the camera vehicle, a black car travels in the same lane, followed by a silver car in the adjacent left lane. A yellow delivery van is parked or moving slowly on the right side of the road near a large brick building with multiple windows. A white delivery truck is also visible further down the street. A traffic light is present at an intersection ahead, showing green for the camera vehicle\u2019s direction of travel. Pedestrians are visible on the sidewalks, including one person walking on the left sidewalk and others near the crosswalk area. A fire hydrant is located on the left side of the road near the...",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in normal traffic",
+   "explanation": "The ego vehicle travels normally with a cyclist in the adjacent bike lane and pedestrians on sidewalks; no dangerously small gap or avoided collision is described.",
+   "factors": [
+    "cyclist in dedicated bike lane",
+    "pedestrians on sidewalks",
+    "green traffic light",
+    "light to moderate traffic"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071303_set06_video_chunk_0006_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071303_set06_video_chunk_0006.mp4",
+   "drive": "set06",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.226,
+   "object_counts": "{\"truck\": 3, \"car\": 9, \"bus\": 1}",
+   "description": "The scene is a narrow urban street with two lanes in the same direction. The ego vehicle is stopped behind a dark blue SUV, which is also stationary with its brake lights illuminated. To the left, a large yellow and red dump truck is partially visible, its trailer extending into the lane ahead of the ego vehicle. The truck appears to be moving slowly or stopped, partially blocking the lane. Further ahead, a dark-colored box truck is visible, also moving slowly. On the right side of the street, several cars are parked along the curb. The road surface is paved, and there are no visible traffic lights or road signs in the immediate view. The sky is overcast, and the surrounding buildings are multi-story with brick facades. No pedestrians or cyclists are visible in the scene.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped traffic, truck partially blocks lane",
+   "explanation": "The ego vehicle is stationary behind an SUV while a dump truck partially blocks the lane ahead. No pedestrian, cyclist, or vehicle conflict is described, and no dangerously small gap is reported.",
+   "factors": [
+    "stationary ego",
+    "large truck obstructs lane",
+    "no dynamic conflict"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063418_set03_video_chunk_0006_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063418_set03_video_chunk_0006.mp4",
+   "drive": "set03",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.224,
+   "object_counts": "{\"car\": 7, \"bicycle\": 4, \"truck\": 2, \"person\": 1, \"potted plant\": 1}",
+   "description": "The scene is a city street with two lanes in the same direction, separated by a dashed white line. A green bike lane runs along the right side of the road. The road surface is dry and marked with standard lane lines. A cyclist wearing dark clothing rides in the bike lane on the right, moving away from the camera. A black SUV is directly ahead in the same lane as the camera vehicle, with its brake lights illuminated. To the left, a white box truck with orange and blue graphics is visible, also traveling in the same direction. In the distance, other vehicles are present, including a white car and a dark SUV. The surrounding buildings are multi-story brick structures with numerous windows. The sky is clear and blue, indicating daytime conditions. No traffic signals, stop signs, or other traffic control devices are visible in the immediate area.",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in city traffic",
+   "explanation": "The ego vehicle follows a black SUV with brake lights while a cyclist rides ahead in the bike lane. No pedestrian, cyclist, or vehicle conflict or dangerously small gap is described.",
+   "factors": [
+    "steady following distance",
+    "cyclist separated in bike lane",
+    "no traffic control devices visible"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_064942_set04_video_chunk_0011_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_064942_set04_video_chunk_0011.mp4",
+   "drive": "set04",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.223,
+   "object_counts": "{\"car\": 11, \"person\": 7, \"bicycle\": 2, \"truck\": 2, \"traffic light\": 1, \"umbrella\": 2, \"clock\": 1}",
+   "description": "The scene is a two-lane road with a bicycle lane on the right. The ego vehicle is traveling in the left lane, following a white van. A cyclist is riding in the bicycle lane to the right of the ego vehicle. The road is lined with trees and buildings, and there are parked cars along the right side. The sky is partly cloudy.",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss in segment",
+   "explanation": "The ego vehicle follows a van while a cyclist rides in the adjacent bicycle lane; no collision avoidance or dangerously small gap is described.",
+   "factors": [
+    "cyclist in separate bicycle lane",
+    "ego following van",
+    "no reported close interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070233_set05_video_chunk_0011_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070233_set05_video_chunk_0011.mp4",
+   "drive": "set05",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.219,
+   "object_counts": "{\"car\": 8, \"stop sign\": 1, \"clock\": 1, \"truck\": 1}",
+   "description": "The scene is a residential street with a single lane in each direction and no visible lane markings. A stop sign is positioned on the right side of the road. A white car is traveling ahead of the camera vehicle, and another white car is approaching from the opposite direction. A dark-colored truck is visible in the distance, parked or moving slowly on the right side of the road. There are no pedestrians or cyclists present. The road appears to be a typical neighborhood street with houses and trees lining both sides.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss on residential street",
+   "explanation": "Traffic is present ahead and oncoming, but no collision was plausibly avoided and no dangerously small gap is described. The scene appears to be ordinary neighborhood driving with no pedestrians or cyclists.",
+   "factors": [
+    "residential street",
+    "stop sign present",
+    "no close interaction described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071354_set06_video_chunk_0008_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071354_set06_video_chunk_0008.mp4",
+   "drive": "set06",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.217,
+   "object_counts": "{\"car\": 10, \"truck\": 3, \"bus\": 2, \"stop sign\": 1}",
+   "description": "The scene is a two-lane road with a single lane in each direction, viewed from a vehicle stopped behind a dark SUV. The SUV ahead has its brake lights illuminated, indicating it is stationary or moving very slowly. To the left, a large black UPS delivery truck is partially visible, with its side displaying the UPS logo and the words \u201cWorldwide Services.\u201d The truck appears to be in the process of turning or maneuvering, as it is angled across the lane and emitting a visible plume of exhaust or smoke from its rear. Other vehicles, including a silver SUV and a white car, are visible further ahead, also stopped or moving slowly. The road is lined with multi-story brick buildings, and a tall smokestack is visible in the background. There are no visible traffic lights or stop signs in the immediate view. The sky is overcast with clouds.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped traffic with truck maneuvering",
+   "explanation": "The ego vehicle is stationary behind a dark SUV while a UPS truck is angled across the lane and other vehicles are stopped or moving slowly. No pedestrian, cyclist, or vehicle conflict is described as dangerously close.",
+   "factors": [
+    "stopped traffic",
+    "truck maneuvering nearby",
+    "no close conflict described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071742_set06_video_chunk_0017_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071742_set06_video_chunk_0017.mp4",
+   "drive": "set06",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.213,
+   "object_counts": "{\"truck\": 3, \"car\": 6, \"person\": 5, \"fire hydrant\": 1, \"traffic light\": 2, \"bus\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a street with a lane closure. A large white box truck is stopped on the left side of the road, partially blocking the lane. In front of the camera vehicle, a dark SUV is moving forward slowly. To the right, a person wearing a high-visibility orange jacket and a yellow hard hat stands near a \u201cSLOW\u201d sign, indicating a work zone. Orange traffic cones line the road ahead, guiding traffic around the closure. Pedestrians are visible on the sidewalk to the right, walking along the street. The sky is partly cloudy, and buildings and trees line the street. The camera vehicle follows the SUV, navigating through the narrowed lane created by the truck and cones.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Safe navigation through work zone",
+   "explanation": "The ego vehicle follows a slow-moving SUV through a narrowed lane beside a stopped box truck and cones. Pedestrians and a worker remain on the sidewalk/roadside, with no reported close call or dangerously small gap.",
+   "factors": [
+    "lane closure",
+    "work zone",
+    "slow traffic",
+    "pedestrians nearby"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063353_set03_video_chunk_0005_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063353_set03_video_chunk_0005.mp4",
+   "drive": "set03",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.205,
+   "object_counts": "{\"car\": 7, \"person\": 4, \"traffic light\": 5, \"bicycle\": 1, \"truck\": 1}",
+   "description": "The scene is a city intersection on a clear, sunny day. The ego vehicle is stopped behind a black car in the right lane, waiting at a traffic light. A cyclist is visible ahead, riding in the same direction as the ego vehicle. The traffic light is green, and the ego vehicle begins to move forward, following the black car and the cyclist through the intersection. The road has clear lane markings and crosswalks. There are no trucks or buses visible in the scene. The surrounding area includes tall buildings and trees with autumn foliage.",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Safe following through green light",
+   "explanation": "The ego vehicle waits at a green light and then follows a black car and a cyclist through the intersection without any reported close call or avoidance maneuver.",
+   "factors": [
+    "cyclist ahead in same direction",
+    "green traffic light",
+    "no dangerously small gap reported"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_061917_set02_video_chunk_0002_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_061917_set02_video_chunk_0002.mp4",
+   "drive": "set02",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.203,
+   "object_counts": "{\"person\": 7, \"car\": 6, \"bicycle\": 1, \"umbrella\": 2, \"fire hydrant\": 1, \"handbag\": 1, \"airplane\": 1, \"stop sign\": 1, \"train\": 1, \"bench\": 1}",
+   "description": "The scene is captured from a vehicle traveling along a one-way street. The road is a single-lane, one-way street with vehicles parked on the left side. The vehicle approaches an intersection controlled by a stop sign. There are no traffic lights visible. A stop sign is clearly visible at the intersection. A fire hydrant is visible on the left side of the street. A bicycle is visible on the right side of the street. A person is walking on the sidewalk on the right side of the street. A handbag is visible on the sidewalk on the right side of the street. A train is visible in the background. An umbrella is visible on the sidewalk on the right side of the street.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss at stop sign",
+   "explanation": "The ego vehicle approaches a stop-controlled intersection with pedestrians on the sidewalk and a bicycle on the right, but no close interaction or evasive action is described. The scene appears to be an ordinary approach with no collision plausibly avoided.",
+   "factors": [
+    "stop-controlled intersection",
+    "pedestrians nearby",
+    "bicycle nearby",
+    "parked vehicles"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063353_set03_video_chunk_0005_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063353_set03_video_chunk_0005.mp4",
+   "drive": "set03",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.198,
+   "object_counts": "{\"car\": 9, \"person\": 3, \"bicycle\": 1, \"traffic light\": 4, \"truck\": 1}",
+   "description": "The scene is a daytime view from a vehicle stopped at an intersection on a multi-lane road. The road surface is dry and marked with white lane lines and directional arrows. A cyclist wearing dark clothing and a backpack is riding in the rightmost lane, moving forward and then slowing as they approach the intersection. In front of the camera vehicle, a black SUV is stopped at the intersection, with its brake lights illuminated. To the left, a silver hatchback is also stopped. The traffic light facing the camera is red, requiring vehicles to stop. A white van is visible in the background, traveling along the cross street. The environment includes tall buildings and trees with yellow autumn foliage under a clear blue sky. No pedestrians are visible in the frame.",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped at red light, cyclist slows",
+   "explanation": "The ego vehicle is stationary at a red light with a stopped SUV ahead and a silver hatchback to the left, while a cyclist in the rightmost lane slows on approach to the intersection. No conflict or dangerously small gap is described; all road users are separated and controlled by the signal.",
+   "factors": [
+    "red light compliance",
+    "cyclist decelerating",
+    "vehicles stationary",
+    "no pedestrian interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_061746_set01_video_chunk_0029_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_061746_set01_video_chunk_0029.mp4",
+   "drive": "set01",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.193,
+   "object_counts": "{\"car\": 3, \"person\": 12, \"stop sign\": 2, \"bicycle\": 3, \"truck\": 1, \"bus\": 1, \"traffic light\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a street intersection. The road surface is dry and appears to be a two-way street with a single lane in each direction. There is a stop sign visible on the right side of the road, indicating an intersection where vehicles must come to a complete stop. No traffic lights are visible in the frame. In the foreground, a silver SUV is directly ahead of the camera vehicle, stopped at the intersection. The SUV\u2019s brake lights are illuminated, suggesting it is stationary. To the left of the SUV, a person is riding a bicycle across the intersection, moving from left to right. On the right side of the road, several pedestrians are walking along the sidewalk, some appearing to be crossing the street. A few more pedestrians are visible further down the street, near a building with a colorful mural. On the left side of the street, a white van is parked near the curb, and further down the road, a white bus is visible, parked or moving slowly. The...",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped traffic at intersection",
+   "explanation": "The ego vehicle is behind a stopped silver SUV at a stop sign while a cyclist crosses ahead and pedestrians walk nearby. No dangerously small gap or avoided collision is described.",
+   "factors": [
+    "stopped SUV ahead",
+    "cyclist crossing intersection",
+    "pedestrians on sidewalk",
+    "no ego movement described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071147_set06_video_chunk_0003_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071147_set06_video_chunk_0003.mp4",
+   "drive": "set06",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.175,
+   "object_counts": "{\"car\": 4, \"traffic light\": 1, \"stop sign\": 1, \"fire hydrant\": 1, \"bench\": 1, \"person\": 1, \"truck\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a road intersection. The road surface is paved and appears to be a two-way street with a slight curve. A stop sign is visible on the right side of the road, indicating that vehicles must come to a complete stop before proceeding. There are no traffic lights visible in this segment. Several vehicles are present on the road. A black car is seen driving through the intersection, moving from left to right. Another black car is parked on the right side of the road, near the stop sign. A blue truck is also visible, driving in the same direction as the black car. The truck is larger than the cars and has a boxy shape typical of commercial vehicles. In the background, there is a large brick building with multiple windows. The building appears to be an older structure, possibly a school or community center. There are some trees and other buildings visible in the distance, suggesting an urban or suburban setting. The sky is partly cloudy, and...",
+   "matched_queries": [
+    "car braking hard to avoid a collision",
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss at intersection",
+   "explanation": "Vehicles are seen driving through or parked near a stop-sign intersection, with no described close call or dangerously small gap involving a pedestrian, cyclist, or vehicle.",
+   "factors": [
+    "no conflict described",
+    "stop-sign intersection",
+    "pedestrian detected but no interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070207_set05_video_chunk_0010_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070207_set05_video_chunk_0010.mp4",
+   "drive": "set05",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.152,
+   "object_counts": "{\"car\": 8, \"truck\": 1, \"stop sign\": 2, \"person\": 3, \"bicycle\": 1}",
+   "description": "The scene is a residential street with a single lane in each direction and no visible lane markings. The ego vehicle is traveling straight toward an intersection controlled by a stop sign. A silver sedan is directly ahead of the ego vehicle, and a white sedan is approaching from the opposite direction. The white sedan has a taxi sign on its roof. A black sedan is also visible ahead, following the silver sedan. There are no trucks or buses present in the scene. No pedestrians or cyclists are visible. The stop sign is clearly visible at the intersection. The ego vehicle is maintaining a safe following distance behind the silver sedan and appears to be preparing to stop at the intersection.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Safe approach to stop sign",
+   "explanation": "Ego vehicle follows a silver sedan at a safe distance while preparing to stop at a stop-sign intersection; no pedestrian, cyclist or vehicle conflict is described.",
+   "factors": [
+    "safe following distance",
+    "stop sign approach",
+    "no conflict described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_064012_set03_video_chunk_0020_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_064012_set03_video_chunk_0020.mp4",
+   "drive": "set03",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.145,
+   "object_counts": "{\"car\": 8, \"person\": 3}",
+   "description": "The scene is a city street with two lanes of traffic moving away from the camera. A silver sedan is in the left lane, and a beige SUV is directly ahead in the right lane. The SUV\u2019s brake lights are illuminated, indicating it is stopped or moving very slowly. Other vehicles are visible further ahead in both lanes, suggesting moderate traffic. The road surface is dry, and the surrounding buildings are tall with reflective glass facades. There are no visible traffic lights or signs in the immediate foreground, and no pedestrians or cyclists are present in the frame. The vehicles ahead are stationary or moving slowly, and there are no obvious hazards or violations visible in this short clip.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Slow traffic ahead, no conflict",
+   "explanation": "The ego vehicle follows a stopped or slow-moving beige SUV in the right lane with a silver sedan in the left lane; traffic ahead is congested but no vehicle, pedestrian or cyclist came dangerously close. The clip shows ordinary queuing with no evasive action or small gap.",
+   "factors": [
+    "moderate congestion",
+    "lead vehicle braking",
+    "no pedestrians or cyclists in frame",
+    "no evasive action observed"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_072039_set06_video_chunk_0024_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_072039_set06_video_chunk_0024.mp4",
+   "drive": "set06",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.13,
+   "object_counts": "{\"car\": 7, \"person\": 3, \"motorcycle\": 1, \"truck\": 1, \"bicycle\": 1, \"backpack\": 1, \"parking meter\": 1, \"handbag\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a street intersection with a silver sedan turning left in front of the camera. The vehicle is stopped at the intersection, waiting for the sedan to complete its turn. A person wearing an orange high-visibility jacket and a hooded sweatshirt is standing on the right side of the frame, operating a pallet jack loaded with stacked boxes. The person appears to be maneuvering the pallet jack across the road, moving from the right side toward the center of the intersection. The background features multi-story brick buildings with signage, including one that reads \u201cOrganic.\u201d There are no visible traffic lights or stop signs controlling the intersection. The sky is partly cloudy, and the road surface is dry. The overall setting suggests an urban or commercial area with moderate activity.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped vehicle waits as worker crosses",
+   "explanation": "The ego vehicle is stopped at the intersection while a worker with a pallet jack moves across the road. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "ego stopped",
+    "worker crossing",
+    "no traffic controls"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_065631_set04_video_chunk_0027_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_065631_set04_video_chunk_0027.mp4",
+   "drive": "set04",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.13,
+   "object_counts": "{\"car\": 4, \"person\": 4, \"bicycle\": 4, \"bench\": 1, \"traffic light\": 1, \"clock\": 1, \"truck\": 1, \"train\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a street intersection under a partly cloudy sky. The road surface is dry asphalt with visible lane markings. A white sedan is stopped in the middle of the intersection, facing away from the camera, and appears to be the primary vehicle blocking the lane. Another dark-colored SUV is visible on the right side of the frame, parked or moving slowly along the curb. A pedestrian wearing dark clothing is walking across the street from left to right, crossing in front of the stopped white sedan. There are no traffic lights visible at this intersection. A green circular sign with a white \u201cP\u201d is mounted on a pole on the right side of the street, indicating a parking area. Several bicycles are parked along the sidewalk near the curb on the right. Trees line both sides of the street, and buildings with storefronts are visible in the background. The camera vehicle remains stationary at the intersection, observing the scene.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stationary ego observes pedestrian crossing",
+   "explanation": "The camera vehicle remains stopped while a pedestrian crosses in front of a stopped white sedan. No collision was plausibly avoided and no dangerously small gap involving the ego vehicle is described.",
+   "factors": [
+    "ego stationary",
+    "pedestrian crossing ahead",
+    "stopped vehicle blocking lane",
+    "no close interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070142_set05_video_chunk_0009_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070142_set05_video_chunk_0009.mp4",
+   "drive": "set05",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.124,
+   "object_counts": "{\"car\": 7, \"stop sign\": 1, \"clock\": 1, \"motorcycle\": 1}",
+   "description": "The scene is a residential street with a single lane in each direction and no visible lane markings. The road surface is dry asphalt. A stop sign is visible on the right side of the road at an upcoming intersection. A silver sedan is directly ahead of the camera vehicle, traveling in the same direction. A white hatchback approaches from the opposite direction in the oncoming lane. Several other vehicles are parked along the sides of the street. There are no pedestrians, cyclists, or trucks visible in the scene. The camera vehicle continues forward, following the silver sedan toward the intersection.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Routine following, no near miss",
+   "explanation": "The camera vehicle follows a silver sedan toward a stop sign while a white hatchback passes in the oncoming lane. No pedestrian, cyclist, or vehicle conflict is described as dangerously close.",
+   "factors": [
+    "routine traffic flow",
+    "no close interaction",
+    "stop sign ahead"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_072221_set06_video_chunk_0028_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_072221_set06_video_chunk_0028.mp4",
+   "drive": "set06",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.085,
+   "object_counts": "{\"car\": 6, \"person\": 5, \"truck\": 2, \"stop sign\": 1, \"handbag\": 1}",
+   "description": "The scene is captured from a vehicle stopped at an intersection on a partly cloudy day. The road surface is dry asphalt with visible lane markings. A black SUV is parked on the left side of the intersection, and a black pickup truck is parked on the right side. A red car is visible further down the street on the right. A pedestrian wearing a light-colored jacket and dark pants is crossing the street in front of the camera vehicle, moving from left to right. The pedestrian is carrying a handbag. There are no traffic lights or stop signs visible in the immediate area. In the background, a construction crane is visible above a building under construction, and several trees line the street. The overall traffic appears light, with no other moving vehicles or cyclists in the immediate vicinity.",
+   "matched_queries": [
+    "person crossing close in front of the moving vehicle"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "Stopped vehicle yields to crossing pedestrian",
+   "explanation": "The ego vehicle is stopped at an intersection while a pedestrian crosses in front from left to right. No collision was plausibly avoided and the gap does not appear dangerously small.",
+   "factors": [
+    "ego vehicle stopped",
+    "pedestrian crossing ahead",
+    "light traffic",
+    "no moving conflict"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071031_set06_video_chunk_0000_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071031_set06_video_chunk_0000.mp4",
+   "drive": "set06",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.08,
+   "object_counts": "{\"car\": 3, \"stop sign\": 1, \"truck\": 1, \"kite\": 1, \"traffic light\": 1, \"person\": 1}",
+   "description": "The scene unfolds on a narrow, single-lane road that curves and leads onto a bridge. The road surface is marked with yellow lines, and the bridge is bordered by metal guardrails. A white van is traveling ahead of the camera vehicle, moving along the same path. On the right side of the road, a stop sign is visible, indicating a requirement to stop at the upcoming intersection. The sky is partly cloudy, and trees line both sides of the road, with some showing autumn colors. In the distance, a tall building can be seen. No pedestrians, cyclists, or other vehicles are present in the immediate vicinity. The white van continues forward, and the camera vehicle follows behind, maintaining a steady pace as it approaches the bridge and the intersection.",
+   "matched_queries": [
+    "person crossing close in front of the moving vehicle"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 2,
+   "type": "none",
+   "title": "No near miss on bridge approach",
+   "explanation": "The camera vehicle follows a white van at a steady pace toward a bridge and intersection. No pedestrian, cyclist, or vehicle conflict or dangerously small gap is described.",
+   "factors": [
+    "steady following distance",
+    "no immediate road users",
+    "stop sign ahead"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070645_set05_video_chunk_0021_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070645_set05_video_chunk_0021.mp4",
+   "drive": "set05",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.369,
+   "object_counts": "{\"car\": 6, \"stop sign\": 1, \"person\": 3, \"skateboard\": 1}",
+   "description": "The scene is a residential street intersection under a partly cloudy sky. The road has a single lane in each direction with a yellow center line. A stop sign is visible on the right side of the intersection. A beige minivan is stopped at the intersection, facing away from the camera. Two pedestrians are crossing the street in front of the vehicle. One pedestrian is wearing a blue jacket and dark pants, while the other is wearing a light-colored top and dark pants. The pedestrian in the blue jacket is closer to the camera and continues walking across the street. The pedestrian in the light-colored top is further ahead and also continues crossing. There are no trucks or buses visible in the scene. The vehicles and pedestrians are moving in a manner that suggests normal traffic flow and pedestrian crossing behavior.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Normal pedestrian crossing at stop",
+   "explanation": "A stopped minivan waits as two pedestrians cross the residential intersection; no close gap or evasive action is described.",
+   "factors": [
+    "stopped vehicle",
+    "pedestrians crossing safely",
+    "normal traffic flow"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062925_set02_video_chunk_0026_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062925_set02_video_chunk_0026.mp4",
+   "drive": "set02",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.344,
+   "object_counts": "{\"person\": 11, \"car\": 5, \"traffic light\": 4, \"truck\": 1, \"handbag\": 1, \"backpack\": 2, \"suitcase\": 1, \"bicycle\": 2, \"boat\": 1}",
+   "description": "The scene is captured from a vehicle stopped at a signalized intersection on a multi-lane road. The traffic light facing the camera is red, requiring the vehicle to remain stationary. The road surface is dry and marked with standard lane lines and crosswalks. Several pedestrians are crossing the street in front of the vehicle. One man in a white shirt and brown shorts carries a brown suitcase and walks across the crosswalk. Another man in a light blue shirt and gray pants also crosses the street. A cyclist wearing a backpack rides through the intersection, moving from left to right. Other pedestrians are visible on the sidewalks and crossing the street in the background. Vehicles are present in the intersection and along the road. A white SUV and a black SUV are stopped or moving slowly near the intersection. A white van is visible further down the road. A truck is also present in the scene, though its exact position and movement are not clearly detailed. Traffic signs are visible, including a parking sign...",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Stopped at red light, pedestrians crossing",
+   "explanation": "The ego vehicle is stationary at a red signal while pedestrians and a cyclist cross the intersection normally. No dangerously close gap or avoided collision is described.",
+   "factors": [
+    "ego stopped at red light",
+    "pedestrians crossing legally",
+    "cyclist crossing intersection",
+    "no close interaction reported"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062835_set02_video_chunk_0024_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062835_set02_video_chunk_0024.mp4",
+   "drive": "set02",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.343,
+   "object_counts": "{\"traffic light\": 7, \"person\": 14, \"car\": 4}",
+   "description": "The scene is a wide urban intersection with multiple lanes and marked crosswalks. The road surface is dry and the sky is partly cloudy. The camera is positioned at a low angle, likely from a vehicle stopped at the intersection. Traffic lights are visible at the corners, and pedestrian signals are present. Pedestrians are actively crossing the street in various directions, using the marked crosswalks. Some are walking alone, while others are in small groups. A few individuals are seen near the curb, waiting to cross. There are no vehicles visible in the immediate foreground, and no trucks, buses, or lane-blocking vehicles are present in the scene. The traffic lights appear to be red for the direction of travel, indicating that vehicles should remain stopped. No specific signage is clearly readable in the frame. There are no visible violations or hazards in the scene.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Stopped at red light, pedestrians crossing safely",
+   "explanation": "The ego vehicle is stopped at a red light while pedestrians cross in marked crosswalks; no vehicle, cyclist, or pedestrian conflict is described.",
+   "factors": [
+    "ego stopped",
+    "red traffic light",
+    "pedestrians in crosswalk",
+    "no close gap reported"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062900_set02_video_chunk_0025_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062900_set02_video_chunk_0025.mp4",
+   "drive": "set02",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.343,
+   "object_counts": "{\"car\": 5, \"person\": 12, \"traffic light\": 10, \"bench\": 1, \"handbag\": 2, \"backpack\": 2, \"dog\": 1, \"truck\": 1, \"bicycle\": 1}",
+   "description": "The scene is captured from a vehicle moving along a city street with a marked crosswalk. The road has two lanes in the direction of travel, separated by a yellow center line, and a crosswalk spans the intersection. Traffic lights are visible at the intersection, showing red for vehicles and green for pedestrians. A white car is stopped at the crosswalk, waiting for pedestrians to clear. Several pedestrians are crossing the street, including a person in a red shirt and another in a light blue shirt. A white van is visible further down the street, and a bicycle can be seen on the left side of the road. A bench is located on the sidewalk near the crosswalk. The sky is partly cloudy, and tall buildings line both sides of the street.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss at crosswalk",
+   "explanation": "A white car is stopped at the crosswalk while pedestrians cross, and no dangerously close gap or avoided collision involving the ego vehicle is described.",
+   "factors": [
+    "stopped vehicle yielding",
+    "pedestrians crossing legally",
+    "no close gap reported"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063042_set02_video_chunk_0029_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063042_set02_video_chunk_0029.mp4",
+   "drive": "set02",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.335,
+   "object_counts": "{\"traffic light\": 10, \"person\": 5, \"car\": 9, \"bus\": 1, \"truck\": 2, \"bicycle\": 1, \"handbag\": 1}",
+   "description": "The scene is a wide intersection with multiple lanes and crosswalks, viewed from a vehicle stopped at a red light. The road surface is dry and marked with clear white pedestrian crosswalk lines. Traffic lights are suspended over the intersection, showing red for the direction of travel. Tall buildings line both sides of the street, with a mix of residential and commercial facades. Several vehicles are visible, including a dark SUV, a silver sedan, and a black pickup truck, all moving through the intersection from left to right. A bus is also present, traveling along the road on the left side of the frame. Pedestrians are crossing the street at the marked crosswalk in front of the camera, including a person in a dark jacket and shorts and another in a red top and dark skirt. No bicycles or cyclists are visible in the scene. There are no vehicles blocking the lanes, and traffic appears to be flowing smoothly under the red signal. No traffic violations or unusual hazards are evident in the clip.",
+   "matched_queries": [
+    "pedestrian crossing outside the crosswalk"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss at red light",
+   "explanation": "The ego vehicle is stopped at a red light while pedestrians cross in the marked crosswalk and other vehicles pass through the intersection. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "ego stopped at red light",
+    "pedestrians in marked crosswalk",
+    "traffic flowing normally",
+    "no reported violations or hazards"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071601_set06_video_chunk_0013_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071601_set06_video_chunk_0013.mp4",
+   "drive": "set06",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.32,
+   "object_counts": "{\"car\": 3, \"person\": 7, \"bench\": 1, \"potted plant\": 2, \"handbag\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a street with a dark blue SUV directly ahead. The SUV has its brake lights illuminated, indicating it is stopped or moving very slowly. The vehicle in front displays a license plate that reads AZJY 712. To the right, a person wearing a bright orange high-visibility outfit walks along the sidewalk, moving away from the camera. The sidewalk is lined with potted plants and a brick building featuring large windows and a Canadian flag mounted on top. On the left side of the street, there is a sign that reads \u201cToronto Car Factory\u201d and a bench is visible near the curb. In the background, other vehicles can be seen further down the road, and the sky is partly cloudy. The overall environment suggests an urban setting with moderate activity.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss in urban traffic",
+   "explanation": "The ego vehicle follows a stopped or slow SUV while a pedestrian walks away on the sidewalk; no conflict or dangerously small gap is described.",
+   "factors": [
+    "stopped traffic ahead",
+    "pedestrian on sidewalk",
+    "no close interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071601_set06_video_chunk_0013_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071601_set06_video_chunk_0013.mp4",
+   "drive": "set06",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.307,
+   "object_counts": "{\"car\": 3, \"person\": 2, \"bench\": 3, \"potted plant\": 3, \"backpack\": 1, \"skateboard\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a road with a dark blue SUV directly ahead. The SUV\u2019s brake lights are illuminated, indicating it is stopped or moving very slowly. The road appears to be a two-way street with a sidewalk on the right side. On the right, there is a large brick building with a Canadian flag flying from its roof. A person wearing a backpack is walking along the sidewalk, moving away from the camera. There are also some potted plants and benches near the building. On the left side of the road, there are trees and a sign that reads \u201cToronto Car Factory.\u201d The sky is partly cloudy, and there are utility poles and wires running along the street. No traffic lights or stop signs are visible in the immediate area. The overall setting suggests an urban environment with light traffic and pedestrian activity.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss in urban traffic",
+   "explanation": "The ego vehicle follows a stopped or slow SUV while a pedestrian walks away on the sidewalk. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "stopped traffic ahead",
+    "pedestrian on sidewalk",
+    "no close interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071535_set06_video_chunk_0012_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071535_set06_video_chunk_0012.mp4",
+   "drive": "set06",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.304,
+   "object_counts": "{\"car\": 3, \"person\": 6, \"bicycle\": 2, \"bench\": 2}",
+   "description": "The scene is captured from a vehicle traveling along a two-lane road. The road surface is dry and appears to be in good condition. There are no traffic lights or stop signs visible in the immediate area. A black car is directly ahead of the camera vehicle, moving in the same direction. Another black car is visible in the opposite lane, traveling toward the camera. A pedestrian is walking on the sidewalk to the right, moving away from the camera. A bicycle is parked on the sidewalk near the pedestrian. A bench is visible on the left side of the road. The sky is partly cloudy, and the overall lighting suggests daytime conditions. No vehicles are blocking the lanes, and there are no visible traffic violations or immediate hazards.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss in segment",
+   "explanation": "A pedestrian walks on the sidewalk away from the camera, a bicycle is parked, and other cars remain in their lanes with no reported close interaction.",
+   "factors": [
+    "no immediate hazard",
+    "pedestrian on sidewalk",
+    "parked bicycle",
+    "normal traffic flow"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071601_set06_video_chunk_0013_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071601_set06_video_chunk_0013.mp4",
+   "drive": "set06",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.298,
+   "object_counts": "{\"car\": 3, \"bench\": 2, \"person\": 6, \"potted plant\": 3, \"fire hydrant\": 1, \"clock\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a road with a dark blue SUV directly ahead. The SUV has its brake lights illuminated, indicating it is stopped or moving very slowly. The road is a two-way street with a sidewalk on the right side, where a person wearing high-visibility orange clothing is walking. On the right, there is a brick building with large windows and a Canadian flag flying above it. The sky is partly cloudy, and there are trees with autumn foliage on the left side of the road. A sign reading \"Toronto Car Factory\" is visible on the left, near a bench. The vehicle in front appears to be waiting at an intersection, as there are other vehicles and pedestrians visible further ahead. The overall environment suggests an urban or suburban setting with moderate activity.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss in traffic",
+   "explanation": "The ego vehicle follows a stopped or slow SUV while a pedestrian walks on the sidewalk and other activity is farther ahead. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "stopped traffic",
+    "pedestrian on sidewalk",
+    "no close interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070001_set05_video_chunk_0005_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070001_set05_video_chunk_0005.mp4",
+   "drive": "set05",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.287,
+   "object_counts": "{\"car\": 5, \"person\": 3, \"fire hydrant\": 1, \"traffic light\": 1, \"potted plant\": 1, \"truck\": 1, \"train\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of an intersection and a street ahead. The sky is partly cloudy with blue patches visible. The road surface is dry and marked with crosswalks and lane lines. A black car is stopped at the intersection on the left side of the frame, and another black car is seen driving away from the camera on the right side of the road. A silver SUV is also visible driving in the opposite direction on the left side of the road. Pedestrians are present on the sidewalks, with one person walking on the left sidewalk and another person standing near the crosswalk on the right sidewalk. The surrounding area includes modern buildings with glass facades and some older residential-style buildings with brick facades. Trees line the sidewalks, and there are streetlights and traffic signals at the intersection. No traffic violations or specific hazards are evident in the scene.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss in intersection scene",
+   "explanation": "Traffic and pedestrians are described as normal, with no collision avoided or dangerously small gap. Pedestrians remain on sidewalks and vehicles are stopped or driving normally.",
+   "factors": [
+    "no traffic violations",
+    "pedestrians on sidewalks",
+    "normal vehicle spacing"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071601_set06_video_chunk_0013_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071601_set06_video_chunk_0013.mp4",
+   "drive": "set06",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.286,
+   "object_counts": "{\"car\": 2, \"person\": 5, \"potted plant\": 3, \"bench\": 1}",
+   "description": "The scene is a quiet street with a single lane in each direction. A dark blue SUV is stopped in the lane ahead of the camera vehicle, its brake lights illuminated. The SUV has a visible license plate and a small roof-mounted device. To the right, a brick building with large windows and a Canadian flag on top lines the street. A person in dark clothing walks along the sidewalk on the right side, moving away from the camera. Another person in orange work attire appears briefly on the right sidewalk, walking toward the camera. A green circular sign with a white \"P\" is visible on the building. The sky is partly cloudy, and trees with autumn foliage are visible on the left side of the street. No traffic lights or other vehicles are present in the immediate view.",
+   "matched_queries": [
+    "pedestrian stepping into the road in front of the car"
+   ],
+   "search_category": "pedestrian",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss on quiet street",
+   "explanation": "A dark blue SUV is stopped ahead with brake lights on, while pedestrians walk on the sidewalk. No pedestrian, cyclist, or vehicle came dangerously close to the camera vehicle.",
+   "factors": [
+    "stopped SUV ahead",
+    "pedestrians on sidewalk",
+    "no close interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070117_set05_video_chunk_0008_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070117_set05_video_chunk_0008.mp4",
+   "drive": "set05",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.267,
+   "object_counts": "{\"car\": 7, \"stop sign\": 1, \"person\": 3, \"bicycle\": 1}",
+   "description": "The scene is a residential street intersection with a stop sign on the right side. A silver sedan is stopped at the intersection, facing forward. Pedestrians are crossing the street in front of the vehicle. The road has a crosswalk and lane markings. The sky is partly cloudy, and there are trees and houses visible in the background. No trucks, buses, bicycles, or other vehicles are visible in the immediate vicinity. The stop sign is clearly readable and positioned on the right side of the road.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Stopped sedan yields to crossing pedestrians",
+   "explanation": "A silver sedan is stopped at a residential intersection while pedestrians cross in front. No collision avoidance or dangerously small gap is described.",
+   "factors": [
+    "vehicle stopped",
+    "pedestrians crossing safely",
+    "no conflict observed"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071742_set06_video_chunk_0017_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071742_set06_video_chunk_0017.mp4",
+   "drive": "set06",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.264,
+   "object_counts": "{\"car\": 5, \"truck\": 3, \"person\": 4}",
+   "description": "The scene is a narrow, one-way street with a single lane in each direction. The sky is partly cloudy with patches of blue. A large white dump truck is parked on the left side of the road, partially blocking the lane. In front of the camera vehicle, a dark blue SUV is stopped with its brake lights illuminated. Behind the SUV, another white truck is visible, also stopped. On the right side of the street, several vehicles are parked along the curb, including a dark SUV and a white pickup truck. Pedestrians are walking on the sidewalk to the right, near the parked vehicles. The road surface appears to be paved with some visible cracks and markings. There are no visible traffic lights or road signs in the immediate area. The vehicles remain stationary throughout the clip, and there are no visible violations or immediate hazards.",
+   "matched_queries": [
+    "vehicle pulling out suddenly in front"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Stationary traffic, no conflict",
+   "explanation": "All vehicles, including the ego vehicle, remain stopped behind a dark blue SUV on a narrow street while pedestrians walk on the sidewalk well away from the lane. No gap was closed and no collision was plausibly avoided.",
+   "factors": [
+    "stationary traffic",
+    "pedestrians on sidewalk",
+    "parked truck partially blocking lane",
+    "no movement or conflict"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_064502_set04_video_chunk_0000_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_064502_set04_video_chunk_0000.mp4",
+   "drive": "set04",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.263,
+   "object_counts": "{\"bicycle\": 3, \"car\": 9, \"person\": 2, \"backpack\": 1, \"umbrella\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a multi-lane urban road with moderate traffic. The road surface is dry and marked with white lane lines. On the right side, a sidewalk runs alongside the street, where a person wearing a backpack is standing near a bicycle. The person appears to be adjusting or preparing the bicycle, with an umbrella visible nearby. Several cars are visible ahead and in adjacent lanes, including a white SUV in the left lane and a silver sedan directly in front of the camera vehicle. The surrounding environment features tall modern buildings with glass facades, and the sky is clear and blue. No traffic signals, signs, or other specific road markings are clearly readable in the frame.",
+   "matched_queries": [
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss in urban traffic",
+   "explanation": "A person is standing on the sidewalk adjusting a bicycle while the ego vehicle drives in moderate traffic. No pedestrian, cyclist, or vehicle conflict or dangerously small gap is described.",
+   "factors": [
+    "sidewalk activity only",
+    "no ego interaction",
+    "moderate traffic",
+    "no close gap"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070348_set05_video_chunk_0014_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070348_set05_video_chunk_0014.mp4",
+   "drive": "set05",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.227,
+   "object_counts": "{\"car\": 4, \"stop sign\": 1, \"person\": 1, \"truck\": 1, \"motorcycle\": 1}",
+   "description": "The scene is a residential street intersection on a partly cloudy day. The road surface is dry asphalt with a solid yellow line separating opposing directions of travel. A stop sign is mounted on a pole at the corner, accompanied by a street name sign and a directional arrow sign. A black Range Rover is stopped at the intersection, facing the camera, with its brake lights illuminated. Another black car is visible on the left side of the frame, moving through the intersection. There are no pedestrians, cyclists, or trucks present. The surrounding area includes trees, sidewalks, and houses. The vehicles are stationary or moving slowly, and there are no visible traffic violations or immediate hazards.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss at intersection",
+   "explanation": "Vehicles are stopped or moving slowly through a residential intersection with no pedestrians, cyclists, or immediate hazards described.",
+   "factors": [
+    "stationary traffic",
+    "low speed",
+    "no conflict described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070555_set05_video_chunk_0019_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070555_set05_video_chunk_0019.mp4",
+   "drive": "set05",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.218,
+   "object_counts": "{\"car\": 9, \"stop sign\": 1, \"person\": 1, \"kite\": 1, \"traffic light\": 1, \"bird\": 1}",
+   "description": "The scene is a residential street intersection under a partly cloudy sky. The road has two lanes in each direction with a yellow center line. A stop sign is visible on the right side of the road, and a traffic light is suspended over the intersection. The traffic light is flashing yellow, indicating that drivers should proceed with caution. A silver minivan is stopped at the intersection, facing away from the camera. A person is visible on the left side of the road, walking along the sidewalk. There are no trucks or buses present in the scene. The surrounding area includes houses with trees and parked cars along the street. No vehicles are blocking the lanes, and there are no visible violations or hazards in the scene.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss in residential intersection",
+   "explanation": "A pedestrian is walking on the sidewalk and a silver minivan is stopped at the intersection. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "pedestrian on sidewalk",
+    "vehicle stopped",
+    "no lane obstruction",
+    "no visible hazard"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_062628_set02_video_chunk_0019_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_062628_set02_video_chunk_0019.mp4",
+   "drive": "set02",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.21,
+   "object_counts": "{\"car\": 6, \"person\": 7, \"traffic light\": 1, \"horse\": 1}",
+   "description": "The scene is a two-lane road with a dedicated bike lane on the right. The ego vehicle is stopped behind a black car in the right lane, waiting at a red traffic light. A black car is stopped in the opposite lane, and a white car is approaching from the opposite direction. A white sedan is also visible in the opposite lane. A pedestrian is standing on the right sidewalk near the bike lane. The road markings include a bike symbol in the bike lane and directional arrows. The traffic light ahead is red, requiring the ego vehicle to remain stopped.",
+   "matched_queries": [
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss while stopped",
+   "explanation": "The ego vehicle is stopped at a red light, and the pedestrian remains on the right sidewalk near the bike lane. No vehicle, cyclist, or pedestrian interaction creates a dangerously small gap.",
+   "factors": [
+    "ego stopped at red light",
+    "pedestrian on sidewalk",
+    "no close interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063327_set03_video_chunk_0004_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063327_set03_video_chunk_0004.mp4",
+   "drive": "set03",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.194,
+   "object_counts": "{\"car\": 9, \"bird\": 1, \"person\": 4, \"traffic light\": 3, \"clock\": 1, \"kite\": 1, \"truck\": 1}",
+   "description": "The scene unfolds on a two-lane road with a dedicated bicycle lane on the right, marked by a green surface and a bicycle symbol. The road is dry and the sky is clear and sunny. The camera vehicle is traveling in the right lane, approaching an intersection where the traffic light ahead is red. A black SUV is stopped in front of the camera vehicle at the intersection, waiting for the light to change. Another white car is visible further ahead, also stopped at the intersection. A pedestrian is seen crossing the street on the left side of the frame, moving from left to right. There are no trucks or buses visible in the scene. No traffic violations or immediate hazards are apparent.",
+   "matched_queries": [
+    "cyclist cutting across in front of the vehicle"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss at red light",
+   "explanation": "The ego vehicle approaches a red light behind stopped traffic while a pedestrian crosses on the left side of the frame. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "red traffic light",
+    "stopped vehicles ahead",
+    "pedestrian crossing away from ego path",
+    "no immediate hazard reported"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063353_set03_video_chunk_0005_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063353_set03_video_chunk_0005.mp4",
+   "drive": "set03",
+   "start_sec": 10.0,
+   "end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0.192,
+   "object_counts": "{\"car\": 8, \"person\": 1, \"traffic light\": 5, \"bicycle\": 1}",
+   "description": "The scene is a daytime view from a vehicle stopped at an intersection. The road surface shows white lane markings, including a right-turn arrow and a bicycle symbol. A black SUV is directly ahead, with its brake lights illuminated. To the left, a silver car is also stopped. In the distance, a white sedan and a dark SUV are visible, with the white sedan turning left. A cyclist is present on the right side of the intersection, near the crosswalk. Traffic lights are visible, showing red for the vehicles in the foreground. The surrounding area includes tall buildings and trees with autumn foliage.",
+   "matched_queries": [
+    "bicycle very close to the car"
+   ],
+   "search_category": "cyclist",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Stopped at red light, cyclist nearby",
+   "explanation": "The ego vehicle is stopped at a red light with a black SUV ahead and a cyclist near the crosswalk on the right. No close interaction or avoided collision is described.",
+   "factors": [
+    "stopped at red light",
+    "cyclist near crosswalk",
+    "no conflict described"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_072039_set06_video_chunk_0024_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_072039_set06_video_chunk_0024.mp4",
+   "drive": "set06",
+   "start_sec": 25.0,
+   "end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0.19,
+   "object_counts": "{\"car\": 3, \"bicycle\": 3, \"bus\": 1, \"stop sign\": 1, \"person\": 5, \"truck\": 2, \"tv\": 1, \"train\": 1, \"traffic light\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a road intersection under a partly cloudy sky. A white delivery van with red and black markings is directly ahead, stopped at a stop sign. The van has a visible license plate and a red circular logo on its rear doors. Behind the van, a white car is also stopped, partially visible in the frame. To the left, a cyclist is riding along the road, moving away from the camera. Pedestrians are visible on the sidewalk to the right, walking in various directions. A stop sign is clearly visible on the right side of the road, indicating the intersection. The road appears to be a two-lane street with buildings and trees lining both sides. There are no traffic lights visible in the scene.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss at stop sign",
+   "explanation": "The ego vehicle is behind a stopped van at a stop sign, with a cyclist riding away on the left and pedestrians on the right sidewalk. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "stopped traffic",
+    "cyclist moving away",
+    "pedestrians on sidewalk",
+    "ordinary intersection"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070736_set05_video_chunk_0023_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070736_set05_video_chunk_0023.mp4",
+   "drive": "set05",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.184,
+   "object_counts": "{\"car\": 7, \"stop sign\": 1, \"motorcycle\": 1, \"truck\": 1}",
+   "description": "The scene is a residential street intersection on a partly cloudy day. The road surface is dry and marked with a yellow center line. A stop sign is visible on the right side of the intersection. The ego vehicle approaches the intersection and comes to a complete stop. After stopping, the ego vehicle proceeds straight through the intersection. There are no pedestrians, cyclists, or motorcyclists visible. Several cars are parked along the sides of the street, and a few vehicles are seen driving in the distance. No trucks or buses are clearly visible in the immediate area. The traffic flow is light, and there are no apparent violations or hazards.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Routine stop sign intersection, no conflict",
+   "explanation": "The ego vehicle came to a complete stop at a residential stop sign and proceeded straight through with light traffic and no pedestrians or cyclists present. No vehicle, pedestrian or cyclist came close enough to require evasive action.",
+   "factors": [
+    "full stop observed",
+    "light traffic",
+    "no vulnerable road users visible",
+    "parked cars only"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_071833_set06_video_chunk_0019_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_071833_set06_video_chunk_0019.mp4",
+   "drive": "set06",
+   "start_sec": 5.0,
+   "end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0.179,
+   "object_counts": "{\"car\": 6, \"bicycle\": 3, \"person\": 3, \"bus\": 2, \"stop sign\": 2, \"motorcycle\": 1, \"truck\": 1, \"cell phone\": 1, \"traffic light\": 1}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera, showing a view of a city street intersection. The road is a two-lane street with a yellow center line, and the vehicle is stopped behind a white SUV. In front of the SUV, a red and white bus is visible, moving slowly through the intersection. The bus has a large advertisement on its side. To the right of the bus, a black car is also moving through the intersection. On the right side of the street, there is a stop sign and a green pedestrian crossing sign. A bicycle is parked on the sidewalk near the stop sign. In the background, a tall brick building with a chimney is visible, along with other buildings and trees. The sky is partly cloudy.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss in stopped traffic",
+   "explanation": "The ego vehicle is stopped behind an SUV while a bus and black car move through the intersection. No pedestrian, cyclist, or vehicle conflict or dangerously small gap is described.",
+   "factors": [
+    "ego stopped",
+    "no conflict described",
+    "parked bicycle only",
+    "ordinary intersection traffic"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070233_set05_video_chunk_0011_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070233_set05_video_chunk_0011.mp4",
+   "drive": "set05",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.175,
+   "object_counts": "{\"car\": 8, \"traffic light\": 1, \"stop sign\": 1, \"truck\": 1}",
+   "description": "The scene is a residential street with a single lane in each direction and no visible traffic lights. The ego vehicle is stopped at an intersection, waiting for a vehicle ahead to proceed. A stop sign is visible on the left side of the road. The vehicle in front is a silver sedan, and a black SUV is approaching from the opposite direction. There are no pedestrians or cyclists visible. The road is lined with trees and houses, and the weather appears clear with a partly cloudy sky. No trucks or buses are present in the scene.",
+   "matched_queries": [
+    "vehicle running a stop sign or red light"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Stopped at intersection, no near miss",
+   "explanation": "The ego vehicle is stopped and waiting for the car ahead at a residential intersection. A black SUV approaches in the opposite lane, but no pedestrian, cyclist, or vehicle conflict is described as dangerously close.",
+   "factors": [
+    "ego stopped",
+    "waiting for vehicle ahead",
+    "opposing SUV visible",
+    "no pedestrians or cyclists"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070207_set05_video_chunk_0010_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070207_set05_video_chunk_0010.mp4",
+   "drive": "set05",
+   "start_sec": 20.0,
+   "end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0.13,
+   "object_counts": "{\"stop sign\": 1, \"car\": 9, \"traffic light\": 2}",
+   "description": "The scene is a residential intersection on a partly cloudy day. The road is a two-way street with a single lane in each direction. A stop sign is visible on the right side of the intersection, indicating that vehicles must come to a complete stop before proceeding. There are no traffic lights present at this intersection. A silver sedan is stopped at the intersection, facing the camera. Another vehicle, a dark-colored sedan, approaches from the opposite direction and slows down as it nears the intersection. The dark sedan appears to be yielding to the silver sedan or waiting for its turn to proceed. No pedestrians, cyclists, or larger vehicles such as trucks or buses are visible in the scene. The vehicles are not blocking the lanes, and there are no apparent violations or hazards.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Safe yielding at residential intersection",
+   "explanation": "A dark sedan slowed and yielded to a stopped silver sedan at a stop-sign intersection. No pedestrian, cyclist, or vehicle conflict occurred and no dangerously small gap was described.",
+   "factors": [
+    "stop-sign intersection",
+    "vehicles yielding",
+    "no conflict",
+    "no vulnerable road users"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070233_set05_video_chunk_0011_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070233_set05_video_chunk_0011.mp4",
+   "drive": "set05",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.129,
+   "object_counts": "{\"stop sign\": 3, \"car\": 5, \"truck\": 1, \"bench\": 1, \"person\": 2}",
+   "description": "The scene is a residential street intersection under a partly cloudy sky. The road surface is dry asphalt with a painted yellow line marking the edge of the lane. A stop sign is visible on the right side of the intersection, requiring vehicles to come to a complete stop before proceeding. There is also a no left turn sign on the right side of the road. In the foreground, a silver sedan is stopped at the intersection, facing away from the camera. Behind it, a dark-colored SUV is also stopped, waiting for the intersection to clear. A black truck is visible further down the road, moving slowly through the intersection. Pedestrians can be seen on the sidewalk to the right, walking along the residential street. No cyclists or other vehicles are clearly visible in the scene.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss at intersection",
+   "explanation": "Vehicles are stopped or moving slowly through a residential intersection while pedestrians walk on the sidewalk. No collision was plausibly avoided and no dangerously small gap is described.",
+   "factors": [
+    "vehicles stopped",
+    "pedestrians on sidewalk",
+    "slow truck movement",
+    "no close interaction"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_070439_set05_video_chunk_0016_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_070439_set05_video_chunk_0016.mp4",
+   "drive": "set05",
+   "start_sec": 15.0,
+   "end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0.126,
+   "object_counts": "{\"car\": 4}",
+   "description": "The scene is captured from a vehicle\u2019s dashboard camera on a two-way road with a single lane in each direction, separated by a double yellow line. The road surface is dry and appears to be in good condition. A silver sedan is directly ahead of the camera vehicle, stopped at an intersection controlled by a traffic light. The traffic light facing the camera vehicle is red, requiring it to remain stopped. Another vehicle, a dark-colored sedan, approaches from the opposite direction and passes through the intersection. There are no pedestrians, cyclists, or large vehicles such as trucks or buses visible in the scene. No signage is clearly readable, and there are no apparent traffic violations or immediate hazards. The environment includes trees and buildings along the roadside, with a partly cloudy sky overhead.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "No near miss at red light",
+   "explanation": "The ego vehicle and a silver sedan are stopped at a red light while an oncoming dark sedan passes through the intersection. No pedestrian, cyclist, or vehicle conflict occurs and no dangerously small gap is described.",
+   "factors": [
+    "red light stop",
+    "no conflict",
+    "no vulnerable road users"
+   ]
+  },
+  {
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_063806_set03_video_chunk_0015_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_063806_set03_video_chunk_0015.mp4",
+   "drive": "set03",
+   "start_sec": 0.0,
+   "end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0.123,
+   "object_counts": "{\"car\": 4, \"person\": 3}",
+   "description": "The scene is a city street with two lanes in the same direction. A silver SUV is stopped directly ahead of the camera vehicle, with its brake lights illuminated. To the left of the SUV, a dark-colored sedan is also stopped, its brake lights on. The road surface is dry and marked with white lane lines. Pedestrians are visible on the sidewalks on both sides of the street, walking along the pavement. No traffic lights, signs, or other vehicles are clearly visible in the frame. The vehicles remain stationary throughout the clip, and there are no apparent hazards or unusual activity.",
+   "matched_queries": [
+    "car braking hard to avoid a collision"
+   ],
+   "search_category": "vehicle",
+   "near_miss": false,
+   "risk": 1,
+   "type": "none",
+   "title": "Stationary traffic, pedestrians on sidewalks",
+   "explanation": "The ego vehicle and the two vehicles ahead remain stopped with brake lights on, while pedestrians walk on the sidewalks on both sides. No interaction or close gap occurred between any road user.",
+   "factors": [
+    "stationary traffic",
+    "pedestrians separated on sidewalk",
+    "no lane conflict",
+    "no sudden movement"
+   ]
+  }
+ ]
+}

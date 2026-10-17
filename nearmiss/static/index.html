@@ -1,0 +1,57 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Near-Miss Detective</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--line:#30363d;--text:#e6edf3;--mut:#8b949e;--red:#f85149;--amb:#d29922;--grn:#3fb950}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--text)}
+header{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+h1{margin:0;font-size:20px}h1 span{color:var(--red)}.stats{display:flex;gap:18px;color:var(--mut)}.stats b{color:var(--text);font-size:18px}
+.controls{display:flex;gap:10px;align-items:center;margin-left:auto;flex-wrap:wrap}
+button,select{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+button.on{border-color:var(--red);color:var(--red)}
+main{display:grid;grid-template-columns:400px 1fr;height:calc(100vh - 70px)}
+#list{overflow:auto;border-right:1px solid var(--line)}
+.item{padding:12px 16px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:12px}
+.item:hover,.item.sel{background:var(--card)}
+.risk{min-width:42px;height:42px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:18px}
+.r-hi{background:#f8514933;color:var(--red)}.r-md{background:#d2992233;color:var(--amb)}.r-lo{background:#3fb95022;color:var(--grn)}
+.t{font-weight:600}.m{color:var(--mut);font-size:12px}
+#detail{padding:24px;overflow:auto}video{width:100%;max-height:60vh;background:#000;border-radius:8px}
+.tag{display:inline-block;border:1px solid var(--line);border-radius:12px;padding:1px 9px;margin:2px 4px 2px 0;font-size:12px;color:var(--mut)}
+.badge{color:var(--red);font-weight:700;font-size:12px;letter-spacing:.05em}
+details{margin-top:14px;color:var(--mut)}
+</style></head><body>
+<header><h1>Near-Miss <span>Detective</span></h1>
+<div class="stats"><div><b id="sTotal">–</b> moments reviewed</div><div><b id="sNM">–</b> near misses</div><div><b id="sHi">–</b> risk ≥ 7</div></div>
+<div class="controls">
+<button data-t="all" class="on">All</button><button data-t="pedestrian">Pedestrian</button><button data-t="cyclist">Cyclist</button><button data-t="vehicle">Vehicle</button>
+<select id="min"><option value="1">Any risk</option><option value="4">Risk ≥ 4</option><option value="7">Risk ≥ 7</option></select>
+<label class="m"><input type="checkbox" id="nmOnly"> Near misses only</label></div></header>
+<main><div id="list"></div><div id="detail"><p class="m">Pick an incident on the left.</p></div></main>
+<script>
+let all=[],type="all";
+const cls=r=>r>=7?"r-hi":r>=4?"r-md":"r-lo";
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function render(){
+  const min=+document.getElementById("min").value,nm=document.getElementById("nmOnly").checked;
+  const rows=all.filter(i=>(type=="all"||i.type==type||i.search_category==type)&&(i.risk||0)>=min&&(!nm||i.near_miss));
+  document.getElementById("list").innerHTML=rows.map((i,k)=>`<div class="item" data-k="${all.indexOf(i)}">
+   <div class="risk ${cls(i.risk)}">${i.risk??"?"}</div><div><div class="t">${esc(i.title)}</div>
+   <div class="m">${i.near_miss?'<span class="badge">NEAR MISS</span> · ':""}${esc(i.type)} · ${esc(i.drive)} · seg ${esc(i.segment)}</div></div></div>`).join("")||'<p class="m" style="padding:16px">No matches.</p>';
+  document.querySelectorAll(".item").forEach(e=>e.onclick=()=>show(+e.dataset.k,e));
+}
+function show(k,el){
+  document.querySelectorAll(".item.sel").forEach(e=>e.classList.remove("sel"));el&&el.classList.add("sel");
+  const i=all[k],oc=Object.entries(i.object_counts||{}).map(([a,b])=>`<span class="tag">${esc(a)} × ${b}</span>`).join("");
+  document.getElementById("detail").innerHTML=`<video src="/api/stream?source=${encodeURIComponent(i.source)}" controls autoplay muted loop></video>
+   <h2><span class="risk ${cls(i.risk)}" style="display:inline-grid;vertical-align:middle;margin-right:10px">${i.risk}</span>${esc(i.title)}</h2>
+   ${i.near_miss?'<div class="badge">NEAR MISS DETECTED</div>':'<div class="m">Not classed as a near miss</div>'}
+   <p>${esc(i.explanation)}</p><div>${(i.factors||[]).map(f=>`<span class="tag">⚠ ${esc(f)}</span>`).join("")}</div>
+   <p class="m">Detected objects: ${oc||"none"}</p><p class="m">Drive ${esc(i.drive)} · segment ${esc(i.segment)} · search match ${i.similarity}</p>
+   <details><summary>What the vision model saw</summary><p>${esc(i.description)}</p><p>Matched searches: ${esc(i.matched_queries.join("; "))}</p></details>`;
+}
+document.querySelectorAll("button[data-t]").forEach(b=>b.onclick=()=>{document.querySelectorAll("button[data-t]").forEach(x=>x.classList.remove("on"));b.classList.add("on");type=b.dataset.t;render()});
+document.getElementById("min").onchange=render;document.getElementById("nmOnly").onchange=render;
+fetch("/api/incidents").then(r=>r.json()).then(d=>{all=d.incidents;
+  document.getElementById("sTotal").textContent=all.length;document.getElementById("sNM").textContent=all.filter(i=>i.near_miss).length;
+  document.getElementById("sHi").textContent=all.filter(i=>i.risk>=7).length;render();const f=document.querySelector(".item");f&&f.click();});
+</script></body></html>
