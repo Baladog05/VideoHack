@@ -27,7 +27,7 @@
   "indexed_segments": null,
   "searched_queries": 28,
   "candidates": 184,
-  "edge_cases": 54
+  "edge_cases": 68
  },
  "runtime_sec": 147.7,
  "clips": [
@@ -135,6 +135,65 @@
    "motion_score": 10,
    "rarity_score": 7.3,
    "value": 8.2,
+   "added_by": "ask"
+  },
+  {
+   "id": "2473cc8df3f4",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_072419_GOPR0130_chunk_0001_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_072419_GOPR0130_chunk_0001.mp4",
+   "boxes_id": "2473cc8df3f4",
+   "camera_id": "nyc_bike_gopro-1",
+   "location": "new_york",
+   "segment_start_sec": 20.0,
+   "segment_end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 2,
+    "person": 6,
+    "truck": 2,
+    "bus": 1,
+    "backpack": 1
+   },
+   "description": "The scene is captured from a first-person perspective, likely from a bicycle or scooter, with the rider\u2019s hands gripping black handlebars visible in the foreground. The rider is wearing a dark long-sleeved top. The road is a narrow urban street with buildings on both sides. A large white USPS delivery truck is parked or moving slowly ahead, partially obstructing the view. In front of the truck, an orange construction barrier with graffiti is positioned on the right side of the road, and several black trash bags are piled up next to it. A silver car is parked on the left side of the street, and another white USPS truck is visible further down the road. Pedestrians can be seen near the entrance of a building with a yellow awning on the left. The overall environment suggests a busy city street with mixed traffic and urban infrastructure.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 7.543,
+   "motion_reasons": [
+    "vehicle in path, up to 16.7% of frame",
+    "pedestrian in path, up to 61.6% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "occluded_pedestrian",
+   "edge_score": 8,
+   "difficulty": 8,
+   "title": "Occluded pedestrian in bike path",
+   "explanation": "A pedestrian appears in the bike's path from behind a parked USPS truck, occupying a large portion of the frame, forcing a sudden avoidance maneuver. The truck and construction barrier occlude the pedestrian until the last moment, making it hard for an autonomous system to detect and react.",
+   "actors": [
+    "pedestrian",
+    "USPS truck",
+    "bicyclist"
+   ],
+   "conditions": [
+    "urban street",
+    "daylight",
+    "narrow lane",
+    "construction barrier"
+   ],
+   "label_tags": [
+    "occluded_pedestrian",
+    "emerging_from_behind_vehicle",
+    "narrow_street",
+    "bike_pov",
+    "sudden_appearance"
+   ],
+   "motion_score": 9,
+   "rarity_score": 6.5,
+   "value": 8.0,
    "added_by": "ask"
   },
   {
@@ -355,6 +414,68 @@
    ],
    "motion_score": 10,
    "rarity_score": 6.7,
+   "value": 7.6,
+   "added_by": "ask"
+  },
+  {
+   "id": "b8c11170a07d",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261006_123612_sf5_chunk_0001_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261006_123612_sf5_chunk_0001.mp4",
+   "boxes_id": "b8c11170a07d",
+   "camera_id": "sf_streets_cam-5",
+   "location": "san_francisco",
+   "segment_start_sec": 5.0,
+   "segment_end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0,
+   "object_counts": {
+    "bicycle": 2,
+    "person": 8,
+    "car": 9,
+    "backpack": 3,
+    "traffic light": 1,
+    "fire hydrant": 1,
+    "motorcycle": 1
+   },
+   "description": "A person wearing a black jacket and a backpack is riding a bicycle across a marked pedestrian crosswalk in the foreground. Another individual, also wearing a backpack, stands on the sidewalk to the right, observing the scene. In the background, a black car drives through the intersection, passing behind the cyclist. Pedestrians are visible on the sidewalks, some walking and others standing near storefronts. The traffic light is red, indicating vehicles should stop, but the car proceeds through the intersection. The scene takes place on a city street with buildings lining both sides, including one with a sign reading \"CONDOR.\" The sky is clear and blue, suggesting it is daytime.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 5.392,
+   "motion_reasons": [
+    "cyclist in path, up to 2.8% of frame",
+    "pedestrian in path, up to 2.5% of frame",
+    "vehicle in path, up to 1.6% of frame, grew 6.0x"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 8,
+   "difficulty": 8,
+   "title": "Car runs red light past cyclist",
+   "explanation": "A car proceeds through a red light while a cyclist crosses the crosswalk, creating a right-of-way conflict with a vulnerable road user. The red-light violation and cyclist in the vehicle path make this hard for an autonomous stack to predict and safely handle.",
+   "actors": [
+    "cyclist",
+    "car",
+    "pedestrian"
+   ],
+   "conditions": [
+    "daytime",
+    "clear",
+    "urban street",
+    "red traffic light"
+   ],
+   "label_tags": [
+    "red_light_violation",
+    "cyclist_crosswalk",
+    "vehicle_in_path",
+    "intersection",
+    "vru_conflict"
+   ],
+   "motion_score": 8,
+   "rarity_score": 4.1,
    "value": 7.6,
    "added_by": "ask"
   },
@@ -693,6 +814,70 @@
    "motion_score": 8,
    "rarity_score": 5.3,
    "value": 7.2,
+   "added_by": "ask"
+  },
+  {
+   "id": "ca87dd9eee3d",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_060554_set01_video_chunk_0001_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_060554_set01_video_chunk_0001.mp4",
+   "boxes_id": "ca87dd9eee3d",
+   "camera_id": "pie_cam-3",
+   "location": "toronto",
+   "segment_start_sec": 20.0,
+   "segment_end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 12,
+    "bicycle": 2,
+    "person": 5,
+    "elephant": 1,
+    "traffic light": 1,
+    "kite": 2,
+    "truck": 1,
+    "umbrella": 1
+   },
+   "description": "The scene unfolds on a two-lane road with a single lane in each direction, separated by a double yellow line. The road surface is dry and marked with tram tracks running down the center. The ego vehicle travels straight along this road, following a white SUV ahead. The environment is a commercial urban street lined with multi-story buildings, including a tall brick apartment building on the left and a shorter brick building on the right decorated with numerous international flags. Traffic is moderate, with several vehicles visible. A white sedan and a white SUV are seen approaching from the opposite direction in the oncoming lane. On the right side of the road, a white hatchback is parked, partially blocking the lane. Pedestrians are present on the sidewalks and crossing the street; one person is pushing a stroller near the parked white hatchback, and another pedestrian is walking on the left sidewalk. A bicycle is visible parked on the right side of the street. Signage includes a green \u201cDOLLARAMA\u201d sign on...",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 2.697,
+   "motion_reasons": [
+    "vehicle in path, up to 1.9% of frame, grew 3.2x"
+   ],
+   "is_edge_case": true,
+   "category": "occluded_pedestrian",
+   "edge_score": 7,
+   "difficulty": 8,
+   "title": "Pedestrian with stroller near parked car",
+   "explanation": "A pedestrian pushing a stroller crosses the street near a parked white hatchback that partially blocks the lane, creating an occlusion risk. The ego vehicle must predict the pedestrian's path while navigating around the parked car and oncoming traffic.",
+   "actors": [
+    "pedestrian with stroller",
+    "parked white hatchback",
+    "ego vehicle",
+    "oncoming white sedan",
+    "oncoming white SUV"
+   ],
+   "conditions": [
+    "daytime",
+    "dry",
+    "urban commercial street",
+    "tram tracks"
+   ],
+   "label_tags": [
+    "occluded_pedestrian",
+    "stroller",
+    "mid_block_crossing",
+    "parked_vehicle",
+    "partial_lane_block",
+    "urban_driving"
+   ],
+   "motion_score": 6,
+   "rarity_score": 6.1,
+   "value": 7.0,
    "added_by": "ask"
   },
   {
@@ -1080,6 +1265,73 @@
    "value": 6.6
   },
   {
+   "id": "76ea4d5b3321",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_064458_VID_20261006_171812_002_chunk_0001_segment_003_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_064458_VID_20261006_171812_002_chunk_0001.mp4",
+   "boxes_id": "76ea4d5b3321",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 10.0,
+   "segment_end_sec": 15.0,
+   "segment": "3/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 4,
+    "person": 12,
+    "truck": 1,
+    "bicycle": 2,
+    "traffic light": 1,
+    "handbag": 2,
+    "clock": 1,
+    "bench": 1,
+    "fire hydrant": 1,
+    "backpack": 1
+   },
+   "description": "A man in a green striped shirt, beige pants, and a patterned cap walks across a crosswalk in a city intersection, holding an orange traffic cone in his right hand. He moves from the right side of the frame toward the left, passing in front of a red plastic traffic barrier and an orange traffic cone on the road. As he crosses, several pedestrians walk past him in the opposite direction. A black sedan drives through the intersection from left to right, followed by a maroon SUV. A white utility truck is parked on the right side of the street. In the background, a building with the number 401 above its entrance is visible, along with a storefront labeled \"UNIFORM.\" A street sign reading \"Walker St\" is mounted on a pole near the crosswalk. The traffic light facing the camera shows a red hand signal, indicating pedestrians should not cross. A fire hydrant and a bicycle are visible on the sidewalk.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 9.13,
+   "motion_reasons": [
+    "vehicle in path, up to 7.7% of frame",
+    "pedestrian in path, up to 6.2% of frame, grew 2.1x"
+   ],
+   "is_edge_case": true,
+   "category": "vru_violation",
+   "edge_score": 6,
+   "difficulty": 7,
+   "title": "Pedestrian crosses against red hand with cone",
+   "explanation": "A pedestrian crosses against the red hand signal while carrying a traffic cone, entering the path of vehicles in the intersection. The car must predict an illegal crossing and yield safely amid normal traffic and construction clutter.",
+   "actors": [
+    "pedestrian",
+    "black sedan",
+    "maroon SUV",
+    "white utility truck",
+    "other pedestrians"
+   ],
+   "conditions": [
+    "urban_intersection",
+    "crosswalk",
+    "construction_zone",
+    "red_pedestrian_signal"
+   ],
+   "label_tags": [
+    "vru_violation",
+    "jaywalking",
+    "pedestrian_in_path",
+    "red_hand_signal",
+    "traffic_cone",
+    "construction_zone"
+   ],
+   "motion_score": 10,
+   "rarity_score": 4.1,
+   "value": 6.6,
+   "added_by": "ask"
+  },
+  {
    "id": "419442542c20",
    "source": "s3://team-39-vss-chunks-segments/segments/20261008_072246_IMG_0509_chunk_0028_segment_002_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261008_072246_IMG_0509_chunk_0028.mp4",
@@ -1456,6 +1708,71 @@
    "added_by": "ask"
   },
   {
+   "id": "417ae77c3338",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_064458_VID_20261006_171812_002_chunk_0001_segment_004_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_064458_VID_20261006_171812_002_chunk_0001.mp4",
+   "boxes_id": "417ae77c3338",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 15.0,
+   "segment_end_sec": 20.0,
+   "segment": "4/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 5,
+    "person": 15,
+    "bicycle": 2,
+    "truck": 1,
+    "traffic light": 2,
+    "handbag": 1,
+    "backpack": 1,
+    "fire hydrant": 1,
+    "clock": 1
+   },
+   "description": "A man in a green striped shirt and a patterned hat stands in the middle of a city street intersection, holding an orange traffic cone. He is positioned near a red plastic barrier and an orange traffic cone with reflective stripes. Behind him, a red SUV and a white sedan drive through the intersection. A white utility truck is parked on the right side of the street. Pedestrians cross the street in front of him, some walking in groups. A person in a black jacket walks past the camera in the foreground. In the background, a building with the number 401 is visible, along with a storefront labeled \"UNIFORM.\" A traffic light showing a red hand signal is mounted on a pole. A clock is visible on the building facade. A fire hydrant is located on the sidewalk near the building. Several people are standing on the sidewalk, some near the storefront and others near the parked utility truck. A bicycle is parked on the sidewalk near the building. A handbag is carried by one of the pedestrians crossing the street.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 9.661,
+   "motion_reasons": [
+    "vehicle in path, up to 7.2% of frame",
+    "pedestrian in path, up to 8.6% of frame, grew 2.4x"
+   ],
+   "is_edge_case": true,
+   "category": "road_anomaly",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "Man holds cone mid-intersection",
+   "explanation": "A man stands in the middle of an intersection holding a traffic cone near barriers while vehicles and pedestrians move around him. This is hard because the car must recognize a possible traffic-control worker and navigate a non-standard roadwork/pedestrian situation.",
+   "actors": [
+    "man holding cone",
+    "pedestrians",
+    "red SUV",
+    "white sedan",
+    "utility truck"
+   ],
+   "conditions": [
+    "urban intersection",
+    "daylight",
+    "red hand signal"
+   ],
+   "label_tags": [
+    "road_anomaly",
+    "construction_worker",
+    "traffic_cone",
+    "pedestrian_in_road",
+    "intersection",
+    "traffic_control"
+   ],
+   "motion_score": 10,
+   "rarity_score": 2.4,
+   "value": 6.2,
+   "added_by": "ask"
+  },
+  {
    "id": "670570f959c4",
    "source": "s3://team-39-vss-chunks-segments/segments/20261001_071651_set06_video_chunk_0015_segment_004_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261001_071651_set06_video_chunk_0015.mp4",
@@ -1676,6 +1993,131 @@
    "added_by": "ask"
   },
   {
+   "id": "d1cd433c0478",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_064458_VID_20261006_171812_002_chunk_0001_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_064458_VID_20261006_171812_002_chunk_0001.mp4",
+   "boxes_id": "d1cd433c0478",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 20.0,
+   "segment_end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 3,
+    "person": 15,
+    "clock": 1,
+    "handbag": 2,
+    "truck": 1,
+    "traffic light": 2,
+    "backpack": 2,
+    "bicycle": 2
+   },
+   "description": "A man in a green striped shirt and beige pants walks across a city street intersection, holding an orange flag and a red traffic barrier. He moves from the right side of the frame toward the center, passing between orange traffic cones and a metal barricade. Pedestrians are visible on the sidewalks and crossing the street, including a person in a dark jacket and white pants carrying a backpack. A white sedan drives through the intersection from left to right, followed by a white utility truck parked on the right side of the street. A cyclist rides past the truck, heading in the same direction as the sedan. The street is lined with buildings, one of which has a storefront with the word \"UNIFORM\" visible. Traffic lights and street signs are present, including a \"ONE WAY\" sign and a street name sign reading \"Walker St.\" The scene is active with moderate foot and vehicle traffic, and the man with the flag appears to be directing or managing the flow of traffic.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 5.39,
+   "motion_reasons": [
+    "pedestrian in path, up to 4.2% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "road_anomaly",
+   "edge_score": 6,
+   "difficulty": 7,
+   "title": "Flagger directs traffic through intersection",
+   "explanation": "A construction flagger walks through the intersection holding an orange flag and red barrier while cones and barricades are present. An autonomous vehicle must interpret manual traffic direction and temporary roadwork controls, which can override normal signals and signs.",
+   "actors": [
+    "flagger",
+    "pedestrians",
+    "cyclist",
+    "white sedan",
+    "utility truck"
+   ],
+   "conditions": [
+    "urban intersection",
+    "daytime",
+    "moderate foot and vehicle traffic"
+   ],
+   "label_tags": [
+    "construction_flagger",
+    "traffic_control",
+    "roadworks",
+    "cones_barriers",
+    "pedestrian_in_path",
+    "manual_direction"
+   ],
+   "motion_score": 8,
+   "rarity_score": 1.8,
+   "value": 6.1,
+   "added_by": "ask"
+  },
+  {
+   "id": "bdc874dd2f1b",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_100443_sf3_chunk_0001_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_100443_sf3_chunk_0001.mp4",
+   "boxes_id": "bdc874dd2f1b",
+   "camera_id": "sf_streets_cam-3",
+   "location": "san_francisco",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 10,
+    "person": 7,
+    "traffic light": 1,
+    "backpack": 3,
+    "truck": 1,
+    "bus": 1,
+    "motorcycle": 2,
+    "bicycle": 1
+   },
+   "description": "A man wearing a black jacket and carrying a black backpack is riding a bicycle in the foreground, moving from left to right across the frame. He is positioned near the bottom center of the scene. Pedestrians are visible on the sidewalks and crossing the street at designated crosswalks. A person in a white cap is walking along the right side of the frame, while others are seen further back near the intersection. Traffic lights are visible at the intersection, with some showing red signals. Vehicles, including cars and a bus, are moving through the intersection. A white SUV is seen driving from left to right, followed by a black SUV. A bus is visible in the distance, moving along the street. A motorcycle is also present, navigating through the traffic. The scene captures a typical urban intersection with multiple lanes, traffic signals, and pedestrian crossings. The Bank of America building is prominently visible on the left side of the frame, with its classic architecture and signage clearly displayed. The...",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 5.402,
+   "motion_reasons": [
+    "vehicle in path, up to 6.3% of frame, grew 4.8x",
+    "pedestrian in path, up to 3.4% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "vru_violation",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "Cyclist cuts across intersection traffic",
+   "explanation": "A cyclist crosses the ego vehicle's path from left to right in the foreground, possibly against a red light, forcing the vehicle to yield or brake. This is hard because the cyclist's trajectory is unpredictable and may be occluded by other traffic.",
+   "actors": [
+    "cyclist",
+    "pedestrians",
+    "vehicles"
+   ],
+   "conditions": [
+    "urban",
+    "daylight",
+    "intersection"
+   ],
+   "label_tags": [
+    "vru_violation",
+    "cyclist",
+    "cut_across",
+    "red_light",
+    "intersection",
+    "yield"
+   ],
+   "motion_score": 8,
+   "rarity_score": 3.9,
+   "value": 6.1,
+   "added_by": "ask"
+  },
+  {
    "id": "0069ea0da5b8",
    "source": "s3://team-39-vss-chunks-segments/segments/reingest/f29b3aeaf33c49fea5d3a51ba03b1201/20261001_072105_set06_video_chunk_0025_segment_001_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261001_072105_set06_video_chunk_0025.mp4",
@@ -1834,6 +2276,64 @@
    "value": 6.0
   },
   {
+   "id": "be7b7a5f531c",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_095151_sf2_chunk_0001_segment_005_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_095151_sf2_chunk_0001.mp4",
+   "boxes_id": "be7b7a5f531c",
+   "camera_id": "sf_streets_cam-2",
+   "location": "san_francisco",
+   "segment_start_sec": 20.0,
+   "segment_end_sec": 25.0,
+   "segment": "5/6",
+   "similarity": 0,
+   "object_counts": {
+    "person": 12,
+    "car": 6,
+    "truck": 4,
+    "backpack": 4,
+    "traffic light": 2,
+    "handbag": 1,
+    "motorcycle": 1
+   },
+   "description": "The scene is a busy urban intersection with pedestrians crossing and vehicles moving through. A white truck is parked on the left side of the frame, near a building with a visible \"Fidelity\" sign. Several people are walking across the crosswalk, including a man in a black shirt and jeans, another in a gray shirt and jeans, and a person in a blue shirt with an orange backpack. A woman with long hair is standing near the right side of the crosswalk, facing away from the camera. A traffic light is visible in the center of the intersection, showing a red signal for vehicles. A black car is seen driving through the intersection from right to left. The overall atmosphere is typical of a city street with moderate pedestrian and vehicle activity.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 3.622,
+   "motion_reasons": [
+    "pedestrian in path, up to 2.7% of frame",
+    "vehicle in path, up to 1.6% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 6,
+   "difficulty": 7,
+   "title": "Car runs red light at intersection",
+   "explanation": "A black car drives through the intersection while the traffic signal is red for vehicles, with pedestrians crossing in the crosswalk. This is hard because the ego vehicle must detect the red-light runner and predict its path while managing pedestrian interactions.",
+   "actors": [
+    "black car",
+    "pedestrians"
+   ],
+   "conditions": [
+    "urban intersection",
+    "red light"
+   ],
+   "label_tags": [
+    "red_light_running",
+    "intersection",
+    "pedestrian_crossing",
+    "vehicle_in_path",
+    "urban"
+   ],
+   "motion_score": 6,
+   "rarity_score": 4.4,
+   "value": 6.0,
+   "added_by": "ask"
+  },
+  {
    "id": "8b7ef32041f6",
    "source": "s3://team-39-vss-chunks-segments/segments/20261008_072948_GOPR0130_chunk_0014_segment_003_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261008_072948_GOPR0130_chunk_0014.mp4",
@@ -1889,6 +2389,130 @@
    "motion_score": 8,
    "rarity_score": 7.3,
    "value": 5.9
+  },
+  {
+   "id": "0087b448fd36",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_072419_GOPR0130_chunk_0001_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_072419_GOPR0130_chunk_0001.mp4",
+   "boxes_id": "0087b448fd36",
+   "camera_id": "nyc_bike_gopro-1",
+   "location": "new_york",
+   "segment_start_sec": 0.0,
+   "segment_end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 1,
+    "person": 7,
+    "truck": 3,
+    "bus": 1,
+    "umbrella": 1,
+    "cell phone": 1
+   },
+   "description": "The scene is captured from a cyclist\u2019s perspective, with the handlebars and rider\u2019s hands visible in the foreground. The cyclist is stopped on a narrow city street. Ahead, a white United States Postal Service (USPS) delivery truck is parked, partially blocking the road. In front of the truck, an orange traffic barricade with graffiti is positioned, further obstructing the path. To the right, several black trash bags are piled up on the sidewalk. On the left side of the street, a silver sedan is parked along the curb. Pedestrians are visible on the sidewalk to the right, near a building entrance with a yellow awning and a red neon sign. Another USPS truck is visible further down the street, parked near the corner. The environment suggests an urban setting with moderate activity, and the cyclist appears to be waiting or maneuvering around the obstruction caused by the parked truck and barricade.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 7.556,
+   "motion_reasons": [
+    "vehicle in path, up to 15.8% of frame",
+    "pedestrian in path, up to 59.2% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "blocked_lane",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "USPS truck and barricade block narrow street",
+   "explanation": "A parked USPS truck and an orange barricade obstruct the cyclist's path on a narrow street, forcing a maneuver around them while pedestrians and parked cars narrow the gap. This is hard because the drivable space is ambiguous and the obstruction requires careful lateral clearance.",
+   "actors": [
+    "cyclist",
+    "USPS delivery truck",
+    "pedestrians",
+    "silver sedan"
+   ],
+   "conditions": [
+    "urban_street",
+    "moderate_activity",
+    "narrow_road"
+   ],
+   "label_tags": [
+    "blocked_lane",
+    "delivery_vehicle",
+    "barricade",
+    "cyclist_pov",
+    "narrow_street",
+    "urban_obstruction"
+   ],
+   "motion_score": 9,
+   "rarity_score": 0.6,
+   "value": 5.9,
+   "added_by": "ask"
+  },
+  {
+   "id": "892f51352177",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_072419_GOPR0130_chunk_0001_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_072419_GOPR0130_chunk_0001.mp4",
+   "boxes_id": "892f51352177",
+   "camera_id": "nyc_bike_gopro-1",
+   "location": "new_york",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0,
+   "object_counts": {
+    "person": 7,
+    "truck": 2,
+    "car": 2,
+    "bus": 1,
+    "backpack": 1
+   },
+   "description": "The scene is captured from a first-person perspective, likely from a bicycle or scooter, showing the rider\u2019s hands on the handlebars. The road is a narrow urban street with buildings on both sides. A white USPS delivery truck is parked ahead, partially blocking the lane. In front of the truck, an orange traffic barricade with graffiti is positioned, further obstructing the path. To the right of the barricade, several black trash bags are piled up on the sidewalk. On the left side of the street, a silver car is parked near a building entrance with a yellow awning. Pedestrians can be seen standing near the entrance of the building on the left. The overall environment suggests a city street with typical urban elements such as parked vehicles, trash collection, and pedestrian activity.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 7.509,
+   "motion_reasons": [
+    "pedestrian in path, up to 61.4% of frame",
+    "vehicle in path, up to 17.0% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "blocked_lane",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "USPS truck and barricade block lane",
+   "explanation": "A parked USPS truck and an orange construction barricade obstruct the narrow street, forcing the rider to merge around them. The tight urban corridor with pedestrians nearby makes path planning and clearance difficult for an autonomous vehicle.",
+   "actors": [
+    "cyclist/rider",
+    "USPS truck",
+    "construction barricade",
+    "pedestrians",
+    "parked silver car"
+   ],
+   "conditions": [
+    "urban narrow street",
+    "daylight",
+    "parked vehicles",
+    "construction barrier",
+    "trash bags"
+   ],
+   "label_tags": [
+    "blocked_lane",
+    "delivery_truck",
+    "construction_barrier",
+    "narrow_street",
+    "cyclist_pov",
+    "urban"
+   ],
+   "motion_score": 9,
+   "rarity_score": 0.6,
+   "value": 5.9,
+   "added_by": "ask"
   },
   {
    "id": "a1f0d0e49031",
@@ -2102,6 +2726,71 @@
    "motion_score": 3,
    "rarity_score": 0.7,
    "value": 5.8
+  },
+  {
+   "id": "0d238987233e",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_064458_VID_20261006_171812_002_chunk_0001_segment_002_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_064458_VID_20261006_171812_002_chunk_0001.mp4",
+   "boxes_id": "0d238987233e",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 5.0,
+   "segment_end_sec": 10.0,
+   "segment": "2/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 4,
+    "person": 11,
+    "truck": 1,
+    "traffic light": 1,
+    "backpack": 1,
+    "bicycle": 2,
+    "clock": 1,
+    "fire hydrant": 1
+   },
+   "description": "A man in a green striped shirt, beige pants, and a cap walks across a crosswalk in a city street, waving an orange flag. He moves from the right side of the frame toward the center. A black Tesla Model Y drives through the intersection, passing behind him. A yellow NYC taxi is visible on the left side of the frame, moving away from the camera. A white utility truck is parked on the right side of the street. Pedestrians are seen walking on the sidewalks and crossing the street. A red construction barrier and orange traffic cones are placed on the road near the crosswalk. A traffic light showing a red pedestrian signal is visible on the right. A building with the number 401 and a sign reading \"UNIFORM\" is visible in the background. A clock is mounted on the building facade. A fire hydrant is located near the crosswalk.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 4.651,
+   "motion_reasons": [
+    "pedestrian in path, up to 3.1% of frame",
+    "vehicle in path, up to 6.4% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "road_anomaly",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "Construction flagger crosses crosswalk with orange flag",
+   "explanation": "A construction worker/flagger crosses the crosswalk carrying an orange flag and cone while a Tesla passes behind and a red pedestrian signal is active. The mix of roadworks, a pedestrian in the path, and conflicting signals is hard for an autonomous vehicle to interpret correctly.",
+   "actors": [
+    "construction worker",
+    "pedestrian",
+    "Tesla Model Y",
+    "NYC taxi",
+    "pedestrians"
+   ],
+   "conditions": [
+    "urban intersection",
+    "crosswalk",
+    "roadworks",
+    "red pedestrian signal"
+   ],
+   "label_tags": [
+    "roadworks",
+    "construction_flagger",
+    "traffic_cone",
+    "pedestrian_in_path",
+    "crosswalk",
+    "red_pedestrian_signal"
+   ],
+   "motion_score": 7,
+   "rarity_score": 2.9,
+   "value": 5.8,
+   "added_by": "ask"
   },
   {
    "id": "21642d0d64a2",
@@ -2371,6 +3060,64 @@
    "value": 5.0
   },
   {
+   "id": "89e5a93a1fcf",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261006_123612_sf5_chunk_0001_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261006_123612_sf5_chunk_0001.mp4",
+   "boxes_id": "89e5a93a1fcf",
+   "camera_id": "sf_streets_cam-5",
+   "location": "san_francisco",
+   "segment_start_sec": 0.0,
+   "segment_end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0,
+   "object_counts": {
+    "person": 7,
+    "car": 14,
+    "bicycle": 2,
+    "backpack": 2,
+    "traffic light": 1,
+    "motorcycle": 2,
+    "fire hydrant": 1
+   },
+   "description": "A person wearing a black jacket and blue jeans is riding a bicycle across the crosswalk, moving from the left side of the frame toward the right. Another person, dressed in a black jacket and beige pants with a red backpack, stands on the right side of the crosswalk, facing the street. In the background, several vehicles are visible, including a white SUV, a red car, and a black car, all driving along the street. The traffic light is red, indicating that vehicles should stop, but some cars are still moving through the intersection. Pedestrians can be seen walking on the sidewalks, and a fire hydrant is visible near the crosswalk. The scene takes place in an urban area with buildings and street signs in the background.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 0,
+   "motion_reasons": [
+    "no detections"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "Cars run red light as cyclist crosses",
+   "explanation": "Vehicles continue through the intersection despite a red light while a cyclist crosses the crosswalk, creating a conflict. An autonomous vehicle must detect red-light runners and predict their path while yielding to the cyclist.",
+   "actors": [
+    "cyclist",
+    "pedestrian",
+    "cars"
+   ],
+   "conditions": [
+    "urban street",
+    "red traffic light"
+   ],
+   "label_tags": [
+    "red_light_running",
+    "cyclist_crossing",
+    "crosswalk",
+    "intersection",
+    "urban"
+   ],
+   "motion_score": 0,
+   "rarity_score": 5.3,
+   "value": 5.0,
+   "added_by": "ask"
+  },
+  {
    "id": "83c95ade4318",
    "source": "s3://team-39-vss-chunks-segments/segments/20261001_071303_set06_video_chunk_0006_segment_005_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261001_071303_set06_video_chunk_0006.mp4",
@@ -2538,6 +3285,63 @@
    "value": 4.9
   },
   {
+   "id": "c6110aae8e7a",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_100418_sf3_chunk_0000_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_100418_sf3_chunk_0000.mp4",
+   "boxes_id": "c6110aae8e7a",
+   "camera_id": "sf_streets_cam-3",
+   "location": "san_francisco",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0,
+   "object_counts": {
+    "person": 8,
+    "traffic light": 1,
+    "car": 3,
+    "bicycle": 2,
+    "backpack": 1
+   },
+   "description": "A person wearing a black backpack and a striped shirt rides a bicycle across the intersection from left to right. The bicycle is white with black tires. The rider is wearing light-colored pants and is moving at a steady pace. The traffic light for the direction the cyclist is traveling is red, but the cyclist proceeds through the intersection. Pedestrians are visible on the sidewalks, some walking and others standing near the crosswalks. A car is visible in the background, stopped at the intersection. The scene takes place in an urban area with buildings, street signs, and overhead wires visible.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 0,
+   "motion_reasons": [
+    "no detections"
+   ],
+   "is_edge_case": true,
+   "category": "vru_violation",
+   "edge_score": 6,
+   "difficulty": 6,
+   "title": "Cyclist runs red light through intersection",
+   "explanation": "A cyclist crosses the intersection left-to-right against a red traffic light while a car waits stopped. A self-driving car must anticipate a VRU ignoring the signal and crossing its path, which is hard because the cyclist's behavior contradicts the traffic-light state.",
+   "actors": [
+    "cyclist",
+    "pedestrians",
+    "stopped car"
+   ],
+   "conditions": [
+    "urban_intersection",
+    "overhead_wires",
+    "daytime"
+   ],
+   "label_tags": [
+    "red_light_violation",
+    "cyclist",
+    "intersection",
+    "vru",
+    "crossing_traffic"
+   ],
+   "motion_score": 0,
+   "rarity_score": 3.8,
+   "value": 4.9,
+   "added_by": "ask"
+  },
+  {
    "id": "29de81d29553",
    "source": "s3://team-39-vss-chunks-segments/segments/20261008_072246_IMG_0509_chunk_0028_segment_006_of_006.mp4",
    "original_video": "s3://team-39-vss-chunks/team-39/20261008_072246_IMG_0509_chunk_0028.mp4",
@@ -2589,6 +3393,70 @@
    "motion_score": 5,
    "rarity_score": 0.7,
    "value": 4.6
+  },
+  {
+   "id": "fc252e0bbe27",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261008_064433_VID_20261006_171812_002_chunk_0000_segment_006_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261008_064433_VID_20261006_171812_002_chunk_0000.mp4",
+   "boxes_id": "fc252e0bbe27",
+   "camera_id": "nyc_streets_cam-1",
+   "location": "new_york",
+   "segment_start_sec": 25.0,
+   "segment_end_sec": 30.0,
+   "segment": "6/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 5,
+    "person": 11,
+    "truck": 1,
+    "traffic light": 1,
+    "motorcycle": 1,
+    "backpack": 2,
+    "bicycle": 4,
+    "clock": 1
+   },
+   "description": "A man in a green striped shirt and beige pants walks across a crosswalk in a city street, holding an orange flag. He moves from left to right, passing orange traffic cones and a red barrier. A black SUV drives past him on the left side of the frame. In the background, a yellow taxi is visible, along with a white utility truck parked on the right. Pedestrians are seen walking on the sidewalk, and a few people are standing near a building entrance marked with the number 401. A street sign reading \"Walker St\" is visible. The scene includes various urban elements such as traffic lights, street signs, and a clock on a nearby building. The overall activity suggests a busy city intersection with moderate traffic and pedestrian movement.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 0,
+   "motion_reasons": [
+    "no detections"
+   ],
+   "is_edge_case": true,
+   "category": "road_anomaly",
+   "edge_score": 6,
+   "difficulty": 5,
+   "title": "Flagger crosses crosswalk amid cones and barrier",
+   "explanation": "A man holding an orange flag crosses a crosswalk within a coned-off construction area while a black SUV passes nearby. The combination of a flagger, cones, and a pedestrian in the roadway can confuse an autonomous vehicle's path prediction and right-of-way logic.",
+   "actors": [
+    "pedestrian with orange flag",
+    "black SUV",
+    "yellow taxi",
+    "white utility truck",
+    "pedestrians"
+   ],
+   "conditions": [
+    "urban",
+    "daytime",
+    "construction zone",
+    "moderate traffic"
+   ],
+   "label_tags": [
+    "construction_zone",
+    "flagger",
+    "crosswalk",
+    "traffic_cones",
+    "barrier",
+    "pedestrian_in_road"
+   ],
+   "motion_score": 0,
+   "rarity_score": 2.5,
+   "value": 4.6,
+   "added_by": "ask"
   },
   {
    "id": "715d9a81ea2d",
