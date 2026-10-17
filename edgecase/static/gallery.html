@@ -4,7 +4,7 @@
 :root{--bg:#fffcf2;--line:#eee5cc;--text:#1d1d1b;--mut:#6f6a5c;--y:#FFC800;--y2:#fff3c4;--red:#e5484d;--amb:#f08c00;--green:#2f9e44}
 *{box-sizing:border-box}body{margin:0;font:15px/1.5 "Inter",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text)}
 header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:16px 28px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.logo{font-weight:800;font-size:1.15rem;display:flex;align-items:center;gap:8px}.logo i{width:30px;height:30px;border-radius:8px;background:var(--y);display:grid;place-items:center}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font-weight:800;font-size:1.35rem;letter-spacing:-.02em}.logo i{width:34px;height:34px;border-radius:9px;background:var(--y);display:grid;place-items:center}
 h1{font-size:1.15rem;margin:0}.sub{color:var(--mut);font-size:.9rem}.pills{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
 .pill{background:var(--y2);border-radius:20px;padding:4px 12px;font-size:.82rem;font-weight:600}
 main{padding:24px 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:20px}
@@ -17,7 +17,7 @@ main{padding:24px 28px;display:grid;grid-template-columns:repeat(auto-fill,minma
 .ex{color:var(--mut);font-size:.86rem}.empty{padding:60px;text-align:center;color:var(--mut);grid-column:1/-1}
 .legend{display:flex;gap:14px;font-size:.78rem;color:var(--mut)}.legend i{display:inline-block;width:11px;height:11px;border:2.5px solid;border-radius:3px;vertical-align:-2px;margin-right:4px}
 </style></head><body>
-<header><div class="logo"><i>⟋</i>Haystack</div><div><h1 id="h">Selected clips</h1><div class="sub" id="sub">Loading…</div></div>
+<header><a class="logo" href="/#/ask"><i><svg width="22" height="22" viewBox="0 0 32 32"><path d="M7 26 L25 7" stroke="#1d1d1b" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="9" r="2.6" fill="none" stroke="#1d1d1b" stroke-width="1.8"/></svg></i>Haystack</a><div><h1 id="h">Selected clips</h1><div class="sub" id="sub">Loading…</div></div>
 <div class="legend"><span><i style="border-color:var(--red)"></i>Pedestrian / cyclist in path</span><span><i style="border-color:var(--amb)"></i>Vehicle in path</span><span><i style="border-color:var(--green)"></i>Other road user</span></div>
 <div class="pills" id="pills"></div></header>
 <main id="grid"></main>
