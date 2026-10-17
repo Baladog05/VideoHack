@@ -1,0 +1,5 @@
+server.log
+reindex.log
+miner.log
+__pycache__/
+datasets/

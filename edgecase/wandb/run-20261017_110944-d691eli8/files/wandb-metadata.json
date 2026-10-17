@@ -1,0 +1,35 @@
+{
+  "os":  "Linux-6.8.0-106-generic-x86_64-with-glibc2.39",
+  "python":  "CPython 3.12.3",
+  "startedAt":  "2026-10-17T11:09:44.359928Z",
+  "args":  [
+    "/home/aadeeb/VideoHack/edgecase/datasets/edge-cases-20261017-110940",
+    "{\"name\": \"edge-cases-20261017-110940\", \"path\": \"/home/aadeeb/VideoHack/edgecase/datasets/edge-cases-20261017-110940\", \"zip\": \"/home/aadeeb/VideoHack/edgecase/datasets/edge-cases-20261017-110940.zip\", \"clips\": 10, \"by_category\": {\"occluded_pedestrian\": 3, \"emergency_special\": 2, \"road_anomaly\": 2, \"vru_violation\": 3}, \"wandb\": null}"
+  ],
+  "program":  "/home/aadeeb/VideoHack/edgecase/wandb_log.py",
+  "codePath":  "edgecase/wandb_log.py",
+  "codePathLocal":  "wandb_log.py",
+  "git":  {
+    "remote":  "https://github.com/Baladog05/VideoHack.git",
+    "commit":  "9ec606d2aae5a5c3ac06f1766ece00cf91dd083d"
+  },
+  "email":  "ram.bansal@vastdata.com",
+  "root":  "/home/aadeeb/VideoHack/edgecase",
+  "host":  "bc-pool-225",
+  "executable":  "/home/aadeeb/VideoHack/.venv/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "65445814272",
+      "used":  "7550402560"
+    }
+  },
+  "memory":  {
+    "total":  "10425835520"
+  },
+  "cpu":  {
+    "model":  "AMD EPYC 9555P 64-Core Processor"
+  },
+  "writerId":  "01a1498d-ae29-77a0-bb35-d315017a8c12"
+}

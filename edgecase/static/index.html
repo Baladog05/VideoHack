@@ -1,0 +1,99 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Edge Case Miner</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{--bg:#0b0f14;--card:#141a22;--line:#2a323d;--text:#e6edf3;--mut:#8b949e;--acc:#76b900;--red:#f85149;--amb:#d29922}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 system-ui,sans-serif;background:var(--bg);color:var(--text)}
+header{padding:16px 24px;border-bottom:1px solid var(--line);display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+h1{margin:0;font-size:20px}h1 span{color:var(--acc)}.tag-line{color:var(--mut);font-size:12px;max-width:340px}
+.funnel{display:flex;gap:8px;align-items:center}.fstep{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 12px;text-align:center}
+.fstep b{display:block;font-size:20px}.fstep small{color:var(--mut)}.arrow{color:var(--mut)}
+.fstep.hi{border-color:var(--acc)}.fstep.hi b{color:var(--acc)}
+button{background:var(--card);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer;font:inherit}
+button.primary{background:var(--acc);color:#0b0f14;border-color:var(--acc);font-weight:700}
+main{display:grid;grid-template-columns:300px 380px 1fr;height:calc(100vh - 78px)}
+aside,#list{overflow:auto;border-right:1px solid var(--line)}aside{padding:16px}
+h3{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--mut)}
+.cat{padding:6px 8px;border-radius:6px;cursor:pointer;margin-bottom:4px}.cat:hover,.cat.on{background:var(--card)}
+.cat .row{display:flex;justify-content:space-between}.cbar{height:6px;background:var(--line);border-radius:3px;margin-top:4px}.cbar i{display:block;height:100%;background:var(--acc);border-radius:3px}
+.gap{color:var(--amb);font-size:11px}
+.item{padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:12px}.item:hover,.item.sel{background:var(--card)}
+.score{min-width:44px;height:44px;border-radius:8px;display:grid;place-items:center;font-weight:700;font-size:16px;background:#76b90022;color:var(--acc)}
+.score.mid{background:#d2992222;color:var(--amb)}.score.lo{background:#8b949e22;color:var(--mut)}
+.t{font-weight:600}.m{color:var(--mut);font-size:12px}
+#detail{padding:20px 24px;overflow:auto}.vwrap{position:relative;background:#000;border-radius:8px;overflow:hidden}
+video{width:100%;display:block;max-height:52vh}canvas{position:absolute;inset:0;pointer-events:none}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:12px;padding:1px 9px;margin:2px 4px 2px 0;font-size:12px;color:var(--mut)}
+.pill.c{border-color:var(--acc);color:var(--acc)}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:10px 0}.bar div{height:7px;border-radius:4px;background:var(--line);margin-top:4px}.bar i{display:block;height:100%;border-radius:4px;background:var(--acc)}
+.export{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}#exres{margin-top:10px;font-size:13px}
+a{color:var(--acc)}details{margin-top:12px;color:var(--mut)}
+</style></head><body>
+<header><div><h1>Edge Case <span>Miner</span></h1><div class="tag-line">Self-driving cars don't crash on the boring 99%. They crash on the weird 1%. We find it.</div></div>
+<div class="funnel"><div class="fstep"><b id="fIdx">–</b><small>clips indexed</small></div><span class="arrow">→</span>
+<div class="fstep"><b id="fCand">–</b><small>candidates</small></div><span class="arrow">→</span>
+<div class="fstep hi"><b id="fEdge">–</b><small>edge cases</small></div></div>
+<label class="m" style="margin-left:auto"><input type="checkbox" id="showAll"> Show rejected candidates</label></header>
+<main><aside><h3>Categories</h3><div id="cats"></div>
+<div class="export"><h3>Training dataset</h3>
+<div class="m">Minimum value <b id="mvv">5</b></div><input type="range" id="mv" min="3" max="9" step="0.5" value="5" style="width:100%">
+<div class="m" id="exCount"></div><button class="primary" id="exBtn" style="width:100%;margin-top:8px">Export dataset</button><div id="exres" class="m"></div></div></aside>
+<div id="list"></div><div id="detail"><p class="m">Pick a clip.</p></div></main>
+<script>
+let D={clips:[],categories:{}},cat="all",boxes=[],raf;
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sc=v=>v>=7?"":v>=5?"mid":"lo";
+function cats(){
+  const edge=D.clips.filter(c=>c.is_edge_case),n={};edge.forEach(c=>n[c.category]=(n[c.category]||0)+1);
+  const mx=Math.max(1,...Object.values(n));
+  document.getElementById("cats").innerHTML=`<div class="cat ${cat=="all"?"on":""}" data-c="all"><div class="row"><span>All edge cases</span><b>${edge.length}</b></div></div>`+
+   Object.entries(D.categories).map(([k,l])=>`<div class="cat ${cat==k?"on":""}" data-c="${k}"><div class="row"><span>${esc(l)}</span><b>${n[k]||0}</b></div>
+   <div class="cbar"><i style="width:${100*(n[k]||0)/mx}%"></i></div>${(n[k]||0)<3?'<div class="gap">⚠ data gap: mine more of this</div>':""}</div>`).join("");
+  document.querySelectorAll(".cat").forEach(e=>e.onclick=()=>{cat=e.dataset.c;cats();list()});
+}
+function list(){
+  const all=document.getElementById("showAll").checked;
+  const rows=D.clips.filter(c=>(all||c.is_edge_case)&&(cat=="all"||c.category==cat));
+  document.getElementById("list").innerHTML=rows.map(c=>`<div class="item" data-id="${c.id}"><div class="score ${sc(c.value)}">${c.value}</div>
+   <div><div class="t">${esc(c.title)}</div><div class="m">${esc(D.categories[c.category]||c.category)} · ${esc(c.camera_id)}${c.is_edge_case?"":" · rejected"}</div></div></div>`).join("")||'<p class="m" style="padding:14px">Nothing here yet.</p>';
+  document.querySelectorAll(".item").forEach(e=>e.onclick=()=>show(e.dataset.id,e));
+  exCount();
+}
+function exCount(){const mv=+document.getElementById("mv").value;document.getElementById("mvv").textContent=mv;
+  document.getElementById("exCount").textContent=D.clips.filter(c=>c.is_edge_case&&c.value>=mv&&(cat=="all"||c.category==cat)).length+" clips will be exported"+(cat=="all"?"":" (this category)");}
+function draw(){const v=document.getElementById("vid"),c=document.getElementById("cv");if(!v||!c)return;
+  const r=v.getBoundingClientRect();c.width=r.width;c.height=r.height;const g=c.getContext("2d");g.clearRect(0,0,c.width,c.height);
+  if(document.getElementById("ov")?.checked&&boxes.length&&v.videoWidth){
+    const s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=(r.width-w)/2,oy=(r.height-h)/2;
+    let f=boxes[0];for(const b of boxes){if(b[0]<=v.currentTime)f=b;else break}
+    g.lineWidth=2;g.font="12px system-ui";
+    for(const [lab,x1,y1,x2,y2,ip] of f[1]){const col=ip?(lab=="person"||lab=="bicycle"||lab=="motorcycle"?"#f85149":"#d29922"):"#76b90088";
+      g.strokeStyle=col;g.strokeRect(ox+x1*w,oy+y1*h,(x2-x1)*w,(y2-y1)*h);g.fillStyle=col;g.fillText(lab,ox+x1*w+2,oy+y1*h-3)}}
+  raf=requestAnimationFrame(draw)}
+function show(id,el){cancelAnimationFrame(raf);boxes=[];
+  document.querySelectorAll(".item.sel").forEach(e=>e.classList.remove("sel"));el&&el.classList.add("sel");
+  const c=D.clips.find(x=>x.id==id),bar=(l,v)=>`<div class="bar m">${l} ${v??0}/10<div><i style="width:${(v||0)*10}%"></i></div></div>`;
+  document.getElementById("detail").innerHTML=`<label class="m" style="float:right"><input type="checkbox" id="ov" checked> Show labels</label>
+   <div class="m">${esc(c.camera_id)} · ${esc(c.location)} · segment ${esc(c.segment)}</div>
+   <div class="vwrap" style="margin-top:6px"><video id="vid" src="/api/stream?source=${encodeURIComponent(c.source)}" controls autoplay muted loop></video><canvas id="cv"></canvas></div>
+   <h2 style="margin:14px 0 4px">${esc(c.title)}</h2><span class="pill c">${esc(D.categories[c.category]||c.category)}</span>${(c.label_tags||[]).map(t=>`<span class="pill">#${esc(t)}</span>`).join("")}
+   <p>${esc(c.explanation)}</p>
+   <div class="bars">${bar("Edge-case",c.edge_score)}${bar("AV difficulty",c.difficulty)}${bar("Motion",c.motion_score)}${bar("Category rarity",Math.round(c.rarity_score))}</div>
+   <div class="m">Actors: ${esc((c.actors||[]).join(", ")||"–")} · Conditions: ${esc((c.conditions||[]).join(", ")||"–")}</div>
+   <div class="m">${(c.motion_reasons||[]).map(esc).join(" · ")}</div>
+   <details><summary>Scene description from NVIDIA Cosmos-Reason2</summary><p>${esc(c.description)}</p><p>Found by: ${esc(c.matched_queries.join("; "))}</p></details>`;
+  fetch("/api/boxes/"+c.boxes_id).then(r=>r.json()).then(b=>{boxes=b;draw()});
+}
+document.getElementById("showAll").onchange=list;document.getElementById("mv").oninput=exCount;
+document.getElementById("exBtn").onclick=async()=>{const b=document.getElementById("exBtn"),o=document.getElementById("exres");
+  b.disabled=true;b.textContent="Packaging clips + labels…";o.textContent="";
+  try{const r=await fetch("/api/export",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({min_value:+document.getElementById("mv").value,categories:cat=="all"?null:[cat]})}).then(r=>r.json());
+    if(r.error)throw new Error(r.error);
+    o.innerHTML=`✅ <b>${r.clips}</b> clips packaged as <code>${esc(r.name)}</code><br><a href="${r.download}">Download .zip</a>`+
+     (r.wandb&&r.wandb.startsWith("http")?` · <a href="${esc(r.wandb)}" target="_blank">W&amp;B artifact</a>`:r.wandb?`<br>${esc(r.wandb)}`:"");
+  }catch(e){o.textContent="Export failed: "+e.message}
+  b.disabled=false;b.textContent="Export dataset"};
+fetch("/api/clips").then(r=>r.json()).then(d=>{D=d;const f=d.funnel||{};
+  document.getElementById("fIdx").textContent=f.indexed_segments??"612 videos";document.getElementById("fCand").textContent=f.candidates??0;
+  document.getElementById("fEdge").textContent=f.edge_cases??0;cats();list();const i=document.querySelector(".item");i&&i.click()});
+</script></body></html>
