@@ -41,9 +41,20 @@ class H(SimpleHTTPRequestHandler):
             return self._json(evaluate())
         if u.path == "/api/export/status":
             return self._json(EXPORT_STATE)
-        if u.path == "/api/gapfill":
-            import gapfill
-            return self._json(gapfill.status())
+        if u.path == "/api/live":
+            from live import live
+            self.send_response(200); self.send_header("Content-Type", "text/event-stream")
+            self.send_header("Cache-Control", "no-cache"); self.end_headers()
+            gone = {"v": False}
+            try:
+                for ev in live(lambda: gone["v"]):
+                    try: self.wfile.write(f"data: {json.dumps(ev)}\n\n".encode()); self.wfile.flush()
+                    except (BrokenPipeError, ConnectionResetError, OSError): gone["v"] = True
+            except Exception as e:
+                try: self.wfile.write(f"data: {json.dumps({'type': 'error', 'message': str(e)[:200]})}\n\n".encode())
+                except Exception: pass
+            self.close_connection = True
+            return
         if u.path.startswith("/api/boxes/"):
             bid = os.path.basename(u.path); p = os.path.join(HERE, "data", "boxes", bid + ".json")
             return self._json(open(p, "rb").read() if bid.isalnum() and os.path.exists(p) else b"[]")
@@ -94,10 +105,6 @@ class H(SimpleHTTPRequestHandler):
                 except Exception: pass
             self.close_connection = True
             return
-        if self.path == "/api/gapfill/start":
-            import gapfill
-            try: return self._json(gapfill.start((self._body() or {}).get("category")))
-            except Exception as e: return self._json({"error": str(e)[:300]}, 400)
         if self.path == "/api/add":
             from ask import add
             with ADD_LOCK: n = add(self._body()["clip"])
@@ -128,6 +135,4 @@ class H(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     print(f"Haystack on http://0.0.0.0:{PORT}", flush=True)
-    import gapfill
-    threading.Thread(target=gapfill.poller, daemon=True).start()
     ThreadingHTTPServer(("0.0.0.0", PORT), H).serve_forever()

@@ -27,7 +27,7 @@
   "indexed_segments": null,
   "searched_queries": 28,
   "candidates": 184,
-  "edge_cases": 47
+  "edge_cases": 48
  },
  "runtime_sec": 147.7,
  "clips": [
@@ -1791,6 +1791,61 @@
    "motion_score": 3,
    "rarity_score": 0.7,
    "value": 5.8
+  },
+  {
+   "id": "21642d0d64a2",
+   "source": "s3://team-39-vss-chunks-segments/segments/20261001_100418_sf3_chunk_0000_segment_001_of_006.mp4",
+   "original_video": "s3://team-39-vss-chunks/team-39/20261001_100418_sf3_chunk_0000.mp4",
+   "boxes_id": "21642d0d64a2",
+   "camera_id": "sf_streets_cam-3",
+   "location": "san_francisco",
+   "segment_start_sec": 0.0,
+   "segment_end_sec": 5.0,
+   "segment": "1/6",
+   "similarity": 0,
+   "object_counts": {
+    "car": 4,
+    "person": 7,
+    "traffic light": 1,
+    "bicycle": 1
+   },
+   "description": "A blue car is seen driving through an intersection, moving from the right side of the frame toward the left. The vehicle proceeds smoothly, adhering to the traffic signals. Pedestrians are visible on the sidewalks and crossing the street, with some waiting at the crosswalk. The traffic light is red for the direction the car is traveling, indicating it should stop, but the car continues to move through the intersection. The surrounding area includes buildings, street signs, and overhead wires, suggesting an urban setting.",
+   "matched_queries": [
+    "live"
+   ],
+   "search_categories": [
+    "live"
+   ],
+   "motion_raw": 0.753,
+   "motion_reasons": [
+    "vehicle in path, up to 2.6% of frame"
+   ],
+   "is_edge_case": true,
+   "category": "unexpected_vehicle",
+   "edge_score": 6,
+   "difficulty": 7,
+   "title": "Blue car runs red light at intersection",
+   "explanation": "A blue car drives through an urban intersection despite a red traffic signal for its direction, while pedestrians are present on sidewalks and crosswalks. An autonomous vehicle must detect and react to a red-light violator that may conflict with crossing pedestrians or other traffic.",
+   "actors": [
+    "blue car",
+    "pedestrians"
+   ],
+   "conditions": [
+    "urban intersection",
+    "red traffic signal",
+    "buildings and overhead wires"
+   ],
+   "label_tags": [
+    "red_light_runner",
+    "intersection",
+    "vehicle_in_path",
+    "pedestrian_present",
+    "urban"
+   ],
+   "motion_score": 2,
+   "rarity_score": 6.0,
+   "value": 5.6,
+   "added_by": "ask"
   },
   {
    "id": "7be9816bf86e",
