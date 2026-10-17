@@ -83,14 +83,32 @@ table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{text-align:left
 .toast{background:#fff;border:2px solid var(--red);border-radius:14px;padding:12px 16px;box-shadow:0 10px 30px #0002;max-width:380px;animation:in .3s}
 .toast b{color:var(--red)}@keyframes in{from{transform:translateY(20px);opacity:0}}
 .htop{display:flex;align-items:center;gap:14px;margin-top:14px}.htop h2{flex:1;margin:0}.lead{font-size:1.05rem;margin:12px 0}.bar.vb b{font-size:1.1rem}.bar.vb i{background:var(--text)}
+.gapcard{margin-bottom:24px}.run{border-top:1px solid var(--line);margin-top:14px;padding-top:14px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}.st{border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:.88rem;background:#fffdf6}
+.st b{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--mut);margin-bottom:4px}.st.on{border-color:var(--y);background:var(--y2)}.st.ok{border-color:#b7e1c1;background:#f1fbf3}
+.st q{display:block;font-style:italic;color:var(--mut);margin-top:4px}.big{font-size:1.5rem;font-weight:800}
+.ldot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:7px;vertical-align:1px}
+.livewrap{display:grid;grid-template-columns:1fr 380px;height:calc(100vh - 66px)}.lmain{padding:22px 28px;overflow:auto}
+.lhead{display:flex;align-items:center;gap:16px;margin-bottom:16px}.lhead>div{flex:1}
+.lstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.lstats div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.lstats b{font-size:1.6rem;display:block}.lstats small{color:var(--mut)}
+.vwrap.lv{min-height:300px}.vwrap.lv video{max-height:56vh;margin:0 auto}
+.lbadge{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.65);color:#fff;font-weight:700;font-size:.85rem;padding:5px 10px;border-radius:8px}
+.rec{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--red);margin-right:7px;animation:pulse 1.2s infinite}
+.lidle{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ddd;font-size:1.1rem}
+.lverdict{margin-top:14px;min-height:76px;border-radius:14px;padding:14px 18px;font-size:1rem;border:1px solid var(--line);background:#fff}
+.lverdict.watch{color:var(--mut)}.lverdict.edge{background:var(--y2);border-color:var(--y)}.lverdict.edge h3{margin:0 0 4px}.lverdict.routine{color:var(--mut)}
+.lfeed{border-left:1px solid var(--line);overflow:auto;padding:22px 18px;background:#fff}
+.le{padding:9px 10px;border-radius:10px;margin-bottom:6px;font-size:.88rem;color:var(--mut);border:1px solid transparent}
+.le.edge{background:var(--y2);border-color:var(--y);color:var(--text);cursor:pointer;font-weight:600}.le small{display:block;font-weight:400;color:var(--mut)}
+.rst{border:1px solid var(--line);background:#fff;border-radius:50%;width:30px;height:30px;padding:0;font-size:1rem;line-height:1;cursor:pointer;margin-left:6px}.rst:hover{border-color:var(--y)}
 kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:.78rem;background:#fff}
 </style></head><body>
 <nav><a class="logo" href="#/ask"><i><svg width="22" height="22" viewBox="0 0 32 32"><path d="M7 26 L25 7" stroke="#1d1d1b" stroke-width="3.2" stroke-linecap="round"/><circle cx="23" cy="9" r="2.6" fill="none" stroke="#1d1d1b" stroke-width="1.8"/></svg></i>Haystack</a>
-<div class="tabs"><a href="#/ask" data-v="ask">Search</a><a href="#/library" data-v="library">Needles <span class="n" id="nNeedles">0</span></a>
+<div class="tabs"><a href="#/ask" data-v="ask">Search</a><a href="#/live" data-v="live"><span class="ldot"></span>Live agent</a><a href="#/library" data-v="library">Needles <span class="n" id="nNeedles">0</span></a>
 <a href="#/dataset" data-v="dataset">Dataset</a><a href="#/about" data-v="about">How it works</a></div>
-<div class="navr"><span class="badge" id="precision" style="display:none"></span>
-<button class="live" id="liveBtn"><span class="dot"></span><span id="liveTxt">Live agent</span></button></div></nav>
-<div id="livebar"></div>
+<div class="navr"><span class="badge" id="precision" style="display:none"></span><button class="rst" id="rstAcc" title="Reset judge accuracy" style="display:none">↺</button>
+</div></nav>
 
 <section class="view ask" id="v-ask">
  <div class="hero"><h1>Find the needle.</h1><p>Describe a rare driving moment. We'll find it in the footage.</p>
@@ -99,6 +117,18 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
  <div class="split" id="askSplit" style="display:none"><div class="col" id="askList"></div><div class="col detail" id="askDetail"></div></div>
 </section>
 
+<section class="view" id="v-live"><div class="livewrap">
+ <div class="lmain">
+  <div class="lhead"><div><h2 style="margin:0">Live agent</h2><p class="sm mut" style="margin:4px 0 0">Watches footage nobody has checked yet, camera by camera, and flags edge cases as they happen.</p></div>
+   <button class="y" id="goLive">▶ Go live</button></div>
+  <div class="lstats"><div><b id="sW">0</b><small>clips watched</small></div><div><b id="sE">0</b><small>edge cases found</small></div><div><b id="sS">0</b><small>routine, skipped</small></div><div><b id="sT">0 min</b><small>footage a human didn't have to watch</small></div></div>
+  <div class="vwrap lv"><video id="lvid" muted autoplay playsinline loop></video><canvas id="lcv"></canvas>
+   <div class="lbadge" id="lbadge" style="display:none"><span class="rec"></span>LIVE · <span id="lcam"></span></div>
+   <div class="lidle" id="lidle">Press <b>Go live</b> to start watching</div></div>
+  <div class="lverdict" id="lverdict"></div>
+ </div>
+ <div class="lfeed"><h4 class="sm mut" style="margin:0 0 8px">Agent log</h4><div id="lfeed"></div></div>
+</div></section>
 <section class="view" id="v-library"><div class="split three">
  <div class="col side"><h4>Category</h4><div id="cats"></div>
   <h4>Sort by</h4><select id="sort" style="width:100%"><option value="value">Value</option><option value="edge_score">Edge case</option><option value="difficulty">Difficulty</option><option value="motion_score">Motion</option></select>
@@ -114,7 +144,7 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
  <div class="card"><h3 style="margin-top:0">Export training data</h3>
   <label class="sm">Minimum value <b id="mvv">5</b></label><input type="range" id="mv" min="3" max="9" step="0.5" value="5" style="width:100%">
   <label class="sm">Category</label><select id="exCat" style="width:100%;margin:4px 0 10px"></select>
-  <label class="sm"><input type="checkbox" id="withVid"> Include video</label>
+  <label class="sm"><input type="checkbox" id="withVid"> Include video</label> <label class="sm" style="margin-left:12px"><input type="checkbox" id="onlyOk"> Only human-checked ✓ clips</label>
   <p class="sm" id="exCount"></p><button class="y" id="exBtn" style="width:100%">Export dataset</button>
   <div class="pbar" id="exBar" style="display:none"><i style="width:100%;animation:pulse 1s infinite"></i></div><div id="exRes" class="sm" style="margin-top:10px"></div>
   <h4 class="sm mut" style="margin:20px 0 6px">Exports</h4><div id="exports" class="sm"></div></div></div>
@@ -126,7 +156,7 @@ kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;paddi
   <div class="step"><span class="k">1</span><b>Index</b>Video on VAST storage runs through the VSS pipeline: YOLO detections, NVIDIA Cosmos-Reason2 scene descriptions, Cosmos-Embed1 vectors in VastDB.</div>
   <div class="step"><span class="k">2</span><b>Search</b>28 edge-case searches across 7 categories, or anything you type into Ask.</div>
   <div class="step"><span class="k">3</span><b>Judge</b>An LLM on W&amp;B Inference reads the clip plus the clips before and after, with detector motion, and decides if it's a real edge case.</div>
-  <div class="step"><span class="k">4</span><b>Act</b>The live agent keeps scanning and auto-adds strong finds. Humans confirm or reject in one key press.</div>
+  <div class="step"><span class="k">4</span><b>Watch</b>The live agent watches unchecked footage camera by camera like a safety monitor, skips routine scenes and adds edge cases as it finds them. Humans confirm or reject in one key press.</div>
   <div class="step"><span class="k">5</span><b>Export</b>Clips, per-frame boxes, labels and a dataset card, versioned as a W&amp;B artifact.</div></div>
  <div class="grid2"><div class="card"><h3 style="margin-top:0">What the value score means</h3>
   <p class="sm mut">How useful a clip is as training data, out of 10.</p>
@@ -157,7 +187,7 @@ function route(){const v=(location.hash.replace("#/","")||"ask");document.queryS
 window.onhashchange=route;
 async function load(){D=await fetch("/api/clips").then(r=>r.json());EV=await fetch("/api/eval").then(r=>r.json()).catch(()=>({verdicts:{}}));header()}
 function header(){const need=D.clips.filter(c=>c.is_edge_case).length;$("nNeedles").textContent=need;const p=$("precision");
-  if(EV.precision!=null){p.style.display="";p.textContent=`Judge accuracy ${EV.precision}%`;p.title=`${EV.precision_n} clips checked by a person`}else p.style.display="none"}
+  if(EV.precision!=null){p.style.display="";p.textContent=`Judge accuracy ${EV.precision}%`;p.title=`${EV.precision_n} clips checked by a person`}else p.style.display="none";$("rstAcc").style.display=EV.reviewed?"":"none"}
 /* ---------- list + detail (shared) ---------- */
 function itemHTML(c,sel){return `<div class="item ${sel?"sel":""} ${c.is_edge_case?"":"rej"} ${newIds.has(c.id)?"new":""}" data-id="${c.id}">
  <div class="val ${vcls(c.value)}">${c.value}</div><div style="flex:1;min-width:0"><div class="it">${esc(c.title)}</div>
@@ -183,7 +213,7 @@ function show(where,c){cancelAnimationFrame(raf);boxes=[];cur[where]=c;if(!c)ret
   $("ov").onchange=()=>{};$("rOk").onclick=()=>review(c,"correct",where);$("rNo").onclick=()=>review(c,"wrong",where);
   if($("prv")){$("prv").onclick=()=>step(-1);$("nxt").onclick=()=>step(1)}
   if($("add"))$("add").onclick=()=>addClip(c);
-  fetch("/api/boxes/"+c.boxes_id).then(r=>r.json()).then(b=>{boxes=b;draw()});
+  fetch("/api/boxes/"+c.boxes_id).then(r=>r.ok?r.json():[]).then(b=>{if(cur[where]&&cur[where].id==c.id&&Array.isArray(b)){boxes=b;draw()}}).catch(()=>{});
 }
 function draw(){const v=$("vid"),cv=$("cv");if(!v||!cv)return;const r=v.getBoundingClientRect();cv.width=r.width;cv.height=r.height;const g=cv.getContext("2d");
   if($("ov")?.checked&&boxes.length&&v.videoWidth){const s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=(r.width-w)/2,oy=(r.height-h)/2;
@@ -255,23 +285,45 @@ function exCount(){const mv=+$("mv").value,c=$("exCat").value;$("mvv").textConte
 $("mv").oninput=exCount;$("exCat").onchange=exCount;
 $("exBtn").onclick=async()=>{const b=$("exBtn");b.disabled=true;$("exBar").style.display="block";$("exRes").textContent="Exporting…";
   const r=await fetch("/api/export",{method:"POST",headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({min_value:+$("mv").value,categories:$("exCat").value?[$("exCat").value]:null,with_video:$("withVid").checked})}).then(r=>r.json());
+   body:JSON.stringify({min_value:+$("mv").value,categories:$("exCat").value?[$("exCat").value]:null,with_video:$("withVid").checked,only_confirmed:$("onlyOk").checked})}).then(r=>r.json());
   if(r.error){$("exRes").textContent=r.error;b.disabled=false;$("exBar").style.display="none";return}
   const poll=setInterval(async()=>{const s=await fetch("/api/export/status").then(r=>r.json());if(s.running)return;clearInterval(poll);b.disabled=false;$("exBar").style.display="none";
    if(s.error){$("exRes").textContent="Export failed: "+s.error;return}const x=s.result;
-   $("exRes").innerHTML=`✅ ${x.clips} clips · <a href="${x.download}">Download</a>`+
+   $("exRes").innerHTML=`✅ ${x.clips} clips (${x.human_confirmed} human-checked ✓, ${x.human_rejected_excluded} marked ✗ left out) · <a href="${x.download}">Download</a>`+
     (x.wandb&&x.wandb.startsWith("http")?` · <a href="${esc(x.wandb)}" target="_blank">W&amp;B</a>`:x.wandb?`<br>${esc(x.wandb)}`:"");renderDataset()},1500)};
 /* ---------- live agent ---------- */
 function toast(html,col){const t=document.createElement("div");t.className="toast";if(col)t.style.borderColor=col;t.innerHTML=html;$("toast").appendChild(t);setTimeout(()=>t.remove(),9000);return t}
-$("liveBtn").onclick=()=>{if(es){es.close();es=null;$("liveBtn").classList.remove("on");$("liveTxt").textContent="Live agent";$("livebar").style.display="none";return}
-  es=new EventSource("/api/watch");$("liveBtn").classList.add("on");$("liveTxt").textContent="Live agent on";const lb=$("livebar");lb.style.display="block";lb.textContent="Starting…";let found=0;
-  es.onmessage=async m=>{const e=JSON.parse(m.data);
-   if(e.type=="scan")lb.textContent=`Scanning: ${e.queries[0]}… · ${found} found`;
-   if(e.type=="judged")lb.textContent=`Checked: ${e.title} · ${found} found`;
-   if(e.type=="found"){found++;const c=e.clip;newIds.add(c.id);await load();
-    const t=toast(`<b>New edge case</b><br>${esc(c.title)}<br><button class="y" style="margin-top:8px">View</button>`);
-    t.querySelector("button").onclick=()=>{location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==c.id));renderLib(true);mark()},50)};
-    if((location.hash||"#/ask")=="#/library")renderLib(true)}};
-  es.onerror=()=>{lb.textContent="Reconnecting…"}};
+/* ---------- live agent ---------- */
+let LS=null,lraf,lboxes=[],lsrc=null;
+function ldraw(){const v=$("lvid"),cv=$("lcv");if(!v||!cv)return;const r=v.getBoundingClientRect(),pr=cv.parentElement.getBoundingClientRect();cv.width=pr.width;cv.height=pr.height;const g=cv.getContext("2d");
+ if(lboxes.length&&v.videoWidth){const ox0=r.left-pr.left,oy0=r.top-pr.top,s=Math.min(r.width/v.videoWidth,r.height/v.videoHeight),w=v.videoWidth*s,h=v.videoHeight*s,ox=ox0+(r.width-w)/2,oy=oy0+(r.height-h)/2;
+  let f=lboxes[0];for(const b of lboxes){if(b[0]<=v.currentTime)f=b;else break}g.lineWidth=2.5;g.font="bold 13px system-ui";
+  for(const [lab,x1,y1,x2,y2,ip] of f[1]){if(!ip)continue;const col=["person","bicycle","motorcycle"].includes(lab)?"#e5484d":"#f08c00";g.strokeStyle=col;g.strokeRect(ox+x1*w,oy+y1*h,(x2-x1)*w,(y2-y1)*h);g.fillStyle=col;g.fillText(lab,ox+x1*w+3,oy+y1*h-4)}}
+ lraf=requestAnimationFrame(ldraw)}
+function lstats(st){if(!st)return;$("sW").textContent=st.watched;$("sE").textContent=st.edge;$("sS").textContent=st.skipped;$("sT").textContent=Math.round(st.skipped*5/60)+" min"}
+function stopLive(){if(LS){LS.close();LS=null}fetch("/api/live/stop",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).catch(()=>{});
+ const v=$("lvid");v.pause();lboxes=[];lsrc=null;cancelAnimationFrame(lraf);const cv=$("lcv");cv.getContext("2d").clearRect(0,0,cv.width,cv.height);
+ $("goLive").textContent="▶ Go live";$("lbadge").style.display="none";$("lverdict").className="lverdict";$("lverdict").textContent="Paused. Press Go live to carry on where it left off."}
+$("lvid").onerror=()=>{if(LS)$("lcam").textContent+=" · video unavailable right now (VSS), still judging from the scene description"};
+$("goLive").onclick=()=>{if(LS)return stopLive();
+ LS=new EventSource("/api/live");$("goLive").textContent="❚❚ Pause";$("lidle").style.display="none";$("lverdict").className="lverdict watch";$("lverdict").textContent="Connecting to camera feeds…";
+ LS.onmessage=async m=>{const e=JSON.parse(m.data);lstats(e.stats);
+  if(e.type=="start")$("lverdict").textContent=`${e.stats.remaining} unchecked clips across ${e.cameras} cameras. Starting.`;
+  if(e.type=="watching"){lboxes=[];lsrc=e.source;const src=e.source;$("lvid").src="/api/stream?source="+encodeURIComponent(e.source);
+   fetch("/api/boxes/"+e.boxes_id).then(r=>r.ok?r.json():[]).then(b=>{if(lsrc==src&&Array.isArray(b))lboxes=b}).catch(()=>{});$("lbadge").style.display="";$("lcam").textContent=`${e.camera_id} · clip ${e.segment}`;
+   $("lverdict").className="lverdict watch";$("lverdict").innerHTML=`Watching <b>${esc(e.camera_id)}</b>… reading detections and the scene description`;cancelAnimationFrame(lraf);ldraw()}
+  if(e.type=="verdict"){const edge=e.verdict=="edge",f=document.createElement("div");
+   f.className="le "+(edge?"edge":"");f.innerHTML=edge?`⚠ ${esc(e.title)}<small>${esc(catName(e.category))} · value ${e.value}</small>`:`✓ ${esc(e.title)}<small>${esc(e.camera_id)} · routine</small>`;
+   $("lfeed").prepend(f);while($("lfeed").children.length>60)$("lfeed").lastChild.remove();
+   if(edge){$("lverdict").className="lverdict edge";$("lverdict").innerHTML=`<h3>⚠ Edge case: ${esc(e.title)}</h3>${esc(e.reason)}`;
+    const c=e.clip;newIds.add(c.id);await load();
+    f.onclick=()=>{location.hash="#/library";cat="all";setTimeout(()=>{show("lib",D.clips.find(x=>x.id==c.id));renderLib(true)},50)};
+    const t=toast(`<b>New edge case</b><br>${esc(e.title)}<br><button class="y" style="margin-top:8px">View</button>`);t.querySelector("button").onclick=f.onclick}
+   else{$("lverdict").className="lverdict routine";$("lverdict").innerHTML=`<b>Routine, skipping.</b> ${esc(e.reason).slice(0,180)}`}}
+  if(e.type=="error"){$("lverdict").textContent="Feed error: "+e.message}};
+ window.addEventListener("hashchange",()=>{if(LS&&location.hash!="#/live")stopLive()});
+ LS.onerror=()=>{$("lverdict").textContent="Reconnecting…"}};
+$("rstAcc").onclick=async()=>{if(!confirm("Reset judge accuracy? This clears all ✓/✗ reviews."))return;
+ EV=await fetch("/api/review/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());header();route()};
 load().then(route);
 </script></body></html>

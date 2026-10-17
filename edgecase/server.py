@@ -6,6 +6,7 @@ from vss import BACKEND, token, api
 HERE = os.path.dirname(os.path.abspath(__file__))
 PORT = int(os.environ.get("PORT", 8080))
 EXPORT_LOCK, ADD_LOCK = threading.Lock(), threading.Lock()
+LIVE, LIVE_LOCK = {"gen": 0, "paused": False}, threading.Lock()
 EXPORT_STATE = {"running": False, "step": "idle", "result": None, "error": None}
 _stats = {"t": 0, "v": {}}
 
@@ -41,17 +42,19 @@ class H(SimpleHTTPRequestHandler):
             return self._json(evaluate())
         if u.path == "/api/export/status":
             return self._json(EXPORT_STATE)
-        if u.path == "/api/watch":
-            from watch import watch
+        if u.path == "/api/live":
+            from live import live
             self.send_response(200); self.send_header("Content-Type", "text/event-stream")
             self.send_header("Cache-Control", "no-cache"); self.end_headers()
             gone = {"v": False}
+            with LIVE_LOCK: LIVE["gen"] += 1; gen = LIVE["gen"]; LIVE["paused"] = False   # only one live agent at a time
             try:
-                for ev in watch(lambda: gone["v"]):
-                    if ev is None: continue
+                for ev in live(lambda: gone["v"] or LIVE["paused"] or LIVE["gen"] != gen):
                     try: self.wfile.write(f"data: {json.dumps(ev)}\n\n".encode()); self.wfile.flush()
                     except (BrokenPipeError, ConnectionResetError, OSError): gone["v"] = True
-            except Exception: pass
+            except Exception as e:
+                try: self.wfile.write(f"data: {json.dumps({'type': 'error', 'message': str(e)[:200]})}\n\n".encode())
+                except Exception: pass
             self.close_connection = True
             return
         if u.path.startswith("/api/boxes/"):
@@ -108,6 +111,14 @@ class H(SimpleHTTPRequestHandler):
             from ask import add
             with ADD_LOCK: n = add(self._body()["clip"])
             return self._json({"edge_cases": n})
+        if self.path == "/api/review/reset":
+            rp = os.path.join(HERE, "data", "reviews.jsonl")
+            if os.path.exists(rp): os.replace(rp, rp.replace(".jsonl", f"-{int(time.time())}.jsonl.bak"))   # keep a backup
+            from evaluate import evaluate
+            return self._json(evaluate())
+        if self.path == "/api/live/stop":        # Pause: stops the agent on the server, not just the page
+            with LIVE_LOCK: LIVE["paused"] = True
+            return self._json({"stopped": True})
         if self.path == "/api/review":
             b = self._body()
             if b.get("verdict") not in ("correct", "wrong", "clear"): return self._json({"error": "bad verdict"}, 400)
@@ -122,7 +133,8 @@ class H(SimpleHTTPRequestHandler):
                 try:
                     from export import export
                     EXPORT_STATE.update(running=True, step="Packaging clips and labels, logging to W&B", result=None, error=None)
-                    res = export(float(body.get("min_value", 5)), body.get("categories") or None, bool(body.get("with_video", False)))
+                    res = export(float(body.get("min_value", 5)), body.get("categories") or None, bool(body.get("with_video", False)),
+                                 only_confirmed=bool(body.get("only_confirmed", False)))
                     res["download"] = f"/api/datasets/{res['name']}.zip"
                     EXPORT_STATE.update(running=False, step="done", result=res)
                 except Exception as e:

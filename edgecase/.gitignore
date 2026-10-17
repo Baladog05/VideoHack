@@ -8,3 +8,6 @@ wandb/
 data/reviews.jsonl
 data/eval.json
 *.tmp
+data/live_seen.json
+data/live_queue.json
+data/reviews-*.bak
