@@ -63,7 +63,9 @@ def _assess(seg):
     cap, cnt = seg.get("reasoning_content") or "", _counts(seg)
     if not KEY.search(cap) and not (cnt.get("bicycle") or cnt.get("motorcycle")):
         bid = hashlib.md5(seg["source"].encode()).hexdigest()[:12]      # boxes for the overlay, from this clip's own detections
-        try: json.dump(analyse(detections(seg["source"]))[1], open(os.path.join(HERE, "data", "boxes", bid + ".json"), "w"))
+        try:
+            b = analyse(detections(seg["source"]))[1]
+            if b: json.dump(b, open(os.path.join(HERE, "data", "boxes", bid + ".json"), "w"))   # don't cache empties from a VSS hiccup
         except Exception: pass
         top = ", ".join(f"{v} {k}" for k, v in sorted(cnt.items(), key=lambda x: -x[1])[:3]) or "nothing notable"
         return {"verdict": "routine", "title": "Routine scene", "reason": f"Nothing risky in the scene ({top})", "triage": True}

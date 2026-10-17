@@ -1,5 +1,5 @@
 """Haystack web app (stdlib only).  Run: python3 server.py   -> http://localhost:8080"""
-import json, os, shutil, threading, time, urllib.error, urllib.parse, urllib.request
+import hashlib, json, os, shutil, threading, time, urllib.error, urllib.parse, urllib.request
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from vss import BACKEND, token, api
 
@@ -60,7 +60,15 @@ class H(SimpleHTTPRequestHandler):
             return
         if u.path.startswith("/api/boxes/"):
             bid = os.path.basename(u.path); p = os.path.join(HERE, "data", "boxes", bid + ".json")
-            return self._json(open(p, "rb").read() if bid.isalnum() and os.path.exists(p) else b"[]")
+            if not bid.isalnum(): return self._json(b"[]")
+            if os.path.exists(p) and os.path.getsize(p) > 2: return self._json(open(p, "rb").read())
+            src = urllib.parse.parse_qs(u.query).get("source", [""])[0]    # missing/empty (e.g. VSS was down): fetch detections now
+            if src and hashlib.md5(src.encode()).hexdigest()[:12] == bid:
+                from motion import detections, analyse
+                boxes = analyse(detections(src))[1]
+                if boxes: json.dump(boxes, open(p, "w"))
+                return self._json(json.dumps(boxes).encode())
+            return self._json(b"[]")
         if u.path == "/api/datasets":
             out = []
             for z in sorted(os.listdir(os.path.join(HERE, "datasets")) if os.path.isdir(os.path.join(HERE, "datasets")) else [], reverse=True):
