@@ -301,7 +301,10 @@ function ldraw(){const v=$("lvid"),cv=$("lcv");if(!v||!cv)return;const r=v.getBo
   for(const [lab,x1,y1,x2,y2,ip] of f[1]){if(!ip)continue;const col=["person","bicycle","motorcycle"].includes(lab)?"#e5484d":"#f08c00";g.strokeStyle=col;g.strokeRect(ox+x1*w,oy+y1*h,(x2-x1)*w,(y2-y1)*h);g.fillStyle=col;g.fillText(lab,ox+x1*w+3,oy+y1*h-4)}}
  lraf=requestAnimationFrame(ldraw)}
 function lstats(st){if(!st)return;$("sW").textContent=st.watched;$("sE").textContent=st.edge;$("sS").textContent=st.skipped;$("sT").textContent=Math.round(st.skipped*5/60)+" min"}
-function stopLive(){if(LS){LS.close();LS=null}$("goLive").textContent="▶ Go live";$("lbadge").style.display="none";cancelAnimationFrame(lraf)}
+function stopLive(){if(LS){LS.close();LS=null}fetch("/api/live/stop",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).catch(()=>{});
+ const v=$("lvid");v.pause();lboxes=[];lsrc=null;cancelAnimationFrame(lraf);const cv=$("lcv");cv.getContext("2d").clearRect(0,0,cv.width,cv.height);
+ $("goLive").textContent="▶ Go live";$("lbadge").style.display="none";$("lverdict").className="lverdict";$("lverdict").textContent="Paused. Press Go live to carry on where it left off."}
+$("lvid").onerror=()=>{if(LS)$("lcam").textContent+=" · video unavailable right now (VSS), still judging from the scene description"};
 $("goLive").onclick=()=>{if(LS)return stopLive();
  LS=new EventSource("/api/live");$("goLive").textContent="❚❚ Pause";$("lidle").style.display="none";$("lverdict").className="lverdict watch";$("lverdict").textContent="Connecting to camera feeds…";
  LS.onmessage=async m=>{const e=JSON.parse(m.data);lstats(e.stats);
@@ -318,6 +321,7 @@ $("goLive").onclick=()=>{if(LS)return stopLive();
     const t=toast(`<b>New edge case</b><br>${esc(e.title)}<br><button class="y" style="margin-top:8px">View</button>`);t.querySelector("button").onclick=f.onclick}
    else{$("lverdict").className="lverdict routine";$("lverdict").innerHTML=`<b>Routine, skipping.</b> ${esc(e.reason).slice(0,180)}`}}
   if(e.type=="error"){$("lverdict").textContent="Feed error: "+e.message}};
+ window.addEventListener("hashchange",()=>{if(LS&&location.hash!="#/live")stopLive()});
  LS.onerror=()=>{$("lverdict").textContent="Reconnecting…"}};
 $("rstAcc").onclick=async()=>{if(!confirm("Reset judge accuracy? This clears all ✓/✗ reviews."))return;
  EV=await fetch("/api/review/reset",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"}).then(r=>r.json());header();route()};

@@ -82,13 +82,20 @@ def live(stop):
     stats = {"watched": 0, "edge": 0, "skipped": 0, "remaining": len(todo)}
     yield {"type": "start", "stats": stats, "cameras": len({s["camera_id"] for s in todo})}
     pool = ThreadPoolExecutor(3)
+    try: yield from _run(todo, stats, pool, stop)
+    finally: pool.shutdown(wait=False, cancel_futures=True)   # paused or closed: stop judging ahead too
+
+def _run(todo, stats, pool, stop):
     futs = {}
     for i, seg in enumerate(todo):
         if stop(): return
         for nxt in todo[i:i + 3]:          # judge a few clips ahead so the feed never stalls
             if nxt["source"] not in futs: futs[nxt["source"]] = pool.submit(_assess, nxt)
-        try:
-            v = futs.pop(seg["source"]).result(timeout=90)   # usually ready already (judged ahead)
+        f, t_wait = futs.pop(seg["source"]), time.time()
+        while not f.done() and time.time() - t_wait < 90:   # usually ready already (judged ahead)
+            if stop(): return
+            time.sleep(0.25)
+        try: v = f.result(timeout=0)
         except Exception as e:
             v = {"verdict": "routine", "title": "Could not judge", "reason": str(e)[:120], "triage": True}
         if stop(): return
